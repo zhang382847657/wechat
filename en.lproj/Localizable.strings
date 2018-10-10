@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  LearnSwift
+
+  Created by 张琳 on 2018/9/4.
+  Copyright © 2018年 张琳. All rights reserved.
+*/
+
+
+"Tabbar_Item_Message" = "Message";
+"Tabbar_Item_Contacts" = "Contacts";
+"Tabbar_Item_Discover" = "Discover";
+"Tabbar_Item_Me" = "Me";
+"Cancel" = "Cancel";
+"Done" = "Done";
+"Wallet" = "Wallet";
+"Favorites" = "Favorites";
+"My_Posts" = "My Posts";
+"Cards&Offers" = "Cards & Offers";
+"Sticker_Gallery" = "Sticker Gallery";
+"Settings" = "Settings";
+"Moments" = "Moments";
+"Scan" = "Scan";
+"Shake" = "Shake";
+"Top_Stories" = "Top Stories";
+"Search" = "Search";
+"People_Nearby" = "People Nearby";
+"Message_in_a_Bottle" = "Message in a Bottle";
+"Games" = "Games";
+"Shopping" = "Shopping";
+"Mini_Programs" = "Mini Programs";
+"New_Friends" = "New Friends";
+"Group_Chat" = "Group Chat";
+"Tags" = "Tags";
+"Official_Accounts" = "Official Accounts";
+
+"Search_by_Type" = "Search by Type";
+"Article" = "Article";
+"Novels" = "Novels";
+"Music" = "Music";
+"Stickers" = "Stickers";

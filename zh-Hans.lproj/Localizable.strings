@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  LearnSwift
+
+  Created by 张琳 on 2018/9/4.
+  Copyright © 2018年 张琳. All rights reserved.
+*/
+
+
+"Tabbar_Item_Message" = "消息";
+"Tabbar_Item_Contacts" = "通讯录";
+"Tabbar_Item_Discover" = "发现";
+"Tabbar_Item_Me" = "我";
+"Cancel" = "取消";
+"Done" = "完成";
+"Wallet" = "钱包";
+"Favorites" = "收藏";
+"My_Posts" = "相册";
+"Cards&Offers" = "卡包";
+"Sticker_Gallery" = "表情";
+"Settings" = "设置";
+"Moments" = "朋友圈";
+"Scan" = "扫一扫";
+"Shake" = "摇一摇";
+"Top_Stories" = "看一看";
+"Search" = "搜一搜";
+"People_Nearby" = "附近的人";
+"Message_in_a_Bottle" = "漂流瓶";
+"Games" = "游戏";
+"Shopping" = "购物";
+"Mini_Programs" = "小程序";
+"New_Friends" = "新的朋友";
+"Group_Chat" = "群聊";
+"Tags" = "标签";
+"Official_Accounts" = "公众号";
+
+
+"Search_by_Type" = "搜索指定内容";
+"Article" = "文章";
+"Novels" = "小说";
+"Music" = "音乐";
+"Stickers" = "表情";
+

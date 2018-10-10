@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentPopoverController" customModule="LearnSwift" customModuleProvider="target">
+            <connections>
+                <outlet property="commentBtn" destination="l3H-8k-UO8" id="t5h-mI-qAg"/>
+                <outlet property="likeBtn" destination="cWm-KQ-F6l" id="hv9-c7-9EX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="169" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWm-KQ-F6l">
+                    <rect key="frame" x="0.0" y="0.0" width="84" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="84" id="Ute-2u-At6"/>
+                        <constraint firstAttribute="height" constant="40" id="qpo-lU-Z1l"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="赞"/>
+                    <state key="selected" title="取消"/>
+                    <connections>
+                        <action selector="likeClick:" destination="-1" eventType="touchUpInside" id="0Za-60-zNh"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kn5-rl-yGZ">
+                    <rect key="frame" x="84" y="10" width="1" height="20"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="Lnm-E1-MsK"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3H-8k-UO8">
+                    <rect key="frame" x="85" y="0.0" width="84" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="84" id="E7p-rT-27Q"/>
+                        <constraint firstAttribute="height" constant="40" id="sfY-k6-7gr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="评论"/>
+                    <connections>
+                        <action selector="commentClick:" destination="-1" eventType="touchUpInside" id="YYx-Oj-enZ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.23731841141636845" green="0.23852162161209092" blue="0.23914711230297381" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <constraints>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="1ea-In-sPU"/>
+                <constraint firstItem="kn5-rl-yGZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="2NF-oF-wPm"/>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="5ud-iV-6TT"/>
+                <constraint firstItem="cWm-KQ-F6l" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Eug-yB-jo7"/>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Knl-sk-efT"/>
+                <constraint firstItem="cWm-KQ-F6l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ORJ-1y-J8J"/>
+                <constraint firstAttribute="bottom" secondItem="kn5-rl-yGZ" secondAttribute="bottom" constant="10" id="QBA-2c-8qx"/>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="leading" secondItem="kn5-rl-yGZ" secondAttribute="trailing" id="aMh-M0-rZQ"/>
+                <constraint firstItem="cWm-KQ-F6l" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bcs-9i-kwe"/>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="height" secondItem="cWm-KQ-F6l" secondAttribute="height" id="eNB-ce-xid"/>
+                <constraint firstItem="l3H-8k-UO8" firstAttribute="width" secondItem="cWm-KQ-F6l" secondAttribute="width" id="npp-7T-yrd"/>
+                <constraint firstItem="kn5-rl-yGZ" firstAttribute="leading" secondItem="cWm-KQ-F6l" secondAttribute="trailing" id="pnY-Ye-dyL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="32" y="281"/>
+        </view>
+    </objects>
+</document>
