@@ -19,7 +19,7 @@ let appVersion:String = UIDevice.current.systemVersion
 #if DEVELOPMENT
 let api_url:String = "http://localhost:3001/"
 #else
-let api_url:String = "https://www.baidu.com"
+let api_url:String = "https://www.baidu.com/"
 #endif
 
 

@@ -28,6 +28,7 @@
 		6339CBA22137E033007DF4E0 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339CBA02137E033007DF4E0 /* MenuCell.swift */; };
 		6339CBA32137E033007DF4E0 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6339CBA12137E033007DF4E0 /* MenuCell.xib */; };
 		6339CF7E210A0F21003D9813 /* WeixinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339CF7D210A0F21003D9813 /* WeixinHeaderView.swift */; };
+		633CAE5E216DD81D0067811A /* LearnSwift_release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 633CAE5D216DD8050067811A /* LearnSwift_release.plist */; };
 		6343D999213E1878005995E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6343D99B213E1878005995E0 /* Localizable.strings */; };
 		6343D99F213E199F005995E0 /* LanguageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6343D99E213E199F005995E0 /* LanguageHelper.swift */; };
 		6343D9A2213E515C005995E0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6343D9A1213E515C005995E0 /* SettingViewController.swift */; };
@@ -234,6 +235,7 @@
 		6339CBA02137E033007DF4E0 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		6339CBA12137E033007DF4E0 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		6339CF7D210A0F21003D9813 /* WeixinHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeixinHeaderView.swift; sourceTree = "<group>"; };
+		633CAE5D216DD8050067811A /* LearnSwift_release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LearnSwift_release.plist; sourceTree = "<group>"; };
 		6343D99A213E1878005995E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6343D99C213E189F005995E0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6343D99D213E18B3005995E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -244,9 +246,7 @@
 		6344918A213CD01100D9A9E7 /* UserDetailHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailHeaderCell.xib; sourceTree = "<group>"; };
 		6344918D213CDAFC00D9A9E7 /* UserDetailDefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDefaultCell.swift; sourceTree = "<group>"; };
 		6344918E213CDAFC00D9A9E7 /* UserDetailDefaultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailDefaultCell.xib; sourceTree = "<group>"; };
-		6347C8E7216B4C2500104AC8 /* LearnSwift copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LearnSwift copy-Info.plist"; path = "/Users/zhanglin/练习/SwiftLearn/LearnSwift/LearnSwift copy-Info.plist"; sourceTree = "<absolute>"; };
 		6347C946216B4EC400104AC8 /* LearnSwift_release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSwift_release.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6347C947216B4EC500104AC8 /* LearnSwift copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LearnSwift copy2-Info.plist"; path = "/Users/zhanglin/练习/SwiftLearn/LearnSwift/LearnSwift copy2-Info.plist"; sourceTree = "<absolute>"; };
 		6347C94C216B5E3900104AC8 /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		6347C94E216B5EE900104AC8 /* LocationSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchResultViewController.swift; sourceTree = "<group>"; };
 		6347C950216B602D00104AC8 /* LocationSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchBar.swift; sourceTree = "<group>"; };
@@ -350,14 +350,13 @@
 		63315F5D20ECED6000A56999 = {
 			isa = PBXGroup;
 			children = (
+				633CAE5D216DD8050067811A /* LearnSwift_release.plist */,
 				6343D99B213E1878005995E0 /* Localizable.strings */,
 				63315F6820ECED6000A56999 /* LearnSwift */,
 				63315F7D20ECED6200A56999 /* LearnSwiftTests */,
 				63315F8820ECED6200A56999 /* LearnSwiftUITests */,
 				63315F6720ECED6000A56999 /* Products */,
 				6376255A212FE1B4001F0155 /* Frameworks */,
-				6347C8E7216B4C2500104AC8 /* LearnSwift copy-Info.plist */,
-				6347C947216B4EC500104AC8 /* LearnSwift copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -896,6 +895,7 @@
 				6347C93A216B4EC400104AC8 /* ContactUserCell.xib in Resources */,
 				6347C93B216B4EC400104AC8 /* ContactMenuCell.xib in Resources */,
 				6347C93C216B4EC400104AC8 /* PublishTextViewController.xib in Resources */,
+				633CAE5E216DD81D0067811A /* LearnSwift_release.plist in Resources */,
 				6347C93D216B4EC400104AC8 /* iconfont.ttf in Resources */,
 				6347C93E216B4EC400104AC8 /* UserDetailHeaderCell.xib in Resources */,
 				6347C93F216B4EC400104AC8 /* LaunchScreen.storyboard in Resources */,
@@ -1371,7 +1371,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UPKM3KR8UY;
-				INFOPLIST_FILE = "LearnSwift copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LearnSwift_release.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,7 +1395,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UPKM3KR8UY;
-				INFOPLIST_FILE = "LearnSwift copy2-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LearnSwift_release.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

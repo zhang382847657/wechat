@@ -25,6 +25,21 @@ class NetWork: NSObject {
     }
     
     
+    /// 文件上传类型
+    ///
+    /// - image: 图片类型
+    /// - video: 视频类型
+    /// - audio: 音频类型
+    enum FileUploadType: String {
+        case image = "image/*"
+        case video = "video/*"
+        case audio = "audio/*"
+    }
+    
+    // 设置分隔线
+    static let boundary = String(format: "boundary.%08x%08x", arc4random(), arc4random())
+    
+    
     /// GET请求
     ///
     /// - Parameters:
@@ -62,6 +77,85 @@ class NetWork: NSObject {
         
         
         httpSync(requestURL: url, postString: postString, method: "POST", success: success, failed: failed)
+    }
+    
+    
+    /// 上传文件
+    ///
+    /// - Parameters:
+    ///   - filePath: 文件沙盒路径
+    ///   - fileType: 文件类型
+    ///   - success: 成功回调
+    ///   - failed: 失败回调
+    public class func uploadFile(filePath:String, fileType:FileUploadType, success:@escaping ((Data)->Void), failed:((Error)->Void)? = nil){
+        
+        //上传地址
+        let url = URL(string: "\(api_url)upload")
+        //请求
+        var request = URLRequest(url: url!, cachePolicy: .reloadIgnoringCacheData)
+        request.setValue("multipart/form-data; boundary=\(NetWork.boundary)", forHTTPHeaderField: "Content-Type")
+        request.addValue("text/html,application/json,text/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        
+        if let token = User.share.token {
+            request.setValue(token, forHTTPHeaderField: "Authorization")
+        }
+        
+        
+        //上传数据流
+        let fileData = try! Data(contentsOf: URL(fileURLWithPath: filePath))
+        
+        
+        // 从这里开始构造请求体
+        // 存放参数的数组，后续好转成字符串，也就是请求体
+        let body  = NSMutableArray()
+        // 拼接参数和boundary的临时变量
+        var fileTmpStr = ""
+        //设置为POST请求
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=----\(boundary)", forHTTPHeaderField: "Content-Type")
+        //            //拆分字典,parameter是其中一项，将key与value变成字符串
+        //            for parameter in parameters {
+        //                // 将boundary和parameter组装在一起
+        //                fileTmpStr = "------\(boundary)\r\nContent-Disposition: form-data; name=\"\(parameter.0)\"\r\n\r\n\(parameter.1)\r\n"
+        //                body.add(fileTmpStr)
+        //            }
+        // 上传文件的文件名，按照需求起名字就好
+        let filename = filePath.components(separatedBy: "/").last!
+        print("fileName == \(filename)")
+        // 将文件名和boundary组装在一起
+        fileTmpStr = "------\(boundary)\r\nContent-Disposition: form-data; name=\"inputFile\"; filename=\"\(filename)\"\r\n"
+        body.add(fileTmpStr)
+        // 文件类型是图片，png、jpeg随意
+        fileTmpStr = "Content-Type: \(fileType)\r\n\r\n"
+        body.add(fileTmpStr)
+        // 将body里的内容转成字符串
+        let parameterStr = body.componentsJoined(by: "")
+        // UTF8转码，防止汉字符号引起的非法网址
+        var parameterData = parameterStr.data(using: String.Encoding.utf8)!
+        // 将图片追加进parameterData
+        parameterData.append(fileData)
+        // 将boundary结束部分追加进parameterData
+        parameterData.append("\r\n------\(boundary)--".data(using: String.Encoding.utf8)!)
+        // 设置请求体
+        request.httpBody = parameterData
+        //默认session配置
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        //发起请求
+        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            //上传完毕后
+            if error != nil{
+                print(error!)
+                failed?(error!)
+            }else{
+                let str = String(data: data!, encoding: String.Encoding.utf8)
+                print("上传完毕：\(str)")
+                success(data!)
+            }
+        }
+        //请求开始
+        dataTask.resume()
     }
     
     
