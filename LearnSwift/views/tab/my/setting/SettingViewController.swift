@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class SettingViewController: UITableViewController {
     
@@ -41,8 +42,8 @@ class SettingViewController: UITableViewController {
         
         self.navigationItem.title = "设置语言"
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: LanguageHelper.getString(key: LanguageKey.取消), style: .plain, target: self, action: #selector(cancleClick))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LanguageHelper.getString(key: LanguageKey.完成), style: .done, target: self, action: #selector(doneClick))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: LanguageHelper.getString(key: LanguageKey.取消.rawValue), style: .plain, target: self, action: #selector(cancleClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: LanguageHelper.getString(key: LanguageKey.完成.rawValue), style: .done, target: self, action: #selector(doneClick))
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cell_identifier)
         tableView.tableFooterView = UIView()

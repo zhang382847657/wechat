@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 /// 自定义搜索框
 class ContactSearchBar: UISearchBar {
@@ -42,14 +43,14 @@ class ContactSearchBar: UISearchBar {
         
        
         //设置搜索图标
-        setImage(IconFont(code: IconFontType.搜索.rawValue, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .search, state: .normal)
+        setImage(IconFont(code: IconFontType.搜索.rawValue, name:kIconFontName, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .search, state: .normal)
         //设置搜索图片的偏移量
         setPositionAdjustment(UIOffsetMake(4, 0), for: .search)
         //设置清除按钮的图标
-        setImage(IconFont(code: IconFontType.清空.rawValue, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .clear, state: .normal)
+        setImage(IconFont(code: IconFontType.清空.rawValue, name:kIconFontName, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .clear, state: .normal)
         //设置语音图标
         showsBookmarkButton = true
-        setImage(IconFont(code: IconFontType.语音.rawValue, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .bookmark, state: .normal)
+        setImage(IconFont(code: IconFontType.语音.rawValue, name:kIconFontName, fontSize: 16.0, color: Colors.fontColor.font999).iconImage, for: .bookmark, state: .normal)
         
         
         // 通过KVO找到输入框，并设置输入框的圆角

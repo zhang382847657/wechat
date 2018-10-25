@@ -3,3 +3,6 @@
 //
 
 #import <CommonCrypto/CommonDigest.h>
+
+// 第三方图片选择器组件
+#import "TZImagePickerController.h"

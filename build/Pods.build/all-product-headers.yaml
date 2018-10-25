@@ -1,0 +1,60 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/Pods_LearnSwift_debug.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-LearnSwift_debug-umbrella.h",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/Pods/Target Support Files/Pods-LearnSwift_debug/Pods-LearnSwift_debug-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_LearnSwift_debug-Swift.h",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/Pods_LearnSwift_debug.framework/Headers/Pods_LearnSwift_debug-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/Pods_LearnSwift_debug.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Pods.build/Debug-iphonesimulator/Pods-LearnSwift_debug.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/WXCategory/WXCategory.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "WXCategory-Swift.h",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/WXCategory/WXCategory.framework/Headers/WXCategory-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "WXCategory-umbrella.h",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/Pods/Target Support Files/WXCategory/WXCategory-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Debug-iphonesimulator/WXCategory/WXCategory.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/build/Pods.build/Debug-iphonesimulator/WXCategory.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

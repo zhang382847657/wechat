@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WXCategory
 
 //extension Array {
 //
@@ -74,6 +74,10 @@ class WeixinCell: UITableViewCell {
         subTitle.text = ""
         timeLable.text = ""
         locationLabel.text = nil
+        
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalToConstant: screenBounds.width)
+        ])
     }
     
     
@@ -106,7 +110,7 @@ class WeixinCell: UITableViewCell {
             }
         }
         
-        
+
         name.text = nameStr
         timeLable.text = time?.stringConvertDate()?.dateConvertFriendCircleType()
         subTitle.text = subTitleStr
@@ -135,8 +139,8 @@ class WeixinCell: UITableViewCell {
         commentTop.constant = (likesData != nil && likesData!.count > 0) ? 6 : 0
         commentView.likeData = likesData
         commentView.commentData = commentData
-
-       
+        
+        layoutIfNeeded()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -161,7 +165,4 @@ class WeixinCell: UITableViewCell {
             cb(sender.isSelected)
         }
     }
-    
-    
-
 }

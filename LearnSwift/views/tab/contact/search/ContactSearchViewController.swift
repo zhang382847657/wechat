@@ -131,7 +131,7 @@ class ContactSearchResultViewController: UITableViewController,UISearchResultsUp
         view.addSubview(label)
         NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
                                      label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 3)])
-        view.addBottomLineWith()
+        view.addBottomLineWith(color: Colors.backgroundColor.colordc)
         return view
     }
     

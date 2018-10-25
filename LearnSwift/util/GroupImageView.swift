@@ -51,15 +51,21 @@ class GroupImageView: UIImageView {
                 
                 let sema = DispatchSemaphore(value: 0)
                 
-                weakSelf?.downloadImage(url: url, success: { (image) in
+        
+               
+                
+                weakSelf?.setNetWrokUrl(imageUrl: url, success: { (image, _) in
+                    weakSelf?.image = nil
                     images.append(image)
                     //信号量+1这时就可以触发这个任务结束了
                     sema.signal()
-                }) { (error) in
+                }, failed: { (error) in
                     //网络调用失败也需要+1，否则会永远阻塞了
+                    weakSelf?.image = nil
                     images.append(UIImage(named: "failedHolder")!)
                     sema.signal()
-                }
+                })
+
                 //异步调用返回前，就会一直阻塞在这
                 sema.wait()
             }
@@ -173,32 +179,5 @@ class GroupImageView: UIImageView {
         UIGraphicsEndImageContext()
         self.image = groupIconImage
     }
-    
-    
-    private func downloadImage(url:String,success:@escaping ((UIImage)->Void),failed:@escaping ((Error)->Void)){
-        
-        let pictureType:String = String(url.split(separator: ".").last ?? "jpg")
-        
-        if let cacheImageData:Data = FileOption.readFile(path: "\(FileOption.image_cache_file)/\(url.md5()).\(pictureType)") as Data?, let cacheDyanmicImage = UIImage(data: cacheImageData) {
-            
-           success(cacheDyanmicImage)
-            
-        }else{
-            
-            NetWork.downloadImageToImageDictionary(url: url, success: {(image, data) in
-                
-                if  FileOption.writeFile(documentName: FileOption.image_cache_file, fileName: url.md5() + ".\(pictureType)", data: data as NSData) == true {
-                     success(image)
-                }else {
-                    failed(FileOption.FileOptionError.writeFileFailed)
-                }
-                
-            }) {(error) in
-                failed(error)
-            }
-        }
-    }
-    
-    
     
 }

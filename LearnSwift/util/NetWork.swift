@@ -36,7 +36,7 @@ class NetWork: NSObject {
         case audio = "audio/*"
     }
     
-    // 设置分隔线
+    /// 设置分隔线
     static let boundary = String(format: "boundary.%08x%08x", arc4random(), arc4random())
     
     
@@ -83,11 +83,12 @@ class NetWork: NSObject {
     /// 上传文件
     ///
     /// - Parameters:
-    ///   - filePath: 文件沙盒路径
+    ///   - fileData: 文件Data数据
+    ///   - fileName: 文件名
     ///   - fileType: 文件类型
     ///   - success: 成功回调
     ///   - failed: 失败回调
-    public class func uploadFile(filePath:String, fileType:FileUploadType, success:@escaping ((Data)->Void), failed:((Error)->Void)? = nil){
+    public class func uploadFile(fileData:Data, fileName:String, fileType:FileUploadType, success:@escaping ((String)->Void), failed:((Error)->Void)? = nil){
         
         //上传地址
         let url = URL(string: "\(api_url)upload")
@@ -100,11 +101,6 @@ class NetWork: NSObject {
         if let token = User.share.token {
             request.setValue(token, forHTTPHeaderField: "Authorization")
         }
-        
-        
-        //上传数据流
-        let fileData = try! Data(contentsOf: URL(fileURLWithPath: filePath))
-        
         
         // 从这里开始构造请求体
         // 存放参数的数组，后续好转成字符串，也就是请求体
@@ -120,11 +116,9 @@ class NetWork: NSObject {
         //                fileTmpStr = "------\(boundary)\r\nContent-Disposition: form-data; name=\"\(parameter.0)\"\r\n\r\n\(parameter.1)\r\n"
         //                body.add(fileTmpStr)
         //            }
-        // 上传文件的文件名，按照需求起名字就好
-        let filename = filePath.components(separatedBy: "/").last!
-        print("fileName == \(filename)")
+        print("上传文件的名字 == \(fileName)")
         // 将文件名和boundary组装在一起
-        fileTmpStr = "------\(boundary)\r\nContent-Disposition: form-data; name=\"inputFile\"; filename=\"\(filename)\"\r\n"
+        fileTmpStr = "------\(boundary)\r\nContent-Disposition: form-data; name=\"inputFile\"; filename=\"\(fileName)\"\r\n"
         body.add(fileTmpStr)
         // 文件类型是图片，png、jpeg随意
         fileTmpStr = "Content-Type: \(fileType)\r\n\r\n"
@@ -149,9 +143,40 @@ class NetWork: NSObject {
                 print(error!)
                 failed?(error!)
             }else{
-                let str = String(data: data!, encoding: String.Encoding.utf8)
-                print("上传完毕：\(str)")
-                success(data!)
+                
+                do {
+                    
+                    let result = try JSON(data: data!)
+                    
+                    if result["result"].stringValue == "ok" {
+                        
+                        success(result["data","filePath"].stringValue)
+                        print(result["data"])
+                        
+                    }else {
+                        switch result["rescode"].intValue {
+                        case 202 :
+                            print("未登录")
+                        case 203 :
+                            print("登录过期")
+                            User.share.clearUserInfo()
+                            
+                        default :
+                            if let failed = failed {
+                                failed(NetWorkError.InvalidValue)
+                            }
+                            print("其他原因 == \(result["msg"].stringValue)")
+                        }
+                    }
+                    
+                    
+                    
+                } catch let jsonError {
+                    
+                    if let failed = failed {
+                        failed(jsonError)
+                    }
+                }
             }
         }
         //请求开始
@@ -174,8 +199,6 @@ class NetWork: NSObject {
         if let ps = postString {
             request.httpBody =  ps.data(using: String.Encoding.utf8)
         }
-        
-//        let semaphore = DispatchSemaphore(value:0)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
@@ -226,15 +249,9 @@ class NetWork: NSObject {
                
             }
     
-            
-//            semaphore.signal()
         }
         
         task.resume()
-        
-//        _ = semaphore.wait(timeout: .distantFuture)
-    
-
         
     }
     
@@ -247,7 +264,7 @@ class NetWork: NSObject {
     ///   - failed: 失败回调
     public class func downloadImageToImageDictionary(url: String, success:@escaping ((UIImage, Data)->Void), failed:((Error)->Void)? = nil){
         
-        if url.hasPrefix("http://") && (url.hasSuffix(".png")||url.hasSuffix(".jpg")) == false {
+        if url.hasPrefix("http://") && (url.hasSuffix(".png")||url.hasSuffix(".jpg")||url.hasSuffix(".PNG")||url.hasSuffix(".JPG")||url.hasSuffix(".jpeg")||url.hasSuffix(".JPEG")) == false {
             if let failed = failed {
                 failed(NetWorkError.ImageUrlFormat)
             }

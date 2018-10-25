@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class ContactViewController: UIViewController
 {
@@ -52,11 +53,11 @@ class ContactViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.通讯录)
+        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.通讯录.rawValue)
         
        
         // 导航栏右侧添加联系人图标
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image:  IconFont(code: IconFontType.添加联系人.rawValue, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(addContactClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image:  IconFont(code: IconFontType.添加联系人.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(addContactClick))
         
         // 注册Cell
         tableView.register(UINib(nibName: "ContactMenuCell", bundle: nil), forCellReuseIdentifier: cell_contactMenuCell)

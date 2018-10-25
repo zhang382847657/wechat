@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class UserDetailViewController: UITableViewController {
     
@@ -39,7 +40,7 @@ class UserDetailViewController: UITableViewController {
         self.navigationItem.title = "详细资料"
         
         // 导航栏右侧更多图标
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: IconFont(code: IconFontType.更多.rawValue, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(moreClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: IconFont(code: IconFontType.更多.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(moreClick))
         
 
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)

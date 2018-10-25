@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import WXTools
 
 /// 朋友圈
 class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     /// TableView
     @IBOutlet weak var tableView: UITableView!
+    
+    static let notificationName_refresh = "WeixinViewController_refresh"
+    
+    private var wxCell:WeixinCell!
     
     /// 动态数据
     private var dataList:[[String:Any]] = [] {
@@ -21,7 +26,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     /// 一页显示条数
-    private let pageSize:Int = 4
+    private let pageSize:Int = 10
     /// 页码
     private var pageNum:Int = 0
     
@@ -37,7 +42,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     /// 导航栏右侧相机按钮
     private lazy var cameraImageView:UIImageView = {
         // 导航栏相机按钮
-        let cameraImageView = UIImageView(image: IconFont(code: IconFontType.相机.rawValue, fontSize: 20.0, color: UIColor.white).iconImage)
+        
+        let cameraImageView = UIImageView(image: IconFont(code: IconFontType.相机.rawValue, name:kIconFontName, fontSize: 20.0, color: UIColor.white).iconImage)
         cameraImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         cameraImageView.isUserInteractionEnabled = true
         // 添加点击事件
@@ -70,10 +76,13 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         // 用类名的方式注册Cell
         tableView.register(UINib(nibName: "WeixinCell", bundle: nil), forCellReuseIdentifier: weixinIdentifier)
+        wxCell = tableView.dequeueReusableCell(withIdentifier: weixinIdentifier) as! WeixinCell
         // 初始化头部视图
         setupHeaderView()
         // 设置tableview的headerView
         tableView.tableHeaderView = headerView
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 220
         
         // 添加头部刷新
         tableView.addHeaderRefresh(headerView: FriendCircleRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: UIApplication.shared.statusBarFrame.height + 44 + 20 + 30)), actionTarget: self, action: #selector(refresh))
@@ -91,6 +100,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.automaticallyAdjustsScrollViewInsets = false
         }
   
+        // 注册刷新的通知
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: WeixinViewController.notificationName_refresh), object: nil)
         
     }
     
@@ -114,9 +125,12 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.didReceiveMemoryWarning()
     }
     
+    
     deinit {
         // 移除刷新组件的监听
         tableView.removeRefreshObserver()
+        // 移除所有监听
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -133,7 +147,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         }else {
             pageNum += 1
         }
-        
         
         WXApi.dynamicList(pageNum: pageNum, pageSize: pageSize, success: { [weak self](json) in
             
@@ -181,8 +194,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
             return
         }
         
-        let vc = PublishTextViewController()
-        self.present(vc, animated: true, completion: nil)
+        let nvc = PublishTextViewController.getViewController()
+        self.present(nvc, animated: true, completion: nil)
     }
     
     
@@ -355,18 +368,26 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         if rowHeightCache.keys.contains(indexPath) {
             return rowHeightCache[indexPath]!
         }else {
-            return 250
+            // 获取数组中对应的值
+            var dic = dataList[indexPath.row]
+            if let showAll = showAll {
+                dic["isSelect"] = showAll
+            }
+            // 更新数据源
+            wxCell.setupUI(data: dic)
+            let cellHeight = wxCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height + 1.0
+            rowHeightCache[indexPath] = cellHeight
+            return cellHeight
         }
     }
-
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        rowHeightCache[indexPath] = cell.frame.size.height
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
     }
 
     //MARK: UITableView Delegate
@@ -390,16 +411,16 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18)]
             self.navigationController?.navigationBar.tintColor = UIColor.white
             self.navigationController?.navigationBar.setBackgroundImage( UIImage.imageWithColor(UIColor(hex: "#eeeeee", alpha: 0)), for: .default)
-            cameraImageView.image = IconFont(code: IconFontType.相机.rawValue, fontSize: 20.0, color: UIColor.white).iconImage
+            cameraImageView.image = IconFont(code: IconFontType.相机.rawValue, name:kIconFontName, fontSize: 20.0, color: UIColor.white).iconImage
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
             return
         }
 
         self.navigationController?.navigationBar.setBackgroundImage( UIImage.imageWithColor(UIColor(hex: "#eeeeee", alpha: (scrollView.contentOffset.y - gradualHeight)/navigationHeight)), for: .default)
-        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.朋友圈)
+        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.朋友圈.rawValue)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Colors.themeColor.main2,NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18)]
         self.navigationController?.navigationBar.tintColor = Colors.themeColor.main2
-        cameraImageView.image = IconFont(code: IconFontType.相机.rawValue, fontSize: 20.0, color: Colors.themeColor.main2).iconImage
+        cameraImageView.image = IconFont(code: IconFontType.相机.rawValue, name:kIconFontName, fontSize: 20.0, color: Colors.themeColor.main2).iconImage
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
 
     }

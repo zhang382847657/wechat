@@ -32,7 +32,7 @@ class UserDetailHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         headerImageView.setCornerRadio(radio: 5)
-        sexLabel.font = UIFont(name: IconFont.iconfontName, size: 16.0)
+        sexLabel.font = UIFont(name: kIconFontName, size: 16.0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

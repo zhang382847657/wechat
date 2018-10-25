@@ -176,9 +176,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
 
     
-   
-    
-    
     /// 图片收起动画效果
     ///
     /// - Parameter finish: 动画结束的回调

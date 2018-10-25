@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class MenuCell: UITableViewCell {
     
@@ -41,10 +42,10 @@ class MenuCell: UITableViewCell {
         if let iconImage = iconImage {
             iconImageView.image = UIImage(named: iconImage)
         }else {
-            iconImageView.image = IconFont(code: iconfont!, fontSize: 26, color: UIColor(hex: iconColor!)).iconImage
+            iconImageView.image = IconFont(code: iconfont!, name:kIconFontName, fontSize: 26, color: UIColor(hex: iconColor!)).iconImage
         }
         
-        titleLabel.text = LanguageHelper.getString(key: title)
+        titleLabel.text = LanguageHelper.getString(key: title.rawValue)
         
     }
     

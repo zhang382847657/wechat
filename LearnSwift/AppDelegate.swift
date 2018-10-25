@@ -21,12 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         
-        print("aaaaaaa == \(FileOption.image_cache_file)")
-        NetWork.uploadFile(filePath:  "\(FileOption.image_cache_file)/0ad01f61690f85120c94af3788d297d7.jpg", fileType: .image, success: { (data) in
-            
-        }) { (error) in
-            
-        }
+//        print("aaaaaaa == \(FileOption.image_cache_file)")
+//        NetWork.uploadFile(filePath:  "\(FileOption.image_cache_file)/0ad01f61690f85120c94af3788d297d7.jpg", fileType: .image, success: { (data) in
+//
+//        }) { (error) in
+//
+//        }
        
         // 创建窗口
         window = UIWindow(frame: UIScreen.main.bounds)

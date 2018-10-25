@@ -1,0 +1,20 @@
+PODS:
+  - WXCategory (0.0.2)
+  - WXTools (0.0.3)
+
+DEPENDENCIES:
+  - WXCategory (= 0.0.2)
+  - WXTools (= 0.0.3)
+
+SPEC REPOS:
+  https://github.com/zhang382847657/WXBaseKit.git:
+    - WXCategory
+    - WXTools
+
+SPEC CHECKSUMS:
+  WXCategory: bbf5e74a86910ea9c95b95436a13f7a0d669cb14
+  WXTools: 66d350f8c862640000246d86e96b676b813fcbf0
+
+PODFILE CHECKSUM: 3b7c9361929961d9478104fcab88593ccc0d7185
+
+COCOAPODS: 1.5.3

@@ -76,7 +76,7 @@ class ReplayTools: NSObject {
         self.sendClick = sendClick
         
         if let placheolder = placheolder {
-            replayView.textView.setPlaceholder(placeholdStr: placheolder)
+            replayView.textView.setPlaceholderWith(string: placheolder, color: Colors.fontColor.font999)
         }
         replayView.textView.text = text
         

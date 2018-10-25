@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class MainTabBarController: UITabBarController {
     
@@ -25,19 +26,19 @@ class MainTabBarController: UITabBarController {
         
         // 消息
         let messageViewController = MessageViewController()
-        createChildController(viewController: messageViewController, title: LanguageHelper.getString(key: LanguageKey.消息), image: IconFontType.微信.rawValue, selectedImage: IconFontType.微信_选.rawValue)
+        createChildController(viewController: messageViewController, title: LanguageHelper.getString(key: LanguageKey.消息.rawValue), image: IconFontType.微信.rawValue, selectedImage: IconFontType.微信_选.rawValue)
         
         // 联系人
         let contactViewController = ContactViewController()
-        createChildController(viewController:contactViewController, title: LanguageHelper.getString(key: LanguageKey.通讯录), image:IconFontType.通讯录.rawValue, selectedImage: IconFontType.通讯录_选.rawValue)
+        createChildController(viewController:contactViewController, title: LanguageHelper.getString(key: LanguageKey.通讯录.rawValue), image:IconFontType.通讯录.rawValue, selectedImage: IconFontType.通讯录_选.rawValue)
         
         // 发现
         let findViewController = FindViewController()
-        createChildController(viewController: findViewController, title: LanguageHelper.getString(key: LanguageKey.发现), image: IconFontType.发现.rawValue, selectedImage: IconFontType.发现_选.rawValue)
+        createChildController(viewController: findViewController, title: LanguageHelper.getString(key: LanguageKey.发现.rawValue), image: IconFontType.发现.rawValue, selectedImage: IconFontType.发现_选.rawValue)
         
         // 我的
         let myViewController = MyViewController()
-        createChildController(viewController: myViewController, title: LanguageHelper.getString(key: LanguageKey.我), image: IconFontType.我.rawValue, selectedImage: IconFontType.我_选.rawValue)
+        createChildController(viewController: myViewController, title: LanguageHelper.getString(key: LanguageKey.我.rawValue), image: IconFontType.我.rawValue, selectedImage: IconFontType.我_选.rawValue)
         
         selectedViewController = messageViewController.navigationController
         
@@ -61,8 +62,8 @@ class MainTabBarController: UITabBarController {
         let navigationController = BaseNavigationController(rootViewController: viewController)
         navigationController.tabBarItem.title = "\(title)"
         
-        navigationController.tabBarItem.image = IconFont(code: image, fontSize: 28.0, color: Colors.fontColor.font999).iconImage.withRenderingMode(.alwaysOriginal)
-        navigationController.tabBarItem.selectedImage = IconFont(code: selectedImage, fontSize: 28.0, color: Colors.themeColor.main).iconImage.withRenderingMode(.alwaysOriginal)
+        navigationController.tabBarItem.image = IconFont(code: image, name:kIconFontName, fontSize: 28.0, color: Colors.fontColor.font999).iconImage.withRenderingMode(.alwaysOriginal)
+        navigationController.tabBarItem.selectedImage = IconFont(code: selectedImage, name:kIconFontName, fontSize: 28.0, color: Colors.themeColor.main).iconImage.withRenderingMode(.alwaysOriginal)
         navigationController.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor:UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1.0)], for: UIControlState.normal)
         navigationController.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor:UIColor(red: 98/255.0, green: 185/255.0, blue: 0, alpha: 1.0)], for: UIControlState.selected)
         

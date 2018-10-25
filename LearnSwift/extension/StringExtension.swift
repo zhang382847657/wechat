@@ -33,25 +33,4 @@ extension String {
         return md5String
     }
     
-    /// 转拼音
-    func transformToPinyin() -> String {
-        
-        let pinyin = NSMutableString(string: self)
-        CFStringTransform(pinyin, nil, kCFStringTransformToLatin, false)
-        return pinyin.folding(options: .diacriticInsensitive, locale: NSLocale.current)
-        
-    }
-    
-    
-    /// 字符串转日期
-    ///
-    /// - Parameter dateFormat: 日期格式
-    /// - Returns: Date
-    func stringConvertDate(dateFormat:String="yyyy-MM-dd HH:mm:ss") -> Date?{
-        let dateFormatter = DateFormatter.init()
-        dateFormatter.dateFormat = dateFormat
-        let date = dateFormatter.date(from: self)
-        return date
-    }
-    
 }

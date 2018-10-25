@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class ContactMenuCell: UITableViewCell {
 
@@ -41,8 +42,8 @@ class ContactMenuCell: UITableViewCell {
         let title = data["title"] as! LanguageKey
         
         iconBtn.backgroundColor = UIColor(hex: bgColor)
-        iconBtn.setImage(IconFont(code: icon, fontSize: 15, color: UIColor.white).iconImage, for: .normal)
-        titleLabel.text = LanguageHelper.getString(key: title)
+        iconBtn.setImage(IconFont(code: icon, name:kIconFontName, fontSize: 15, color: UIColor.white).iconImage, for: .normal)
+        titleLabel.text = LanguageHelper.getString(key: title.rawValue)
     }
     
     

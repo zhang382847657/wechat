@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PublishTextViewController" customModule="LearnSwift_debug" customModuleProvider="target">
             <connections>
+                <outlet property="choosePictureView" destination="QGI-rC-Xab" id="GOc-YA-bGi"/>
                 <outlet property="locationArrowIcon" destination="x41-wl-bLg" id="oek-oK-MfW"/>
                 <outlet property="locationIcon" destination="NiB-Hs-cFx" id="03z-8W-pkz"/>
                 <outlet property="locationLabel" destination="bUV-Jb-qOb" id="3dC-6k-Lm0"/>
@@ -20,6 +21,7 @@
                 <outlet property="remindSeeLabel" destination="SHF-is-6ya" id="m9W-9x-Vac"/>
                 <outlet property="scrollView" destination="N2O-nW-Qj9" id="y1c-Lz-8HG"/>
                 <outlet property="textView" destination="qhr-1H-ckI" id="jcV-ez-b9h"/>
+                <outlet property="textViewHeight" destination="CW3-fM-8b4" id="qtJ-oF-LMi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="whoCanSeeArrowIcon" destination="Eon-Fw-J97" id="Rae-Ol-qtr"/>
                 <outlet property="whoCanSeeIcon" destination="Iww-Kp-rxc" id="7gA-ge-Ue1"/>
@@ -38,11 +40,11 @@
                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="647" translatesAutoresizingMaskIntoConstraints="NO" id="vGP-Ye-HZd">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qhr-1H-ckI">
-                                    <rect key="frame" x="20" y="64" width="335" height="150"/>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="335" placeholderIntrinsicHeight="85" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qhr-1H-ckI">
+                                    <rect key="frame" x="20" y="0.0" width="335" height="85"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="150" id="Nil-3O-pcT"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="85" id="CW3-fM-8b4"/>
                                     </constraints>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -52,7 +54,7 @@
                                     </connections>
                                 </textView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYc-ZB-gnF">
-                                    <rect key="frame" x="20" y="244" width="335" height="50"/>
+                                    <rect key="frame" x="20" y="169" width="335" height="50"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VsV-Ut-427">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
@@ -102,7 +104,7 @@
                                     </connections>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-yn-6y4">
-                                    <rect key="frame" x="20" y="294" width="335" height="50"/>
+                                    <rect key="frame" x="20" y="219" width="335" height="50"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fg6-Rz-cb7">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
@@ -159,7 +161,7 @@
                                     </connections>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3a-XH-aTv">
-                                    <rect key="frame" x="20" y="344" width="335" height="50"/>
+                                    <rect key="frame" x="20" y="269" width="335" height="50"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NCa-ZU-h8J">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="1"/>
@@ -207,6 +209,10 @@
                                         <outletCollection property="gestureRecognizers" destination="hOo-o5-MZg" appends="YES" id="ADc-uV-U5Y"/>
                                     </connections>
                                 </view>
+                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="335" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="QGI-rC-Xab" customClass="ChoosePictureView" customModule="LearnSwift_debug" customModuleProvider="target">
+                                    <rect key="frame" x="20" y="95" width="335" height="44"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -214,13 +220,17 @@
                                 <constraint firstItem="SwX-yn-6y4" firstAttribute="top" secondItem="uYc-ZB-gnF" secondAttribute="bottom" id="729-yb-TZ0"/>
                                 <constraint firstItem="e3a-XH-aTv" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="79o-cN-UN5"/>
                                 <constraint firstItem="e3a-XH-aTv" firstAttribute="top" secondItem="SwX-yn-6y4" secondAttribute="bottom" id="AlV-ut-PCT"/>
+                                <constraint firstAttribute="trailing" secondItem="qhr-1H-ckI" secondAttribute="trailing" constant="20" id="C09-k9-4mM"/>
+                                <constraint firstAttribute="trailing" secondItem="QGI-rC-Xab" secondAttribute="trailing" constant="20" id="N0v-Wr-GnZ"/>
+                                <constraint firstItem="qhr-1H-ckI" firstAttribute="top" secondItem="vGP-Ye-HZd" secondAttribute="top" id="ObU-70-KN3"/>
                                 <constraint firstItem="uYc-ZB-gnF" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="Rth-xa-ouw"/>
-                                <constraint firstItem="qhr-1H-ckI" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="VPR-t0-SWb"/>
+                                <constraint firstItem="qhr-1H-ckI" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="Sbs-vc-R2T"/>
+                                <constraint firstItem="QGI-rC-Xab" firstAttribute="top" secondItem="qhr-1H-ckI" secondAttribute="bottom" constant="10" id="TGJ-jV-zEt"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="e3a-XH-aTv" secondAttribute="bottom" constant="20" id="VD0-Fv-12U"/>
                                 <constraint firstItem="SwX-yn-6y4" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="WyI-M7-7m8"/>
-                                <constraint firstAttribute="trailing" secondItem="qhr-1H-ckI" secondAttribute="trailing" constant="20" id="Yh2-sZ-L8U"/>
                                 <constraint firstAttribute="trailing" secondItem="SwX-yn-6y4" secondAttribute="trailing" constant="20" id="dA7-SD-0lW"/>
-                                <constraint firstItem="uYc-ZB-gnF" firstAttribute="top" secondItem="qhr-1H-ckI" secondAttribute="bottom" constant="30" id="nRz-wu-LPZ"/>
-                                <constraint firstItem="qhr-1H-ckI" firstAttribute="top" secondItem="vGP-Ye-HZd" secondAttribute="top" constant="64" id="sy4-Gr-FYe"/>
+                                <constraint firstItem="uYc-ZB-gnF" firstAttribute="top" secondItem="QGI-rC-Xab" secondAttribute="bottom" constant="30" id="i2e-Fw-RLJ"/>
+                                <constraint firstItem="QGI-rC-Xab" firstAttribute="leading" secondItem="vGP-Ye-HZd" secondAttribute="leading" constant="20" id="wfh-jN-zkh"/>
                                 <constraint firstAttribute="trailing" secondItem="uYc-ZB-gnF" secondAttribute="trailing" constant="20" id="xBO-g0-LGJ"/>
                             </constraints>
                         </view>
@@ -228,7 +238,6 @@
                     <constraints>
                         <constraint firstItem="vGP-Ye-HZd" firstAttribute="top" secondItem="N2O-nW-Qj9" secondAttribute="top" id="GrQ-g9-kOq"/>
                         <constraint firstItem="vGP-Ye-HZd" firstAttribute="width" secondItem="N2O-nW-Qj9" secondAttribute="width" id="L8e-CP-Swt"/>
-                        <constraint firstItem="vGP-Ye-HZd" firstAttribute="height" secondItem="N2O-nW-Qj9" secondAttribute="height" id="QS6-6a-wWx"/>
                         <constraint firstAttribute="trailing" secondItem="vGP-Ye-HZd" secondAttribute="trailing" id="hZZ-Uv-95z"/>
                         <constraint firstAttribute="bottom" secondItem="vGP-Ye-HZd" secondAttribute="bottom" id="i7g-Py-5T0"/>
                         <constraint firstItem="vGP-Ye-HZd" firstAttribute="leading" secondItem="N2O-nW-Qj9" secondAttribute="leading" id="yHe-LI-vIF"/>

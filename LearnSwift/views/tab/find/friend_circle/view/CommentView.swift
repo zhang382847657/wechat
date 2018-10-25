@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class CommentView: UIView {
     
@@ -31,7 +32,7 @@ class CommentView: UIView {
     /// 点赞视图
     private lazy var likeView:UILabel = {
         let l = UILabel()
-        l.font = UIFont(name: IconFont.iconfontName, size: 14.0)
+        l.font = UIFont(name: kIconFontName, size: 14.0)
         l.numberOfLines = 0
         l.textColor = Colors.themeColor.main3
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +144,7 @@ class CommentView: UIView {
             self.addSubview(likeView)
             
             // 绘制点赞人名的集合
-            var finalLikeString:String = "\(IconFont(code: IconFontType.心.rawValue).labelText) "
+            var finalLikeString:String = "\(IconFont(code: IconFontType.心.rawValue, name:kIconFontName).labelText) "
             for (index,data) in likeData.enumerated() {
                 let name = data["name"] as? String ?? "--"
                 finalLikeString +=  index == 0 ? name : "，\(name)"

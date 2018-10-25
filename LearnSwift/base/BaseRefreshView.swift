@@ -154,7 +154,7 @@ class BaseRefreshView: UIView {
     
     /// 自动调整
     ///
-    /// - Parameter normal: 是否是开始下拉刷新
+    /// - Parameter normal: 是否开始下拉刷新
     public func isAdjustToNormal(normal:Bool){
         let parentView:UIScrollView = self.superview! as! UIScrollView
         

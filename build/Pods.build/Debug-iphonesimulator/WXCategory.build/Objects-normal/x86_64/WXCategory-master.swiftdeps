@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)"
+options: "e56694f35cab6212e654bf2429e37157"
+build_time: [1540372296, 226739000]
+inputs:
+  "/Users/zhanglin/\u7EC3\u4E60/GitHub/wechat/Pods/WXCategory/WXCategory/Classes/Date+Extension.swift": [1540372161, 0]

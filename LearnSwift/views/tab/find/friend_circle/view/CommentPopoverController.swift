@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class CommentPopoverController: UIViewController, UIPopoverPresentationControllerDelegate,CAAnimationDelegate {
     
@@ -16,7 +17,7 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
     @IBOutlet weak var commentBtn: UIButton!
     /// 用来做缩放动画的心型图片
     private lazy var heartImageView:UIImageView = {
-        let v = UIImageView(image:IconFont(code: IconFontType.心.rawValue, fontSize: 20, color: Colors.themeColor.main3).iconImage)
+        let v = UIImageView(image:IconFont(code: IconFontType.心.rawValue, name:kIconFontName, fontSize: 20, color: Colors.themeColor.main3).iconImage)
         return v
     }()
     
@@ -64,11 +65,11 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
         super.viewDidLoad()
     
         
-        likeBtn.setImage(IconFont(code: IconFontType.心.rawValue, fontSize: 20, color: UIColor.white).iconImage, for: .normal)
-        likeBtn.setImage(IconFont(code: IconFontType.心.rawValue, fontSize: 20, color: UIColor.white).iconImage, for: .selected)
+        likeBtn.setImage(IconFont(code: IconFontType.心.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, for: .normal)
+        likeBtn.setImage(IconFont(code: IconFontType.心.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, for: .selected)
         
-        commentBtn.setImage(IconFont(code: IconFontType.评论.rawValue, fontSize: 20, color: UIColor.white).iconImage, for: .normal)
-        commentBtn.setImage(IconFont(code: IconFontType.评论.rawValue, fontSize: 20, color: UIColor.white).iconImage, for: .selected)
+        commentBtn.setImage(IconFont(code: IconFontType.评论.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, for: .normal)
+        commentBtn.setImage(IconFont(code: IconFontType.评论.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, for: .selected)
         
         
         likeBtn.isSelected = isLike

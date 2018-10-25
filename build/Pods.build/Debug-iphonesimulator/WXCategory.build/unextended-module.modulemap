@@ -1,0 +1,10 @@
+framework module WXCategory {
+  umbrella header "WXCategory-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module WXCategory.__Swift {
+    exclude header "WXCategory-Swift.h"
+}

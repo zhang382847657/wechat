@@ -29,7 +29,7 @@ class ContactSearchResultUserCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // 代码添加分割线
-        contentView.addBottomLineWith()
+        contentView.addBottomLineWith(color: Colors.backgroundColor.colordc)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

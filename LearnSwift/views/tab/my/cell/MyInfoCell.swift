@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class MyInfoCell: UITableViewCell {
 
@@ -25,7 +26,7 @@ class MyInfoCell: UITableViewCell {
         nameLabel.text = User.share.name
         weixinNumberLabel.text = User.share.wxId
         headerImageView.setNetWrokUrl(imageUrl: User.share.headPicture)
-        qrImageView.image = IconFont(code: IconFontType.二维码.rawValue, fontSize: 20, color: Colors.fontColor.font999).iconImage
+        qrImageView.image = IconFont(code: IconFontType.二维码.rawValue, name:kIconFontName, fontSize: 20, color: Colors.fontColor.font999).iconImage
         
     }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class MessageViewController: UITableViewController {
     
@@ -27,12 +28,6 @@ class MessageViewController: UITableViewController {
         ["imageUrls":["https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1509469201,2289552148&fm=11&gp=0.jpg"],"title":"冯文祥","subTitle":"😯","time":"2018/8/29","dnd":false],
         ["imageUrls":["https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=665676765,3754099617&fm=11&gp=0.jpg"],"title":"寄养家庭","subTitle":"麻烦你啦，不打扰啦","time":"2018/8/27","dnd":false],
         ["imageUrls":["https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3302689525,4080875463&fm=11&gp=0.jpg","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=740586216,516621802&fm=11&gp=0.jpg","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4067590127,1858208029&fm=11&gp=0.jpg","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3138965551,878422591&fm=11&gp=0.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2464434866,2601464021&fm=11&gp=0.jpg"],"title":"邻里互助协会","subTitle":"BM001杨燕：[谢谢]","time":"2018/8/25","dnd":true],
-//        ["imageUrls":["https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4277520205,1771218905&fm=26&gp=0.jpg"],"title":"鲜果汇品硕广场店","subTitle":"欢迎关注鲜果汇！ 线上商城盛大开业！ 新人立享50元无门槛优惠券！","time":"2018/8/22","dnd":true],
-//        ["imageUrls":["https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2537627520,3119182571&fm=26&gp=0.jpg"],"title":"蒋腾","subTitle":"好","time":"2018/8/22","dnd":false],
-//        ["imageUrls":["https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=12932806,3140043621&fm=26&gp=0.jpg"],"title":"老妈","subTitle":"那还行","time":"2018/8/21","dnd":false],
-//        ["imageUrls":["https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2312166789,1055678037&fm=26&gp=0.jpg"],"title":"张诗雨","subTitle":"这个不错","time":"2018/8/21","dnd":false],
-//        ["imageUrls":["https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1642807800,2195559724&fm=26&gp=0.jpg"],"title":"孙雨","subTitle":"【日清 合味道五香牛肉味杯面84g*12杯现价67.5元】","time":"2018/8/20","dnd":false],
-//        ["imageUrls":["https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1297737816,3811969463&fm=26&gp=0.jpg"],"title":"孙浩","subTitle":"好的，谢了","time":"2018/8/18","dnd":false]
     ]
     
     
@@ -48,10 +43,10 @@ class MessageViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.消息)
+        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.消息.rawValue)
         
         // 导航栏右侧加号
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: IconFont(code: IconFontType.添加.rawValue, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(addClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: IconFont(code: IconFontType.添加.rawValue, name:kIconFontName, fontSize: 20, color: UIColor.white).iconImage, style: .plain, target: self, action: #selector(addClick))
     
         // 注册Cell
         tableView.register(UINib(nibName: "MessageCell", bundle: nil), forCellReuseIdentifier: cell_messageCell)
@@ -72,7 +67,6 @@ class MessageViewController: UITableViewController {
         tableView.backgroundView = tableBackgroundView
         
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        
         
     }
 

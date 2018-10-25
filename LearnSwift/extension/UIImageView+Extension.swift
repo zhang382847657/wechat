@@ -8,20 +8,9 @@
 
 import Foundation
 import UIKit
+import WXTools
 
 extension UIImageView {
-    
-    
-    /// 设置占位图片
-    ///
-    /// - Parameter isFailed: 是否展示失败图片  默认否
-    func setPlaceHolderImage(isFailed:Bool = false) {
-        
-        self.backgroundColor = UIColor(hex: "#eeeeee")
-        self.image = isFailed ? IconFont(code: IconFontType.图片失效.rawValue, fontSize: 15.0, color: UIColor.white).iconImage : IconFont(code: IconFontType.图片.rawValue, fontSize: 15.0, color: UIColor.white).iconImage
-    }
-    
-    
     
     /// 根据网络图片的url获取网络图片的image跟data
     ///
@@ -29,36 +18,46 @@ extension UIImageView {
     ///   - url: 网络图片地址
     ///   - successCallBack: 成功回调
     ///   - failedCallBack: 失败回调
-    func setNetWrokUrl(imageUrl url:String?, success successCallBack:@escaping ((UIImage, Data)->Void) = {_,_  in}, failed failedCallBack:@escaping ((Error)->Void) = {_ in}){
+    func setNetWrokUrl(imageUrl url:String?, success successCallBack:((UIImage, Data)->Void)? = {_,_  in}, failed failedCallBack:((Error)->Void)? = {_ in}){
+        
+
+        //先展示占位图
+        self.backgroundColor = Colors.backgroundColor.coloree
+        setImageWith(placeHolderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage)
         
         guard let url = url else {
-            setPlaceHolderImage()
+            //如果图片地址为空，则展示失败的图片
+            setImageWith(placeHolderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage, isFailed: true)
             return
         }
         
-        setPlaceHolderImage()
+        //图片类型
         let pictureType:String = String(url.split(separator: ".").last ?? "jpg")
+        //图片加密后的名字
+        let imageFileName = "\(image_cache_file)/\(url.md5()).\(pictureType)"
         
-        if let cacheImageData:Data = FileOption.readFile(path: "\(FileOption.image_cache_file)/\(url.md5()).\(pictureType)") as Data?, let cacheDyanmicImage = UIImage(data: cacheImageData) {
-            
+        if let cacheImageData:Data = FileOption.readFile(path: imageFileName) as Data?, let cacheDyanmicImage = UIImage(data: cacheImageData) {
             self.image = cacheDyanmicImage
-            successCallBack(cacheDyanmicImage,cacheImageData)
+            successCallBack?(cacheDyanmicImage,cacheImageData)
             
         }else{
             
             NetWork.downloadImageToImageDictionary(url: url, success: { [weak self](image, data) in
                 
-                if  FileOption.writeFile(documentName: FileOption.image_cache_file, fileName: url.md5() + ".\(pictureType)", data: data as NSData) == true {
-                    self?.image = image
-                    successCallBack(image,data)
-                }else {
-                    self?.setPlaceHolderImage(isFailed: true)
-                    failedCallBack(FileOption.FileOptionError.writeFileFailed)
-                }
+                //磁盘中缓存该图片
+                let _ = FileOption.writeFile(documentName: image_cache_file, fileName: url.md5() + ".\(pictureType)", data: data as NSData)
+                //显示图片
+                self?.image = image
+                //返回成功的回调
+                successCallBack?(image,data)
+               
                 
             }) { [weak self](error) in
-                self?.setPlaceHolderImage(isFailed: true)
-                failedCallBack(error)
+                
+                //展示图片加载失败的图
+                self?.setImageWith(placeHolderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: UIColor.white).iconImage, isFailed: true)
+                //返回失败的回调
+                failedCallBack?(error)
             }
         }
         

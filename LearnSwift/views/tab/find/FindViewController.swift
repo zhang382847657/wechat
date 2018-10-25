@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class FindViewController: UITableViewController {
 
@@ -51,7 +52,7 @@ class FindViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.发现)
+        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.发现.rawValue)
         
         tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: cell_menuCell)
         
@@ -94,6 +95,9 @@ class FindViewController: UITableViewController {
         if indexPath.section == 0 {
             let friendCircleVC = WeixinViewController()
             self.navigationController?.pushViewController(friendCircleVC, animated: true)
+        }else{
+            let vc = SportsViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

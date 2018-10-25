@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class MyViewController: UITableViewController {
     
@@ -42,7 +43,7 @@ class MyViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.我)
+        self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.我.rawValue)
         
         tableView.register(UINib(nibName: "MyInfoCell", bundle: nil), forCellReuseIdentifier: cell_myInfoCell)
         tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: cell_menuCell)

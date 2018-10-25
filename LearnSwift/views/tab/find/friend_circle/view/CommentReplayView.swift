@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class CommentReplayView: UIView, UITextViewDelegate {
 
@@ -35,8 +36,8 @@ class CommentReplayView: UIView, UITextViewDelegate {
         textView.delegate = self
         
         // 表情/键盘切换样式
-        expressionBtn.setImage(IconFont.init(code: IconFontType.表情.rawValue, fontSize: 30, color: Colors.fontColor.font999).iconImage, for: .normal)
-        expressionBtn.setImage(IconFont.init(code: IconFontType.键盘.rawValue, fontSize: 30, color: Colors.fontColor.font999).iconImage, for: .selected)
+        expressionBtn.setImage(IconFont.init(code: IconFontType.表情.rawValue, name:kIconFontName, fontSize: 30, color: Colors.fontColor.font999).iconImage, for: .normal)
+        expressionBtn.setImage(IconFont.init(code: IconFontType.键盘.rawValue, name:kIconFontName, fontSize: 30, color: Colors.fontColor.font999).iconImage, for: .selected)
     }
     
     
