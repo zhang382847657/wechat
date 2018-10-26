@@ -1,20 +1,24 @@
 PODS:
   - WXCategory (0.0.2)
   - WXTools (0.0.3)
+  - WXUIComponent (0.0.2)
 
 DEPENDENCIES:
   - WXCategory (= 0.0.2)
   - WXTools (= 0.0.3)
+  - WXUIComponent (= 0.0.2)
 
 SPEC REPOS:
   https://github.com/zhang382847657/WXBaseKit.git:
     - WXCategory
     - WXTools
+    - WXUIComponent
 
 SPEC CHECKSUMS:
   WXCategory: bbf5e74a86910ea9c95b95436a13f7a0d669cb14
   WXTools: 66d350f8c862640000246d86e96b676b813fcbf0
+  WXUIComponent: a69c8a5ec6d9fe7778d1f5db998ba98f468a3e34
 
-PODFILE CHECKSUM: 3b7c9361929961d9478104fcab88593ccc0d7185
+PODFILE CHECKSUM: eddf21cbe02aabff1b7a10e1bfea6a92cdbba115
 
 COCOAPODS: 1.5.3

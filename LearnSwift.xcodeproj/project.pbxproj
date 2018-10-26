@@ -47,7 +47,6 @@
 		6347C8EF216B4EC400104AC8 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339CB992137DE2D007DF4E0 /* MyViewController.swift */; };
 		6347C8F0216B4EC400104AC8 /* CommentPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE9E521181D7D004203DD /* CommentPopoverController.swift */; };
 		6347C8F1216B4EC400104AC8 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E102C121118E580014F643 /* ImageViewer.swift */; };
-		6347C8F2216B4EC400104AC8 /* BaseRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB387215A3E1100CB8F01 /* BaseRefreshView.swift */; };
 		6347C8F3216B4EC400104AC8 /* WeixinHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339CF7D210A0F21003D9813 /* WeixinHeaderView.swift */; };
 		6347C8F7216B4EC400104AC8 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63449186213CC87100D9A9E7 /* UserDetailViewController.swift */; };
 		6347C8F8216B4EC400104AC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63315F6B20ECED6100A56999 /* ViewController.swift */; };
@@ -74,7 +73,6 @@
 		6347C911216B4EC400104AC8 /* NetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F557E821105C4800ED25E6 /* NetWork.swift */; };
 		6347C912216B4EC400104AC8 /* UserDetailPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315E99D213D393700F3ADC4 /* UserDetailPhotoCell.swift */; };
 		6347C913216B4EC400104AC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63315F6920ECED6100A56999 /* AppDelegate.swift */; };
-		6347C914216B4EC400104AC8 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB385215A3CB800CB8F01 /* BaseTableView.swift */; };
 		6347C915216B4EC400104AC8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6343D9A1213E515C005995E0 /* SettingViewController.swift */; };
 		6347C916216B4EC400104AC8 /* UserDetailHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63449189213CD01100D9A9E7 /* UserDetailHeaderCell.swift */; };
 		6347C917216B4EC400104AC8 /* FriendCircleRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630402F8214CA8BA005F0ADC /* FriendCircleRefreshView.swift */; };
@@ -87,8 +85,6 @@
 		6347C91F216B4EC400104AC8 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1B402160AC7E00A68126 /* ChooseLocationController.swift */; };
 		6347C920216B4EC400104AC8 /* GridImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F557E6211059DD00ED25E6 /* GridImageView.swift */; };
 		6347C921216B4EC400104AC8 /* ReplayTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FAEA07211A84B1004203DD /* ReplayTools.swift */; };
-		6347C922216B4EC400104AC8 /* BaseFooterLoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB389215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift */; };
-		6347C923216B4EC400104AC8 /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D06AD8214BB70E00069515 /* UIScrollView+Extension.swift */; };
 		6347C924216B4EC400104AC8 /* WXApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360A458215228DF008BC86B /* WXApi.swift */; };
 		6347C925216B4EC400104AC8 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E102C52111B9B60014F643 /* ImageViewController.swift */; };
 		6347C927216B4EC400104AC8 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FAE9FC21194962004203DD /* CommentView.swift */; };
@@ -138,9 +134,6 @@
 		6397FADF216F27A7005A57D9 /* ChoosePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397FADE216F27A7005A57D9 /* ChoosePictureView.swift */; };
 		6397FAE2216F38DB005A57D9 /* ChoosePictureViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397FAE0216F38DB005A57D9 /* ChoosePictureViewerController.swift */; };
 		6397FAE3216F38DB005A57D9 /* ChoosePictureViewerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6397FAE1216F38DB005A57D9 /* ChoosePictureViewerController.xib */; };
-		63ABB386215A3CB800CB8F01 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB385215A3CB800CB8F01 /* BaseTableView.swift */; };
-		63ABB388215A3E1100CB8F01 /* BaseRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB387215A3E1100CB8F01 /* BaseRefreshView.swift */; };
-		63ABB38A215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ABB389215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift */; };
 		63AE5237213A389900222257 /* ContactSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE5236213A389900222257 /* ContactSearchController.swift */; };
 		63AE5239213A3AD400222257 /* ContactSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE5238213A3AD400222257 /* ContactSearchBar.swift */; };
 		63AE523F213A744700222257 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE523E213A744700222257 /* MessageViewController.swift */; };
@@ -149,7 +142,6 @@
 		63B15BCD2105EAB0009DCABE /* WeixinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B15BCB2105EAB0009DCABE /* WeixinCell.swift */; };
 		63B15BCE2105EAB0009DCABE /* WeixinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B15BCC2105EAB0009DCABE /* WeixinCell.xib */; };
 		63CF1B412160AC7E00A68126 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1B402160AC7E00A68126 /* ChooseLocationController.swift */; };
-		63D06AD9214BB70E00069515 /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D06AD8214BB70E00069515 /* UIScrollView+Extension.swift */; };
 		63D0980020F1144300E099F7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D097FF20F1144300E099F7 /* RegisterViewController.swift */; };
 		63D0980220F1148F00E099F7 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D0980120F1148F00E099F7 /* RegisterViewController.xib */; };
 		63D5F22B21705281004AF84A /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D5F21021705281004AF84A /* TZImageCropManager.m */; };
@@ -294,9 +286,6 @@
 		6397FADE216F27A7005A57D9 /* ChoosePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePictureView.swift; sourceTree = "<group>"; };
 		6397FAE0216F38DB005A57D9 /* ChoosePictureViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePictureViewerController.swift; sourceTree = "<group>"; };
 		6397FAE1216F38DB005A57D9 /* ChoosePictureViewerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChoosePictureViewerController.xib; sourceTree = "<group>"; };
-		63ABB385215A3CB800CB8F01 /* BaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
-		63ABB387215A3E1100CB8F01 /* BaseRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRefreshView.swift; sourceTree = "<group>"; };
-		63ABB389215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFooterLoadMoreView.swift; sourceTree = "<group>"; };
 		63AE5236213A389900222257 /* ContactSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSearchController.swift; sourceTree = "<group>"; };
 		63AE5238213A3AD400222257 /* ContactSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSearchBar.swift; sourceTree = "<group>"; };
 		63AE523E213A744700222257 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -305,7 +294,6 @@
 		63B15BCB2105EAB0009DCABE /* WeixinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeixinCell.swift; sourceTree = "<group>"; };
 		63B15BCC2105EAB0009DCABE /* WeixinCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeixinCell.xib; sourceTree = "<group>"; };
 		63CF1B402160AC7E00A68126 /* ChooseLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationController.swift; sourceTree = "<group>"; };
-		63D06AD8214BB70E00069515 /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
 		63D097FF20F1144300E099F7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		63D0980120F1148F00E099F7 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		63D5F20E21705281004AF84A /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
@@ -623,9 +611,6 @@
 			isa = PBXGroup;
 			children = (
 				6339CB952137D44E007DF4E0 /* BaseNavigationController.swift */,
-				63ABB385215A3CB800CB8F01 /* BaseTableView.swift */,
-				63ABB387215A3E1100CB8F01 /* BaseRefreshView.swift */,
-				63ABB389215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift */,
 			);
 			path = base;
 			sourceTree = "<group>";
@@ -792,7 +777,6 @@
 			children = (
 				63F557DD21104A7F00ED25E6 /* StringExtension.swift */,
 				63F557EA2111488900ED25E6 /* UIImageView+Extension.swift */,
-				63D06AD8214BB70E00069515 /* UIScrollView+Extension.swift */,
 				63274E952179E2F600788D0A /* MapView+Extension.swift */,
 			);
 			path = extension;
@@ -1064,11 +1048,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LearnSwift_debug/Pods-LearnSwift_debug-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/WXCategory/WXCategory.framework",
 				"${BUILT_PRODUCTS_DIR}/WXTools/WXTools.framework",
+				"${BUILT_PRODUCTS_DIR}/WXUIComponent/WXUIComponent.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXCategory.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXUIComponent.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1091,7 +1077,6 @@
 				6339CB9A2137DE2D007DF4E0 /* MyViewController.swift in Sources */,
 				63FAE9E721181D7D004203DD /* CommentPopoverController.swift in Sources */,
 				63E102C221118E580014F643 /* ImageViewer.swift in Sources */,
-				63ABB388215A3E1100CB8F01 /* BaseRefreshView.swift in Sources */,
 				6339CF7E210A0F21003D9813 /* WeixinHeaderView.swift in Sources */,
 				63D5F23521705281004AF84A /* UIView+Layout.m in Sources */,
 				635703F0217D607D0044DB50 /* SportOverlayPathRenderer.swift in Sources */,
@@ -1132,7 +1117,6 @@
 				6315E99F213D393700F3ADC4 /* UserDetailPhotoCell.swift in Sources */,
 				63315F6A20ECED6100A56999 /* AppDelegate.swift in Sources */,
 				63D5F23D21705281004AF84A /* TZImageManager.m in Sources */,
-				63ABB386215A3CB800CB8F01 /* BaseTableView.swift in Sources */,
 				6343D9A2213E515C005995E0 /* SettingViewController.swift in Sources */,
 				6347C94D216B5E3900104AC8 /* LocationSearchController.swift in Sources */,
 				6344918B213CD01100D9A9E7 /* UserDetailHeaderCell.swift in Sources */,
@@ -1151,8 +1135,6 @@
 				6347C94F216B5EE900104AC8 /* LocationSearchResultViewController.swift in Sources */,
 				63D5F22F21705281004AF84A /* TZVideoPlayerController.m in Sources */,
 				63274E932179D00800788D0A /* SportsViewController.swift in Sources */,
-				63ABB38A215A3E2700CB8F01 /* BaseFooterLoadMoreView.swift in Sources */,
-				63D06AD9214BB70E00069515 /* UIScrollView+Extension.swift in Sources */,
 				6360A459215228DF008BC86B /* WXApi.swift in Sources */,
 				63E102C72111B9B60014F643 /* ImageViewController.swift in Sources */,
 				63D5F24521705281004AF84A /* TZLocationManager.m in Sources */,
@@ -1193,7 +1175,6 @@
 				6347C8F1216B4EC400104AC8 /* ImageViewer.swift in Sources */,
 				63D5F23621705281004AF84A /* UIView+Layout.m in Sources */,
 				63D5F23021705281004AF84A /* TZVideoPlayerController.m in Sources */,
-				6347C8F2216B4EC400104AC8 /* BaseRefreshView.swift in Sources */,
 				6347C8F3216B4EC400104AC8 /* WeixinHeaderView.swift in Sources */,
 				6347C8F7216B4EC400104AC8 /* UserDetailViewController.swift in Sources */,
 				6347C8F8216B4EC400104AC8 /* ViewController.swift in Sources */,
@@ -1231,7 +1212,6 @@
 				6347C911216B4EC400104AC8 /* NetWork.swift in Sources */,
 				6347C912216B4EC400104AC8 /* UserDetailPhotoCell.swift in Sources */,
 				6347C913216B4EC400104AC8 /* AppDelegate.swift in Sources */,
-				6347C914216B4EC400104AC8 /* BaseTableView.swift in Sources */,
 				6347C915216B4EC400104AC8 /* SettingViewController.swift in Sources */,
 				6347C916216B4EC400104AC8 /* UserDetailHeaderCell.swift in Sources */,
 				6347C917216B4EC400104AC8 /* FriendCircleRefreshView.swift in Sources */,
@@ -1246,8 +1226,6 @@
 				6347C91F216B4EC400104AC8 /* ChooseLocationController.swift in Sources */,
 				6347C920216B4EC400104AC8 /* GridImageView.swift in Sources */,
 				6347C921216B4EC400104AC8 /* ReplayTools.swift in Sources */,
-				6347C922216B4EC400104AC8 /* BaseFooterLoadMoreView.swift in Sources */,
-				6347C923216B4EC400104AC8 /* UIScrollView+Extension.swift in Sources */,
 				6347C924216B4EC400104AC8 /* WXApi.swift in Sources */,
 				63D5F24021705281004AF84A /* TZPhotoPickerController.m in Sources */,
 				6347C925216B4EC400104AC8 /* ImageViewController.swift in Sources */,

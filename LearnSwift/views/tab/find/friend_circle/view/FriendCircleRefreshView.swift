@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXUIComponent
 
 
 /// 朋友圈头部刷新视图

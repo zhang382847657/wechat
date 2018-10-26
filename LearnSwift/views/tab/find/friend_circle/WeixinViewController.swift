@@ -258,6 +258,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 全文/收起按钮点击回调
         cell.btnCallBack = { [weak self] (isSelect:Bool) -> Void in
             self?.showAll = isSelect
+            self?.rowHeightCache.removeValue(forKey: indexPath)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
@@ -302,6 +303,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             commentData.append(jsonDic)
                             dic["comment"] = commentData
                             self?.dataList[indexPath.row] = dic
+                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -335,6 +337,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             }
                             dic["comment"] = commentData
                             self?.dataList[indexPath.row] = dic
+                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -354,6 +357,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             commentData.append(jsonDic)
                             dic["comment"] = commentData
                             self?.dataList[indexPath.row] = dic
+                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CD3D7406E4D4F5DBE4B5FA2837932E8"
-               BlueprintName = "WXCategory"
+               BlueprintIdentifier = "49084000A826C78DDDC714A26EA18EF2"
+               BlueprintName = "WXUIComponent"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "WXCategory.framework">
+               BuildableName = "WXUIComponent.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

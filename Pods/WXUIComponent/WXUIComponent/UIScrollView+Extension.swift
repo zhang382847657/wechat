@@ -14,10 +14,10 @@ private var myContext = 0
 private var myRefreshViewKey = 100
 private var myLoadMoreViewKey = 101
 
-extension UIScrollView {
+public extension UIScrollView {
     
     /// 头部刷新视图
-    var refreshView: BaseRefreshView? {
+    public var refreshView: BaseRefreshView? {
         set {
             objc_setAssociatedObject(self, &myRefreshViewKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -27,7 +27,7 @@ extension UIScrollView {
     }
     
     /// 尾部加载更多视图
-    var loadMoreView: BaseFooterLoadMoreView? {
+    public var loadMoreView: BaseFooterLoadMoreView? {
         set {
             objc_setAssociatedObject(self, &myLoadMoreViewKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -43,7 +43,7 @@ extension UIScrollView {
     /// - Parameters:
     ///   - actionTarget: 事件实现目标
     ///   - action: 事件
-    func addHeaderRefresh(headerView:BaseRefreshView = BaseRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: 50)), actionTarget:AnyObject, action:Selector){
+    public func addHeaderRefresh(headerView:BaseRefreshView = BaseRefreshView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)), actionTarget:AnyObject, action:Selector){
         
     
         self.refreshView = headerView
@@ -55,7 +55,7 @@ extension UIScrollView {
     }
     
     
-    func addFooterLoadMore(footerView:BaseFooterLoadMoreView = BaseFooterLoadMoreView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: 45)),actionTarget:AnyObject, action:Selector){
+    public func addFooterLoadMore(footerView:BaseFooterLoadMoreView = BaseFooterLoadMoreView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45)),actionTarget:AnyObject, action:Selector){
         self.loadMoreView = footerView
         self.loadMoreView?.action = action
         self.loadMoreView?.actionTarget = actionTarget
@@ -67,27 +67,27 @@ extension UIScrollView {
     }
     
     /// 开始下拉刷新
-    func beginRefresh(){
+    public func beginRefresh(){
         self.refreshView?.beginRefresh()
     }
     
     /// 结束下拉刷新
-    func endRefresh(){
+    public func endRefresh(){
         self.refreshView?.endRefresh()
     }
     
     /// 结束上拉加载更多
-    func endLoadMore(){
+    public func endLoadMore(){
         self.loadMoreView?.endLoading()
     }
     
     /// 结束上拉加载更多并已经是最后一页
-    func endLoadMoreWithNoData(){
+    public func endLoadMoreWithNoData(){
         self.loadMoreView?.endLoadingWithNoData()
     }
     
     /// 移除刷新时候的监听 在子类的deinit方法中调用
-    func removeRefreshObserver(){
+    public func removeRefreshObserver(){
         self.removeObserver(self, forKeyPath: "contentOffset", context: &myContext)
     }
     

@@ -27,7 +27,7 @@ import UIKit
 
 
 /// BaseTableView代理
-protocol BaseTableViewDelegate {
+public protocol BaseTableViewDelegate {
     
     /// 加载网络数据
     ///
@@ -35,25 +35,25 @@ protocol BaseTableViewDelegate {
     func loadData(pageNumber:Int)
 }
 
-class BaseTableView: UITableView {
+open class BaseTableView: UITableView {
     
     /// 代理
-    public var baseDelegate:BaseTableViewDelegate?
+    open var baseDelegate:BaseTableViewDelegate?
     
     /// 总数据源
-    public final var dataList:Array<JSON> = []
+    final var dataList:Array<AnyObject> = []
     
     /// 当前的数据
-    public var data:Array<JSON>? {
+    open var data:Array<AnyObject>? {
         didSet{
             updateUI()
         }
     }
     /// 一页显示条数
-    public var pageSize:Int = 20
+    open var pageSize:Int = 20
     
     /// 是否需要头部刷新
-    public var needRefreshHeaderView:Bool = true {
+    open var needRefreshHeaderView:Bool = true {
         didSet {
             if needRefreshHeaderView {
                 self.addHeaderRefresh(actionTarget: self, action: #selector(refresh))
@@ -62,7 +62,7 @@ class BaseTableView: UITableView {
     }
     
     /// 是否需要尾部加载更多
-    public var needLoadMoreFooterView:Bool = true {
+    open var needLoadMoreFooterView:Bool = true {
         didSet {
             if needLoadMoreFooterView {
                 self.addFooterLoadMore(actionTarget: self, action: #selector(loadMore))
@@ -71,7 +71,7 @@ class BaseTableView: UITableView {
     }
     
     /// 自定义头部刷新组件
-    public var refreshHeaderView:BaseRefreshView? {
+    open var refreshHeaderView:BaseRefreshView? {
         didSet{
             if refreshHeaderView != nil {
                 self.addHeaderRefresh(headerView: refreshHeaderView!, actionTarget: self, action: #selector(refresh))
@@ -80,7 +80,7 @@ class BaseTableView: UITableView {
     }
     
     /// 自定义尾部加载更多组件
-    public var loadMoreFooterView:BaseFooterLoadMoreView? {
+    open var loadMoreFooterView:BaseFooterLoadMoreView? {
         didSet{
             if loadMoreFooterView != nil {
                 self.addFooterLoadMore(footerView: loadMoreFooterView!, actionTarget: self, action: #selector(loadMore))
@@ -93,21 +93,21 @@ class BaseTableView: UITableView {
    
     
     /// 静默刷新，不会触发头部刷新动画
-    public func silentRefresh(){
+    open func silentRefresh(){
         self.isRefresh = true
         self.loadData(pageNumber: 0)
     }
     
     
     /// 支持代码创建
-    override init(frame: CGRect, style: UITableViewStyle) {
+    public override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         configTable()
     }
     
     
     /// 支持Xib创建
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configTable()
     }
@@ -118,7 +118,7 @@ class BaseTableView: UITableView {
     private func configTable(){
         
         self.separatorStyle = .singleLine
-        self.separatorColor = Colors.backgroundColor.coloree
+        self.separatorColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0)
         self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
         self.backgroundColor = UIColor.clear
         self.keyboardDismissMode = .onDrag

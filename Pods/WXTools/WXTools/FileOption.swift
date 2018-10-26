@@ -48,7 +48,7 @@ public class FileOption: NSObject {
         do{
             return try NSData(contentsOfFile: path, options: NSData.ReadingOptions.uncached)
         }catch{
-            assertionFailure("读取文件失败")
+            print("文件读取失败")
             return nil
         }
         

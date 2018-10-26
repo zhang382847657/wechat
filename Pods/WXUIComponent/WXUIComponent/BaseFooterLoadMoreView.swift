@@ -16,7 +16,7 @@ import UIKit
 /// - begin_loadMore: 将要上拉加载
 /// - loading: 加载中
 /// - noData: 没有更多数据
-enum LoadMore_State:Int {
+public enum LoadMore_State:Int {
     case noraml
     case begin_loadMore
     case loading
@@ -25,18 +25,18 @@ enum LoadMore_State:Int {
 
 
 /// 上拉加载更多的基类
-class BaseFooterLoadMoreView: UIView {
+open class BaseFooterLoadMoreView: UIView {
     
   
     /// 事件实现目标
-    public var actionTarget:AnyObject?
+    open var actionTarget:AnyObject?
     /// 事件
-    public var action:Selector?
+    open var action:Selector?
     /// 最小上拉加载拖拽距离
-    public var minDragDistanse:CGFloat = 40
+    open var minDragDistanse:CGFloat = 40
     
     /// 刷新状态
-    public var refreshState:LoadMore_State = .noraml {
+    open var refreshState:LoadMore_State = .noraml {
         
         didSet{
             switch refreshState {
@@ -53,10 +53,10 @@ class BaseFooterLoadMoreView: UIView {
     }
     
     
-    public lazy var loadingLabel:UILabel = {
+    open lazy var loadingLabel:UILabel = {
         let l = UILabel()
         l.text = "上拉加载更多"
-        l.textColor = Colors.fontColor.font999
+        l.textColor = UIColor.gray
         l.font = UIFont.systemFont(ofSize: 14.0)
         l.textAlignment = .center
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -64,20 +64,20 @@ class BaseFooterLoadMoreView: UIView {
     }()
     
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     
     /// 布局UI
-    public func setupUI(){
+    open func setupUI(){
         self.addSubview(loadingLabel)
         NSLayoutConstraint.activate([
             loadingLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
@@ -90,18 +90,18 @@ class BaseFooterLoadMoreView: UIView {
     
     
     /// 开始上拉加载
-    public func beginLoading(){
+    open func beginLoading(){
         self.refreshState = .loading
     }
     
     
     /// 结束上拉加载
-    public func endLoading(){
+    open func endLoading(){
         self.refreshState = .noraml
     }
     
     /// 结束上拉加载并且已经是最后一页
-    public func endLoadingWithNoData(){
+    open func endLoadingWithNoData(){
         self.refreshState = .noData
     }
     
@@ -109,7 +109,7 @@ class BaseFooterLoadMoreView: UIView {
     /// 滚动Y轴变化的时候
     ///
     /// - Parameter y: y坐标
-    public func adjustY(y:CGFloat){
+    open func adjustY(y:CGFloat){
         
         if refreshState == .loading || refreshState == .noData || y <= 0 {
             return
@@ -135,19 +135,19 @@ class BaseFooterLoadMoreView: UIView {
     
     
     /// 开始上拉加载
-    public func doNormalLoading(){
+    open func doNormalLoading(){
         loadingLabel.text = "上拉加载更多"
     }
     
     
     /// 将要上拉加载更多
-    public func doBeginLoadMore(){
+    open func doBeginLoadMore(){
         loadingLabel.text = "松开立即加载"
     }
     
     
     /// 加载中
-    public func doLoading(){
+    open func doLoading(){
         guard let actionTarget = actionTarget, let action = action else {
             return
         }
@@ -157,7 +157,7 @@ class BaseFooterLoadMoreView: UIView {
         loadingLabel.text = "加载中(≧∇≦)ﾉ"
     }
     
-    public func doNoData(){
+    open func doNoData(){
         loadingLabel.text = "- 别拉了，我是有底线的人 -"
     }
     

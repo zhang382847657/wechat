@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/WXCategory" "${PODS_CONFIGURATION_BUILD_DIR}/WXTools"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/WXCategory" "${PODS_CONFIGURATION_BUILD_DIR}/WXTools" "${PODS_CONFIGURATION_BUILD_DIR}/WXUIComponent"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/WXCategory/WXCategory.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/WXTools/WXTools.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "WXCategory" -framework "WXTools"
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/WXCategory/WXCategory.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/WXTools/WXTools.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/WXUIComponent/WXUIComponent.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "WXCategory" -framework "WXTools" -framework "WXUIComponent"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

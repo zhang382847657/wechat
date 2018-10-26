@@ -14,6 +14,7 @@ target 'LearnSwift_debug' do
 
   pod 'WXCategory' , '0.0.2'
   pod 'WXTools' , '0.0.3'
+  pod 'WXUIComponent', '0.0.2'
 	
 
 end

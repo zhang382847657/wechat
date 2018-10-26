@@ -15,7 +15,7 @@ import UIKit
 /// - noraml: 开始下拉刷新
 /// - begin_refresh: 将要刷新
 /// - refreshing: 刷新中
-enum Refresh_State:Int {
+public enum Refresh_State:Int {
     case noraml
     case begin_refresh
     case refreshing
@@ -23,17 +23,17 @@ enum Refresh_State:Int {
 
 
 /// 下拉刷新的基类
-class BaseRefreshView: UIView {
+open class BaseRefreshView: UIView {
     
     /// 事件实现目标
-    public var actionTarget:AnyObject?
+    open var actionTarget:AnyObject?
     /// 事件
-    public var action:Selector?
+    open var action:Selector?
     /// 最小刷新拖拽距离
-    public var minDragDistanse:CGFloat = 100
+    open var minDragDistanse:CGFloat = 100
    
     /// 刷新状态
-    public var refreshState:Refresh_State = .noraml {
+    open var refreshState:Refresh_State = .noraml {
         
         didSet{
             switch refreshState {
@@ -48,10 +48,10 @@ class BaseRefreshView: UIView {
     }
     
     /// 下拉刷新Label
-    public lazy var refreshLabel:UILabel = {
+    open lazy var refreshLabel:UILabel = {
         let l = UILabel()
         l.text = "下拉刷新"
-        l.textColor = Colors.fontColor.font999
+        l.textColor = UIColor.gray
         l.font = UIFont.systemFont(ofSize: 14.0)
         l.translatesAutoresizingMaskIntoConstraints = false
         l.textAlignment = .center
@@ -59,18 +59,18 @@ class BaseRefreshView: UIView {
     }()
     
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setupUI(){
+    open func setupUI(){
         self.addSubview(refreshLabel)
         NSLayoutConstraint.activate([
             refreshLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
@@ -82,13 +82,13 @@ class BaseRefreshView: UIView {
     
     
     /// 开始刷新
-    public func beginRefresh(){
+    open func beginRefresh(){
         self.refreshState = .refreshing
     }
     
     
     /// 结束刷新
-    public func endRefresh(){
+    open func endRefresh(){
         isAdjustToNormal(normal: true)
         self.refreshState = .noraml
     }
@@ -97,7 +97,7 @@ class BaseRefreshView: UIView {
     /// 滚动Y轴变化的时候
     ///
     /// - Parameter y: y坐标
-    public func adjustY(y:CGFloat){
+    open func adjustY(y:CGFloat){
         
         let parentView:UIScrollView = self.superview! as! UIScrollView
         
@@ -122,21 +122,21 @@ class BaseRefreshView: UIView {
     
     
     /// 开始下拉
-    public func doNormalRefresh(){
+    open func doNormalRefresh(){
        
         refreshLabel.text = "下拉刷新"
     }
     
     
     /// 将要刷新的时候
-    public func doBeginRefresh(){
+    open func doBeginRefresh(){
         
         refreshLabel.text = "松开立即刷新"
     }
     
     
     /// 正在刷新
-    public func doRefreshing(){
+    open func doRefreshing(){
         guard let actionTarget = actionTarget, let action = action else {
             return
         }
@@ -155,7 +155,7 @@ class BaseRefreshView: UIView {
     /// 自动调整
     ///
     /// - Parameter normal: 是否开始下拉刷新
-    public func isAdjustToNormal(normal:Bool){
+    open func isAdjustToNormal(normal:Bool){
         let parentView:UIScrollView = self.superview! as! UIScrollView
         
         var y:CGFloat = 0
