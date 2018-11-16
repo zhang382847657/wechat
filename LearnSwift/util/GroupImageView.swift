@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import WXTools
+import WXNetWork
 
 /// 可以显示群头像的UIImageView  也可以显示一张图
 class GroupImageView: UIImageView {
@@ -14,7 +16,7 @@ class GroupImageView: UIImageView {
     /// 图片链接
     var imageUrls:Array<String> = [] {
         didSet{
-            layoutIfNeeded()
+            setupImage()
         }
     }
     
@@ -22,7 +24,7 @@ class GroupImageView: UIImageView {
     private let space:CGFloat = 2.0
     /// 图片的位置信息
     private var imageReacts:Array<CGRect> = []
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -32,8 +34,7 @@ class GroupImageView: UIImageView {
     }
     
     
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
+    private func setupImage() {
         
         // 最终所有的图片的资源
         var images:Array<UIImage> = []
@@ -51,21 +52,24 @@ class GroupImageView: UIImageView {
                 
                 let sema = DispatchSemaphore(value: 0)
                 
-        
-               
                 
-                weakSelf?.setNetWrokUrl(imageUrl: url, success: { (image, _) in
+                weakSelf?.setImage(withUrl: url, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image, data) in
+                    
                     weakSelf?.image = nil
                     images.append(image)
                     //信号量+1这时就可以触发这个任务结束了
                     sema.signal()
+                    
                 }, failed: { (error) in
+                    
                     //网络调用失败也需要+1，否则会永远阻塞了
                     weakSelf?.image = nil
                     images.append(UIImage(named: "failedHolder")!)
                     sema.signal()
+                    
                 })
-
+                
+                
                 //异步调用返回前，就会一直阻塞在这
                 sema.wait()
             }
@@ -78,8 +82,9 @@ class GroupImageView: UIImageView {
         })
         
     }
+
     
-    
+
     private func drawImages(images:Array<UIImage>){
         // 计算图片的位置  不同数量的图片，位置排列也不一样
         switch images.count {
@@ -181,3 +186,4 @@ class GroupImageView: UIImageView {
     }
     
 }
+

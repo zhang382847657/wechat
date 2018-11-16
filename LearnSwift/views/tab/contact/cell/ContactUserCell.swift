@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class ContactUserCell: UITableViewCell {
 
@@ -37,7 +38,8 @@ class ContactUserCell: UITableViewCell {
         let name = data["name"] as! String
         let remarkName = data["remarkName"] as? String
         
-        headerImageView.setNetWrokUrl(imageUrl: imageUrl)
+        headerImageView.setImage(withUrl: imageUrl, placeholderImage:  IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage:  IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
+        
         nameLabel.text = remarkName != nil ? remarkName : name
     }
     

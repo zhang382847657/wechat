@@ -127,7 +127,7 @@ open class BaseFooterLoadMoreView: UIView {
                 refreshState = .begin_loadMore
             }
         }else {
-            if finalY >= minDragDistanse {
+            if finalY >= minDragDistanse && refreshState != .loading {
                 refreshState = .loading
             }
         }

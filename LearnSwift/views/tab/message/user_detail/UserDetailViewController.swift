@@ -8,14 +8,25 @@
 
 import UIKit
 import WXTools
+import CTNetworkingSwift
 
 class UserDetailViewController: UITableViewController {
     
     /// 数据源
     private var dataSource:[[[String:Any]]] = []
-    
     /// 微信号
-    private var wxId:String!
+    private var wxId:String = ""
+    
+    /// 查询用户详情的接口管理器
+    private lazy var wxUserDetailApiManager:WXUserDetailApiManager = {
+       let m = WXUserDetailApiManager.init()
+        m.delegate = self
+        m.paramSource = self
+        m.validator = self
+        return m
+    }()
+    /// 查询哦用户详情的数据过滤器
+    private var wxUserDetailReform = WXUserDetailReform.init()
     
     private let cell_userDetailHeaderCell = "UserDetailHeaderCell"
     private let cell_userDetailDefaultCell = "UserDetailDefaultCell"
@@ -54,38 +65,8 @@ class UserDetailViewController: UITableViewController {
         tableView.register( UINib(nibName: "UserDetailDefaultCell", bundle: nil), forCellReuseIdentifier: cell_userDetailDefaultCell)
         tableView.register(UINib(nibName: "UserDetailPhotoCell", bundle: nil), forCellReuseIdentifier: cell_userDetailPhotoCell)
         
-        
-        WXApi.queryUserInfo(wxId: wxId, success: { (json) in
-            
-            let headPicture = json["headPicture"].string
-            let name = json["name"].stringValue
-            let sex = json["sex"].intValue
-            let phone = json["phone"].stringValue
-            let province = json["province"].string ?? ""
-            let city = json["city"].string ?? ""
-            let district = json["district"].string ?? ""
-            let remarkName = json["remarkName"].string
-            
-            let address = "\(province) \(city) \(district)"
-            
-            self.dataSource = [
-                [
-                    ["imageUrl":headPicture,"name":name,"weixinNumber":self.wxId,"remarkName":remarkName,"sex":sex]
-                ],
-                [
-                    ["title":"设置备注和标签","showArrow":true],
-                    ["title":"电话号码","subTitle":phone,"showArrow":false]
-                ],
-                [
-                    ["title":"地区","subTitle":address,"showArrow":false],
-                    ["title":"个人相册","imageUrls":["https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1555162835,2120770057&fm=26&gp=0.jpg","https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3972446805,2469332184&fm=26&gp=0.jpg","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1265907631,191003867&fm=26&gp=0.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3222719360,565415155&fm=27&gp=0.jpg"],"showArrow":true],
-                    ["title":"更多","showArrow":true]
-                ]
-            ]
-            
-            self.tableView.reloadData()
-            
-        }, failed: nil)
+        //调用接口查询用户信息
+        wxUserDetailApiManager.loadData()
 
     }
 
@@ -97,17 +78,22 @@ class UserDetailViewController: UITableViewController {
     @objc private func moreClick(){
         
     }
+    
 
-    // MARK: - Table view data source
 
+}
+
+//MARK: UITableView - DataSource
+extension UserDetailViewController {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource[section].count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -126,11 +112,46 @@ class UserDetailViewController: UITableViewController {
         }
         
     }
-    
+}
+
+//MARK: UITableView - Delegate
+extension UserDetailViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
 
+//MARK: 接口成功/失败
+extension UserDetailViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
+    func requestDidSuccess(_ apiManager: CTNetworkingBaseAPIManager) {
+        
+        dataSource = apiManager.fetch(reformer: wxUserDetailReform) as! [[[String : Any]]]
+        tableView.reloadData()
+        
+    }
+    func requestDidFailed(_ apiManager: CTNetworkingBaseAPIManager) {
+        
+    }
+}
 
+//MARK:  接口参数设置
+extension UserDetailViewController : CTNetworkingBaseAPIManagerParamSource {
+    func params(for apiManager:CTNetworkingBaseAPIManager) -> ParamsType? {
+        return ["wxId":wxId]
+    }
+}
+
+//MARK: 接口过滤
+extension UserDetailViewController : WXBaseAPIManagerValidator {
+    
+    func isCorrect(manager:CTNetworkingBaseAPIManager, params:ParamsType?) -> CTNetworkingErrorType.Params {
+        if params?.keys.contains("wxId") == false {
+            return CTNetworkingErrorType.Params.missingParams
+        }
+        if params!["wxId"] as! String == "" {
+            return CTNetworkingErrorType.Params.missingParams
+        }
+        return CTNetworkingErrorType.Params.correct
+    }
 }

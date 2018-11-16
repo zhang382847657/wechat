@@ -8,27 +8,7 @@
 
 import UIKit
 import WXCategory
-
-//extension Array {
-//
-//
-//    func my_filter(_filter:((Element)->Bool)) -> Array{
-//
-//        var finalArray:[Element] = []
-//
-//        for value in self {
-//
-//            if _filter(value) == true {
-//                finalArray.append(value)
-//            }
-//
-//        }
-//
-//        return finalArray
-//
-//    }
-//
-//}
+import WXTools
 
 class WeixinCell: UITableViewCell {
     
@@ -68,7 +48,7 @@ class WeixinCell: UITableViewCell {
         super.awakeFromNib()
         
         // 设置头像圆角
-        headImageView.setCornerRadio(borderColor: UIColor(hex: "#eeeeee"), borderWidth: 1)
+        headImageView.setCornerRadio(radio: headImageView.bounds.height / 2.0, borderColor: UIColor(hex: "#eeeeee"), borderWidth: 1)
     
         name.text = ""
         subTitle.text = ""
@@ -114,7 +94,7 @@ class WeixinCell: UITableViewCell {
         name.text = nameStr
         timeLable.text = time?.stringConvertDate()?.dateConvertFriendCircleType()
         subTitle.text = subTitleStr
-        headImageView.setNetWrokUrl(imageUrl: headerImageUrl)
+        headImageView.setImage(withUrl: headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         locationLabel.text = finalLocationStr
        
        

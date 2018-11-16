@@ -1,24 +1,50 @@
 PODS:
+  - Alamofire (4.7.3)
+  - AlamofireImage (3.4.1):
+    - Alamofire (~> 4.7)
+  - CTMediator (25)
+  - CTNetworkingSwift (13):
+    - Alamofire
+    - CTMediator
+    - SwiftyJSON
+  - SwiftyJSON (4.2.0)
   - WXCategory (0.0.2)
+  - WXNetWork (0.0.1):
+    - AlamofireImage (~> 3.4)
+    - CTNetworkingSwift
   - WXTools (0.0.3)
   - WXUIComponent (0.0.2)
 
 DEPENDENCIES:
   - WXCategory (= 0.0.2)
+  - WXNetWork
   - WXTools (= 0.0.3)
   - WXUIComponent (= 0.0.2)
 
 SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - CTMediator
+    - CTNetworkingSwift
+    - SwiftyJSON
   https://github.com/zhang382847657/WXBaseKit.git:
     - WXCategory
+    - WXNetWork
     - WXTools
     - WXUIComponent
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
+  CTMediator: 830c1fc204b3a6abf2a059510c7380f56343da0f
+  CTNetworkingSwift: 72315a1bd0058e3448daaad7bafe34a8ec957852
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   WXCategory: bbf5e74a86910ea9c95b95436a13f7a0d669cb14
+  WXNetWork: a0fdf887eab347d75de2998f667d82554ad9dd99
   WXTools: 66d350f8c862640000246d86e96b676b813fcbf0
   WXUIComponent: a69c8a5ec6d9fe7778d1f5db998ba98f468a3e34
 
-PODFILE CHECKSUM: eddf21cbe02aabff1b7a10e1bfea6a92cdbba115
+PODFILE CHECKSUM: 8ca88183b5f77bdd0502ea75623cfbf033c2bcaf
 
 COCOAPODS: 1.5.3

@@ -1,0 +1,6 @@
+framework module CTNetworkingSwift {
+  umbrella header "CTNetworkingSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

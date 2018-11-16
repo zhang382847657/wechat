@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class NetWork: NSObject {
     
@@ -253,47 +254,6 @@ class NetWork: NSObject {
         
         task.resume()
         
-    }
-    
-    
-    /// 加载网络图片
-    ///
-    /// - Parameters:
-    ///   - url: 图片地址
-    ///   - success: 成功回调
-    ///   - failed: 失败回调
-    public class func downloadImageToImageDictionary(url: String, success:@escaping ((UIImage, Data)->Void), failed:((Error)->Void)? = nil){
-        
-        if url.hasPrefix("http://") && (url.hasSuffix(".png")||url.hasSuffix(".jpg")||url.hasSuffix(".PNG")||url.hasSuffix(".JPG")||url.hasSuffix(".jpeg")||url.hasSuffix(".JPEG")) == false {
-            if let failed = failed {
-                failed(NetWorkError.ImageUrlFormat)
-            }
-            return
-        }
-       
-        
-        URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-            
-            guard let data = data, error == nil else {
-                if let failed = failed {
-                    failed(error!)
-                }
-                return
-            }
-            
-            DispatchQueue.main.async() { () -> Void in
-                
-                if let image = UIImage(data: data) {
-                     success(image,data)
-                }else{
-                    if let failed = failed {
-                        failed(NetWorkError.ImageCannotToData)
-                    }
-                }
-               
-            }
-            
-            }.resume()
     }
 
 }

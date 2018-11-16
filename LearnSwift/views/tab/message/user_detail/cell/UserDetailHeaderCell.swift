@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class UserDetailHeaderCell: UITableViewCell {
 
@@ -41,13 +42,13 @@ class UserDetailHeaderCell: UITableViewCell {
     
     
     private func updateUI(){
-        let imageUrl = data["imageUrl"] as? String
-        let name = data["name"] as! String
-        let weixinNumber = data["weixinNumber"] as! String
-        let sex:Int = data["sex"] as? Int ?? 0 //性别 0女  1男 2未知
-        let remarkName = data["remarkName"] as? String
+        let imageUrl = data[kWXUserDetailImageUrl] as? String
+        let name = data[kWXUserDetailName] as! String
+        let weixinNumber = data[kWXUserDetailWeixinNumber] as! String
+        let sex:Int = data[kWXUserDetailSex] as? Int ?? 0 //性别 0女  1男 2未知
+        let remarkName = data[kWXUserDetailRemarkName] as? String
         
-        headerImageView.setNetWrokUrl(imageUrl: imageUrl)
+        headerImageView.setImage(withUrl: imageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         nameLabel.text = remarkName != nil ? remarkName : name
         weixinNumberLabel.text = "微信号：\(weixinNumber)"
         nickNameLabel.text = remarkName == nil ? nil : "昵称：\(name)"

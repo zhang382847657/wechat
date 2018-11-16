@@ -8,6 +8,7 @@
 
 import UIKit
 import WXTools
+import CTNetworkingSwift
 
 /// 朋友圈
 class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
@@ -17,32 +18,40 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     static let notificationName_refresh = "WeixinViewController_refresh"
     
+    
+    /// 联系人ApiManager
+    private lazy var wxFriendCircleApiManager:WXFriendCircleApiManager = {
+        let m = WXFriendCircleApiManager.init()
+        m.delegate = self
+        return m
+    }()
+    
+    private lazy var wxFriendCircleReform:WXFriendCircleReform = {
+        let r = WXFriendCircleReform()
+        return r
+    }()
+    
     private var wxCell:WeixinCell!
     
     /// 动态数据
-    private var dataList:[[String:Any]] = [] {
-        didSet{
-            tableView.reloadData()
-        }
-    }
-    /// 一页显示条数
-    private let pageSize:Int = 10
-    /// 页码
-    private var pageNum:Int = 0
+    private var dataList:[[String:Any]] = []
     
     /// 缓存行高
     private var rowHeightCache:[IndexPath:CGFloat] = [:]
     
     /// CellID
     private let weixinIdentifier:String = "weixinCell"
+    
     /// 头部视图
     private var headerView:UIView!
+    
     /// 记录某一行全文是否展开
     private var showAll:Bool?
+    
     /// 导航栏右侧相机按钮
     private lazy var cameraImageView:UIImageView = {
-        // 导航栏相机按钮
         
+        // 导航栏相机按钮
         let cameraImageView = UIImageView(image: IconFont(code: IconFontType.相机.rawValue, name:kIconFontName, fontSize: 20.0, color: UIColor.white).iconImage)
         cameraImageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         cameraImageView.isUserInteractionEnabled = true
@@ -85,7 +94,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         tableView.estimatedRowHeight = 220
         
         // 添加头部刷新
-        tableView.addHeaderRefresh(headerView: FriendCircleRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: UIApplication.shared.statusBarFrame.height + 44 + 20 + 30)), actionTarget: self, action: #selector(refresh))
+        tableView.addHeaderRefresh(headerView: FriendCircleRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: UIApplication.shared.statusBarFrame.height + navigationController!.navigationBar.frame.height + 20 + 30)), actionTarget: self, action: #selector(refresh))
         // 添加尾部加载更多
         tableView.addFooterLoadMore(actionTarget: self, action: #selector(loadMore))
         
@@ -138,53 +147,16 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     @objc private func cameraClick() {
         
     }
-    
-    /// 加载数据
-    private func loadData(isRefresh:Bool = true){
-        
-        if isRefresh {
-            pageNum = 0
-        }else {
-            pageNum += 1
-        }
-        
-        WXApi.dynamicList(pageNum: pageNum, pageSize: pageSize, success: { [weak self](json) in
-            
-            if isRefresh {
-                self?.dataList = json["dataList"].arrayObject as? [[String : Any]] ?? []
-                self?.tableView.endRefresh()
-                if self?.dataList.count == json["totalCount"].intValue {
-                    self?.tableView.endLoadMoreWithNoData()
-                }
-            }else {
-                self?.dataList += json["dataList"].arrayObject as? [[String : Any]] ?? []
-                if self?.dataList.count == json["totalCount"].intValue {
-                    self?.tableView.endLoadMoreWithNoData()
-                }else {
-                    self?.tableView.endLoadMore()
-                }
-            }
-            
-        }) { [weak self](error) in
-            
-            self?.tableView.endRefresh()
-            self?.tableView.endLoadMore()
-            
-            if var pn = self?.pageNum, pn > 0 {
-                pn -= 1
-            }
-        }
-        
-    }
+
     
     /// 刷新操作
     @objc private func refresh(){
-        loadData(isRefresh: true)
+        wxFriendCircleApiManager.loadData()
     }
     
     /// 上拉加载更多
     @objc private func loadMore(){
-        loadData(isRefresh: false)
+        wxFriendCircleApiManager.loadNextPage()
     }
     
     
@@ -431,3 +403,34 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
 
 
 }
+
+extension WeixinViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
+    func requestDidSuccess(_ apiManager: CTNetworkingBaseAPIManager) {
+        
+        guard let currentDataList = apiManager.fetch(reformer: wxFriendCircleReform) as? [[String : Any]] else {
+            return
+        }
+        
+        if wxFriendCircleApiManager.isFirstPage {
+            tableView.endRefresh()
+            dataList = []
+            wxFriendCircleApiManager.isFirstPage = false
+        }else{
+            if wxFriendCircleApiManager.isLastPage {
+                tableView.endLoadMoreWithNoData()
+            }else{
+                tableView.endLoadMore()
+            }
+        }
+        
+        dataList += currentDataList
+        tableView.reloadData()
+    }
+    
+    func requestDidFailed(_ apiManager: CTNetworkingBaseAPIManager) {
+        tableView.endRefresh()
+        tableView.endLoadMore()
+    }
+}
+
+

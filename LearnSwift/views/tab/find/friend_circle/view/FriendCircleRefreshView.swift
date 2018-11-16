@@ -46,21 +46,11 @@ class FriendCircleRefreshView: BaseRefreshView {
     /// 刷新状态
     override var refreshState: Refresh_State {
         didSet{
-            
             if refreshState == oldValue {
                 if oldValue == .begin_refresh {
                     dragTransAnimation()
                 }
                 return
-            }
-            
-            switch refreshState {
-            case .noraml:
-                doNormalRefresh()
-            case .begin_refresh:
-                doBeginRefresh()
-            case .refreshing:
-                doRefreshing()
             }
         }
     }
@@ -131,7 +121,7 @@ class FriendCircleRefreshView: BaseRefreshView {
                 refreshState = .begin_refresh
             }
         }else {
-            if y >= minDragDistanse {
+            if y >= minDragDistanse && refreshState != .refreshing {
                 refreshState = .refreshing
             }else{
                 circleImageView.layer.removeAnimation(forKey: "dragTransAnimation")
@@ -176,8 +166,8 @@ class FriendCircleRefreshView: BaseRefreshView {
     override func doRefreshing(){
         
         super.doRefreshing()
-        
         transLayer.add(rotationAnim, forKey: "circleImageViewRotation")
+        
     }
     
     

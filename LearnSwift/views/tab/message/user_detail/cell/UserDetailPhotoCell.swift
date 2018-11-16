@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class UserDetailPhotoCell: UITableViewCell {
     
@@ -37,22 +38,22 @@ class UserDetailPhotoCell: UITableViewCell {
     }
     
     private func updateUI(){
-        let title = data["title"] as! String
-        let imageUrls = data["imageUrls"] as? Array<String> ?? []
+        let title = data[kWXUserDetailTitle] as! String
+        let imageUrls = data[kWXUserDetailImageUrls] as? Array<String> ?? []
         
         titleLabel.text = title
         
         if imageUrls.count > 0 {
-            firstImageView.setNetWrokUrl(imageUrl: imageUrls.first!)
+            firstImageView.setImage(withUrl: imageUrls.first!, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         }
         if imageUrls.count > 1 {
-            twoImageView.setNetWrokUrl(imageUrl: imageUrls[1])
+            twoImageView.setImage(withUrl: imageUrls[1], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         }
         if imageUrls.count > 2 {
-            threeImageView.setNetWrokUrl(imageUrl: imageUrls[2])
+            threeImageView.setImage(withUrl: imageUrls[2], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         }
         if imageUrls.count > 3 {
-            fourImageView.setNetWrokUrl(imageUrl: imageUrls[3])
+            fourImageView.setImage(withUrl: imageUrls[3], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         }
     }
     

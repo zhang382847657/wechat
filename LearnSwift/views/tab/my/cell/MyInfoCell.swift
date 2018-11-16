@@ -25,7 +25,7 @@ class MyInfoCell: UITableViewCell {
         
         nameLabel.text = User.share.name
         weixinNumberLabel.text = User.share.wxId
-        headerImageView.setNetWrokUrl(imageUrl: User.share.headPicture)
+        headerImageView.setImage(withUrl: User.share.headPicture, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         qrImageView.image = IconFont(code: IconFontType.二维码.rawValue, name:kIconFontName, fontSize: 20, color: Colors.fontColor.font999).iconImage
         
     }

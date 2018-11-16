@@ -29,12 +29,12 @@ public extension UIView {
     /// 设置圆角
     ///
     /// - Parameters:
-    ///   - radio: 圆角值 默认为nil 代表绘制圆形
+    ///   - radio: 圆角值 
     ///   - borderColor: 边框颜色  默认为nil
     ///   - borderWidth: 边框大小  默认为nil
-    public func setCornerRadio(radio:CGFloat? = nil, borderColor:UIColor? = nil, borderWidth:CGFloat? = nil){
+    public func setCornerRadio(radio:CGFloat, borderColor:UIColor? = nil, borderWidth:CGFloat? = nil){
         
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: radio == nil ? self.bounds.size : CGSize(width: radio!, height: radio!))
+        let maskPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: radio)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
@@ -50,8 +50,6 @@ public extension UIView {
             self.layer.addSublayer(borderLayer)
         }
     }
-    
-    
     
     /// 添加底部分割线
     ///

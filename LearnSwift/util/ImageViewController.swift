@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
     
@@ -50,7 +51,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.clear
-        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        imageView = UIImageView(frame: CGRect(x: (scrollView.bounds.width - 100) / 2.0, y: (scrollView.bounds.height - 100) / 2.0, width: 100, height: 100))
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -68,9 +69,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         // 优先检测doubleTap,若doubleTap检测不到，或检测失败，则检测tap,检测成功后，触发方法
         tap.require(toFail: doubleTap)
+        
        
         // 加载网络图片
-        imageView.setNetWrokUrl(imageUrl: imageUrl, success: { [weak self] (image, data) in
+        imageView.setImage(withUrl: imageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { [weak self](image, data) in
             
             if let weakSelf = self {
                 
@@ -111,7 +113,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             }
             
         }) { (error) in
-            
+        
         }
         
         

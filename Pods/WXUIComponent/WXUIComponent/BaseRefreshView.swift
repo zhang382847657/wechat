@@ -81,6 +81,7 @@ open class BaseRefreshView: UIView {
     }
     
     
+    
     /// 开始刷新
     open func beginRefresh(){
         self.refreshState = .refreshing
@@ -108,7 +109,7 @@ open class BaseRefreshView: UIView {
                 refreshState = .begin_refresh
             }
         }else {
-            if y >= minDragDistanse {
+            if y >= minDragDistanse && refreshState != .refreshing {
                 refreshState = .refreshing
             }else{
 //                if refreshState == .begin_refresh {

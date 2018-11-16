@@ -96,7 +96,7 @@
                     <constraint firstItem="wnl-Dj-Ugn" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="H8s-cD-MS4"/>
                     <constraint firstItem="O3a-lP-HPM" firstAttribute="top" secondItem="IyG-9g-sKG" secondAttribute="bottom" constant="8" id="LuG-Jc-lBH"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="O3a-lP-HPM" secondAttribute="trailing" constant="16" id="UlL-9R-cLW"/>
-                    <constraint firstItem="kdP-Cn-7kR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="WCb-ma-OtN"/>
+                    <constraint firstItem="kdP-Cn-7kR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="750" constant="16" id="WCb-ma-OtN"/>
                     <constraint firstItem="IyG-9g-sKG" firstAttribute="top" secondItem="Aon-TM-dQ3" secondAttribute="bottom" constant="6" id="bjL-ek-Kf1"/>
                     <constraint firstItem="oxS-vE-exh" firstAttribute="top" secondItem="wnl-Dj-Ugn" secondAttribute="bottom" constant="6" id="dHm-z0-JBG"/>
                     <constraint firstItem="GJA-31-aLp" firstAttribute="top" secondItem="3Dg-oQ-TQV" secondAttribute="bottom" constant="10" id="dhh-0u-vF3"/>
@@ -107,7 +107,7 @@
                     <constraint firstItem="IyG-9g-sKG" firstAttribute="leading" secondItem="GJA-31-aLp" secondAttribute="leading" id="k7Q-OQ-hV6"/>
                     <constraint firstItem="kdP-Cn-7kR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kjX-aX-OTi"/>
                     <constraint firstAttribute="trailingMargin" secondItem="3Dg-oQ-TQV" secondAttribute="trailing" id="lhD-d2-lwT"/>
-                    <constraint firstAttribute="bottom" secondItem="oxS-vE-exh" secondAttribute="bottom" constant="16" id="lp1-BI-W7w"/>
+                    <constraint firstAttribute="bottom" secondItem="oxS-vE-exh" secondAttribute="bottom" priority="750" constant="16" id="lp1-BI-W7w"/>
                     <constraint firstItem="wnl-Dj-Ugn" firstAttribute="top" secondItem="O3a-lP-HPM" secondAttribute="bottom" constant="0.5" id="mFH-RN-Me1"/>
                     <constraint firstItem="oxS-vE-exh" firstAttribute="leading" secondItem="IyG-9g-sKG" secondAttribute="leading" id="sib-yV-vMR"/>
                     <constraint firstItem="oxS-vE-exh" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="vRg-1d-L2g"/>

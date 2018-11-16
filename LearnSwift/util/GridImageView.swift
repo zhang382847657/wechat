@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXTools
 
 
 /// 9宫格展示图片
@@ -68,7 +69,8 @@ class GridImageView: UIView {
             
             NSLayoutConstraint.activate([leftAnchor, topAnchor, bottomAnchor, widthAnchor, heightAnchor])
             
-            imageView.setNetWrokUrl(imageUrl: self.imageArray.first!, success: { (image, data) in
+            
+            imageView.setImage(withUrl: self.imageArray.first!, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image, data) in
                 
                 // 先删除之前宽高的约束
                 NSLayoutConstraint.deactivate([heightAnchor,widthAnchor])
@@ -100,7 +102,9 @@ class GridImageView: UIView {
 
                 NSLayoutConstraint.activate([finalWidthAnchor,finalHeightAnchor])
                 
-            })
+            }) { (error) in
+                
+            }
             
             return
             
@@ -132,7 +136,7 @@ class GridImageView: UIView {
                 /////添加tapGuestureRecognizer手势
                 let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTap))
                 imageView.addGestureRecognizer(tapGR)
-                imageView.setNetWrokUrl(imageUrl: value)
+                imageView.setImage(withUrl: value, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
             }
             
             

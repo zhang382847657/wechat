@@ -59,6 +59,7 @@ class FindViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         tableView.sectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0.1
+        tableView.rowHeight = 44
         
     }
     
@@ -79,13 +80,10 @@ class FindViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-      
+
         let cell:MenuCell = tableView.dequeueReusableCell(withIdentifier: cell_menuCell) as! MenuCell
         cell.data = dataSource[indexPath.section][indexPath.row]
         return cell
-        
-        
     }
     
     

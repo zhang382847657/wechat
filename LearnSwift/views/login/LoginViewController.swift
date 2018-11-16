@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CTNetworkingSwift
+import Alamofire
+import SwiftyJSON
 
 
 /// 登录
@@ -16,8 +19,20 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var wxNumberTF: UITextField!
     /// 密码输入框
     @IBOutlet weak var pwdTF: UITextField!
+    /// 登录Reform
+    private var loginReform:LoginReform = LoginReform()
+    /// 登录ApiManager
+    private lazy var wxLoginApiManager:WXLoginApiManager = {
+       let m = WXLoginApiManager.init()
+        m.delegate = self
+        m.paramSource = self
+        m.validator = self
+        return m
+    }()
+
     
     
+    /// 唯一初始化
     required init() {
         super.init(nibName: "LoginViewController", bundle: nil)
     }
@@ -28,34 +43,82 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
     /// 登录
     @IBAction func loginClick(_ sender: UIButton) {
         
-        guard let wxId = wxNumberTF.text else {
+        guard let _ = wxNumberTF.text else {
             print("请输入微信号")
             return
         }
         
-        guard let password = pwdTF.text else {
+        guard let _ = pwdTF.text else {
             print("请输入密码")
             return
         }
         
-        WXApi.login(wxId: wxId, password: password, success: ({ (json) in
-            User.share.saveUserLoginInfo(json: json)
-            UIApplication.shared.keyWindow?.rootViewController = MainTabBarController()
-        }))
+        //请求登录
+        wxLoginApiManager.loadData()
     }
     
 
 }
+
+extension LoginViewController : CTNetworkingBaseAPIManagerParamSource {
+    
+    func params(for apiManager:CTNetworkingBaseAPIManager) -> ParamsType? {
+        return ["wxId":wxNumberTF.text!,"password":pwdTF.text!]
+    }
+}
+
+extension LoginViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
+    
+    func requestDidSuccess(_ apiManager:CTNetworkingBaseAPIManager){
+        let data:JSON? = apiManager.fetch(reformer: loginReform) as? JSON
+        guard let userInfo = data else {
+            return
+        }
+        User.share.saveUserLoginInfo(json: userInfo)
+        UIApplication.shared.keyWindow?.rootViewController = MainTabBarController()
+    }
+    
+    func requestDidFailed(_ apiManager:CTNetworkingBaseAPIManager){
+        print("请求失败")
+    }
+
+}
+
+extension LoginViewController : WXBaseAPIManagerValidator {
+    
+    func isCorrect(manager:CTNetworkingBaseAPIManager, params:ParamsType?) -> CTNetworkingErrorType.Params {
+        guard let params = params else {
+            return .missingParams
+        }
+        
+        if params.keys.contains("wxId") == false{
+            return .missingParams
+        }
+        
+        if params["wxId"] as! String == "" {
+            return .missingParams
+        }
+        
+        if params.keys.contains("password") == false {
+            return .missingParams
+        }
+        
+        if params["password"] as! String == "" {
+            return .missingParams
+        }
+        
+        return .correct
+        
+    }
+}
+

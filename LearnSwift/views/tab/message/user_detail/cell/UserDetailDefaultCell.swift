@@ -31,9 +31,9 @@ class UserDetailDefaultCell: UITableViewCell {
     }
     
     private func updateUI(){
-        let title = data["title"] as! String
-        let subTitle = data["subTitle"] as? String
-        let showArrow = data["showArrow"] as? Bool ?? false
+        let title = data[kWXUserDetailTitle] as! String
+        let subTitle = data[kWXUserDetailSubTitle] as? String
+        let showArrow = data[kWXUserDetailShowArrow] as? Bool ?? false
         
         titleLabel.text = title
         subTitleLabe.text = subTitle

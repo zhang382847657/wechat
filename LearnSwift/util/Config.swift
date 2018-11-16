@@ -104,6 +104,8 @@ enum IconFontType:String {
     case 垃圾篓 = "\u{e670}"
     case 播放 = "\u{e60c}"
     case 暂停 = "\u{e60f}"
+    case 暂无数据 = "\u{e64e}"
+    case 网络连接失败 = "\u{e62a}"
 }
 
 /// 语言类型
