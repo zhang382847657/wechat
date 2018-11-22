@@ -154,6 +154,8 @@
 		63AE5243213A747700222257 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63AE5241213A747700222257 /* MessageCell.xib */; };
 		63B15BCD2105EAB0009DCABE /* WeixinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B15BCB2105EAB0009DCABE /* WeixinCell.swift */; };
 		63B15BCE2105EAB0009DCABE /* WeixinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B15BCC2105EAB0009DCABE /* WeixinCell.xib */; };
+		63CD13B521A558250039C040 /* WeixinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD13B421A558250039C040 /* WeixinCellModel.swift */; };
+		63CD13B621A558250039C040 /* WeixinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD13B421A558250039C040 /* WeixinCellModel.swift */; };
 		63CF1B412160AC7E00A68126 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CF1B402160AC7E00A68126 /* ChooseLocationController.swift */; };
 		63D0980020F1144300E099F7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D097FF20F1144300E099F7 /* RegisterViewController.swift */; };
 		63D0980220F1148F00E099F7 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D0980120F1148F00E099F7 /* RegisterViewController.xib */; };
@@ -322,6 +324,7 @@
 		63AE5241213A747700222257 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		63B15BCB2105EAB0009DCABE /* WeixinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeixinCell.swift; sourceTree = "<group>"; };
 		63B15BCC2105EAB0009DCABE /* WeixinCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeixinCell.xib; sourceTree = "<group>"; };
+		63CD13B421A558250039C040 /* WeixinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeixinCellModel.swift; sourceTree = "<group>"; };
 		63CF1B402160AC7E00A68126 /* ChooseLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationController.swift; sourceTree = "<group>"; };
 		63D097FF20F1144300E099F7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		63D0980120F1148F00E099F7 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -699,6 +702,7 @@
 		63AE523B213A72E700222257 /* friend_circle */ = {
 			isa = PBXGroup;
 			children = (
+				63CD13B321A557F30039C040 /* model */,
 				6396E348219D5EFE002A18E3 /* api */,
 				6397FAE4216F520C005A57D9 /* choosePicture */,
 				6347C94B216B5DD200104AC8 /* location */,
@@ -742,6 +746,14 @@
 				63AE5241213A747700222257 /* MessageCell.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		63CD13B321A557F30039C040 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				63CD13B421A558250039C040 /* WeixinCellModel.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		63D3C0794AEDBF567B09C444 /* Pods */ = {
@@ -1248,6 +1260,7 @@
 				6360A45C215241D3008BC86B /* LoginViewController.swift in Sources */,
 				6339CB9E2137E01E007DF4E0 /* MyInfoCell.swift in Sources */,
 				63F9C58B20EE5E7200AC1495 /* TwoViewController.swift in Sources */,
+				63CD13B521A558250039C040 /* WeixinCellModel.swift in Sources */,
 				63D5F23721705281004AF84A /* TZPhotoPreviewController.m in Sources */,
 				63AE5242213A747700222257 /* MessageCell.swift in Sources */,
 				63E6150C21391013006CD610 /* ContactSearchViewController.swift in Sources */,
@@ -1304,6 +1317,7 @@
 				63D5F22C21705281004AF84A /* TZImageCropManager.m in Sources */,
 				634D76152182BF8500345904 /* WXService.swift in Sources */,
 				6347C8F9216B4EC400104AC8 /* CommentReplayView.swift in Sources */,
+				63CD13B621A558250039C040 /* WeixinCellModel.swift in Sources */,
 				6345496A219E64D700C6BBFB /* ZLNetworkReachability.swift in Sources */,
 				6347C8FA216B4EC400104AC8 /* UserDetailDefaultCell.swift in Sources */,
 				6347C8FB216B4EC400104AC8 /* MainTabBarController.swift in Sources */,

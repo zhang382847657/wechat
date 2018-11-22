@@ -12,6 +12,34 @@ import WXTools
 
 class WeixinCell: UITableViewCell {
     
+    /// Cell标识
+    static let identifier_weixin = "WeixinCell"
+    /// 视图模型
+    public var viewModel:WeixinCellModel! {
+        didSet {
+            bindViewModel()
+        }
+    }
+    /// 全文/收起按钮点击回调
+    public var btnCallBack:((Bool)->Void)?
+    /// 评论点击回调
+    public var commentClickBack:((_ senderView:UIButton)->Void)?
+    
+    /// 唯一获取Cell方法
+    ///
+    /// - Parameters:
+    ///   - tableView: tableview
+    ///   - viewModel: 视图模型
+    /// - Returns: WeixinCell
+    public class func getCell(tableView:UITableView, viewModel:WeixinCellModel) -> WeixinCell{
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier_weixin) as? WeixinCell
+        if cell == nil {
+            cell = UIView.loadViewFromNib(nibName: identifier_weixin) as? WeixinCell
+        }
+        cell!.viewModel = viewModel
+        return cell!
+    }
+    
     /// 姓名
     @IBOutlet weak var name: UILabel!
     /// 副标题
@@ -36,13 +64,12 @@ class WeixinCell: UITableViewCell {
     @IBOutlet weak var commentTop: NSLayoutConstraint!
     /// 评论视图
     @IBOutlet weak var commentView: CommentView!
+
     
     /// 副标题允许展示的最大行数
     private let maxLineNumber:Int = 4
-    /// 全文/收起按钮点击回调
-    var btnCallBack:((Bool)->Void)?
-    /// 评论点击回调
-    var commentClickBack:((_ senderView:UIButton)->Void)?
+   
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,42 +87,17 @@ class WeixinCell: UITableViewCell {
         ])
     }
     
+   
     
     
-    /// 更新UI
-    ///
-    /// - Parameter data: 数据源
-    func setupUI(data:Dictionary<String,Any>){
-        
-        let user:[String:Any] = data["user"] as? [String : Any] ?? [:]
-        
-        let headerImageUrl = user["headPicture"] as? String
-        let nameStr = user["name"] as? String
-        let subTitleStr:String? = data["content"] as? String
-        let time = data["createtime"] as? String
-        let placeName = data["placeName"] as? String
-        let city = data["city"] as? String
-        let isSelect:Bool = data["isSelect"] as? Bool ?? false
-        let pictures = data["pictures"] as? String
-        let dyanmicImageUrl = pictures?.components(separatedBy: ",") ?? []
-        
-        let likesData:[[String:Any]]? = data["likes"] as? [[String : Any]]
-        let commentData:[[String:Any]]? = data["comment"] as? [[String : Any]]
-        
-        var finalLocationStr:String?
-        if let city = city {
-            finalLocationStr = city
-            if let placeName = placeName {
-                finalLocationStr! += "·\(placeName)"
-            }
-        }
-        
-
-        name.text = nameStr
-        timeLable.text = time?.stringConvertDate()?.dateConvertFriendCircleType()
-        subTitle.text = subTitleStr
-        headImageView.setImage(withUrl: headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        locationLabel.text = finalLocationStr
+    /// 绑定VM，展示数据
+    private func bindViewModel() {
+    
+        name.text = viewModel.name
+        timeLable.text = viewModel.time
+        subTitle.text = viewModel.content
+        headImageView.setImage(withUrl: viewModel.headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
+        locationLabel.text = viewModel.location
        
        
         // 计算内容的真实高度，算出来行高后，如果超过了指定行数，就显示全文/收起的按钮
@@ -104,21 +106,21 @@ class WeixinCell: UITableViewCell {
         let lineCount:Int = Int(labelHeight / subTitle.font.lineHeight)
         
         btn.isHidden = lineCount > maxLineNumber ? false : true
-        btn.isSelected = isSelect
+        btn.isSelected = viewModel.showAll
         btnHeight.constant = lineCount > maxLineNumber ? 25 : 0
         btnTop.constant = btn.isHidden ? 0 : 6
         
-        subTitle.numberOfLines = isSelect ? 0 : maxLineNumber
+        subTitle.numberOfLines = viewModel.showAll ? 0 : maxLineNumber
         
 
         // 设置九宫格图片
-        dynamicImageView.updateUIWith(imageArray: dyanmicImageUrl)
+        dynamicImageView.updateUIWith(imageArray: viewModel.dynamicImageUrls)
         
         
         // 设置评论模块
-        commentTop.constant = (likesData != nil && likesData!.count > 0) ? 6 : 0
-        commentView.likeData = likesData
-        commentView.commentData = commentData
+        commentTop.constant = (viewModel.likesData != nil && viewModel.likesData!.count > 0) ? 6 : 0
+        commentView.likeData = viewModel.likesData
+        commentView.commentData = viewModel.commentData
         
         layoutIfNeeded()
     }

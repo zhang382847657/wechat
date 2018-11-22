@@ -34,10 +34,10 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     private var wxCell:WeixinCell!
     
     /// 动态数据
-    private var dataList:[[String:Any]] = []
+    private var dataList:[WeixinCellModel] = []
     
     /// 缓存行高
-    private var rowHeightCache:[IndexPath:CGFloat] = [:]
+//    private var rowHeightCache:[IndexPath:CGFloat] = [:]
     
     /// CellID
     private let weixinIdentifier:String = "weixinCell"
@@ -82,10 +82,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 导航栏右侧相机
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
         
-        
-        // 用类名的方式注册Cell
-        tableView.register(UINib(nibName: "WeixinCell", bundle: nil), forCellReuseIdentifier: weixinIdentifier)
-        wxCell = tableView.dequeueReusableCell(withIdentifier: weixinIdentifier) as! WeixinCell
+    
+//        wxCell = tableView.dequeueReusableCell(withIdentifier: weixinIdentifier) as! WeixinCell
         // 初始化头部视图
         setupHeaderView()
         // 设置tableview的headerView
@@ -215,22 +213,19 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     /// 绘制Cell
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell:WeixinCell = tableView.dequeueReusableCell(withIdentifier: weixinIdentifier, for: indexPath) as! WeixinCell
         
-        // 获取数组中对应的值
-        var dic = dataList[indexPath.row]
+        let cell:WeixinCell = WeixinCell.getCell(tableView: tableView, viewModel: dataList[indexPath.row])
+        
         
         if let showAll = showAll {
-            dic["isSelect"] = showAll
+            cell.viewModel.showAll = showAll
         }
         
-        // 更新数据源
-        cell.setupUI(data: dic)
         
         // 全文/收起按钮点击回调
         cell.btnCallBack = { [weak self] (isSelect:Bool) -> Void in
             self?.showAll = isSelect
-            self?.rowHeightCache.removeValue(forKey: indexPath)
+//            self?.rowHeightCache.removeValue(forKey: indexPath)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
@@ -238,11 +233,11 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         cell.commentClickBack = { [weak self] (sender:UIButton) in
             
             
-            let pop =  CommentPopoverController(sourceView: sender, dynamicId: dic["id"] as! Int, isLike: dic["isLike"] as! Bool, likeClickBack: { [weak self](isLike) in
+            let pop =  CommentPopoverController(sourceView: sender, dynamicId: cell.viewModel.id, isLike: cell.viewModel.isLike, likeClickBack: { [weak self](isLike) in
                 
-                dic["isLike"] = isLike
+                cell.viewModel.isLike = isLike
                
-                if var likesData = dic["likes"] as? [[String : Any]], let wxId = User.share.wxId {
+                if var likesData = cell.viewModel.likesData, let wxId = User.share.wxId {
                     
                     if isLike == true {
                         
@@ -257,10 +252,10 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                         }
                     }
                     
-                    dic["likes"] = likesData
+                    cell.viewModel.likesData = likesData
                 }
     
-                self?.dataList[indexPath.row] = dic
+                self?.dataList[indexPath.row] = cell.viewModel
                 self?.tableView.reloadRows(at: [indexPath], with: .none)
                 
             }, commentClickBack: { //评论点击回调
@@ -269,13 +264,13 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                 ReplayTools.share.showReplayView(text: nil, tableView: tableView, cell: cell, sendClick: { (text) in
                     
                     // 添加一条评论
-                    WXApi.dynamicAddComment(dynamicId: dic["id"] as! Int, content: text, success: { [weak self](json) in
+                    WXApi.dynamicAddComment(dynamicId: cell.viewModel.id, content: text, success: { [weak self](json) in
                         
-                        if var commentData = dic["comment"] as? [[String : Any]], let jsonDic = json.dictionaryObject {
+                        if var commentData = cell.viewModel.commentData, let jsonDic = json.dictionaryObject {
                             commentData.append(jsonDic)
-                            dic["comment"] = commentData
-                            self?.dataList[indexPath.row] = dic
-                            self?.rowHeightCache.removeValue(forKey: indexPath)
+                            cell.viewModel.commentData = commentData
+                            self?.dataList[indexPath.row] = cell.viewModel
+//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -300,16 +295,16 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                 Alert.show(viewcontroller: self, title: "提示", message: "是否要删除此评论", done: {
                     WXApi.dynamicDeleteComment(commentId: commentId, success: { [weak self](_) in
                         
-                        if var commentData = dic["comment"] as? [[String : Any]] {
+                        if var commentData = cell.viewModel.commentData {
                             for (index,value) in commentData.enumerated() {
                                 if value["id"] as! Int == commentId {
                                     commentData.remove(at: index)
                                     break
                                 }
                             }
-                            dic["comment"] = commentData
-                            self?.dataList[indexPath.row] = dic
-                            self?.rowHeightCache.removeValue(forKey: indexPath)
+                            cell.viewModel.commentData = commentData
+                            self?.dataList[indexPath.row] = cell.viewModel
+//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -323,13 +318,13 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                 ReplayTools.share.showReplayView(text: nil, placheolder: "回复\(data["name"] as? String ?? "--")", tableView: tableView, cell: cell, sendClick: { (text) in
 
                     
-                    WXApi.dynamicReplyComment(dynamicId: dic["id"] as! Int, replyUserId: userId, content: text, success: { [weak self](json) in
+                    WXApi.dynamicReplyComment(dynamicId: cell.viewModel.id, replyUserId: userId, content: text, success: { [weak self](json) in
                         
-                        if var commentData = dic["comment"] as? [[String : Any]], let jsonDic = json.dictionaryObject {
+                        if var commentData = cell.viewModel.commentData, let jsonDic = json.dictionaryObject {
                             commentData.append(jsonDic)
-                            dic["comment"] = commentData
-                            self?.dataList[indexPath.row] = dic
-                            self?.rowHeightCache.removeValue(forKey: indexPath)
+                            cell.viewModel.commentData = commentData
+                            self?.dataList[indexPath.row] = cell.viewModel
+//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -344,27 +339,27 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if rowHeightCache.keys.contains(indexPath) {
-            return rowHeightCache[indexPath]!
-        }else {
-            // 获取数组中对应的值
-            var dic = dataList[indexPath.row]
-            if let showAll = showAll {
-                dic["isSelect"] = showAll
-            }
-            // 更新数据源
-            wxCell.setupUI(data: dic)
-            let cellHeight = wxCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height + 1.0
-            rowHeightCache[indexPath] = cellHeight
-            return cellHeight
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        if rowHeightCache.keys.contains(indexPath) {
+//            return rowHeightCache[indexPath]!
+//        }else {
+//            // 获取数组中对应的值
+//            var dic = dataList[indexPath.row]
+//            if let showAll = showAll {
+//                dic["isSelect"] = showAll
+//            }
+//            // 更新数据源
+//            wxCell.setupUI(data: dic)
+//            let cellHeight = wxCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height + 1.0
+//            rowHeightCache[indexPath] = cellHeight
+//            return cellHeight
+//        }
+//    }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
-    }
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 250
+//    }
 
     //MARK: UITableView Delegate
 
@@ -407,7 +402,7 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
 extension WeixinViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
     func requestDidSuccess(_ apiManager: CTNetworkingBaseAPIManager) {
         
-        guard let currentDataList = apiManager.fetch(reformer: wxFriendCircleReform) as? [[String : Any]] else {
+        guard let currentDataList = apiManager.fetch(reformer: wxFriendCircleReform) as? [WeixinCellModel] else {
             return
         }
         

@@ -14,7 +14,7 @@ import SwiftyJSON
 class WXFriendCircleReform: CTNetworkingReformer  {
     
    
-    private var dataSource:[[String:Any]] = []
+    private var dataSource:[WeixinCellModel] = []
     
     
     public func numberOfRowsInSection(section:Int) -> Int {
@@ -22,7 +22,7 @@ class WXFriendCircleReform: CTNetworkingReformer  {
         
     }
     
-    public func getCellDataForRowAt(indexPath: IndexPath) -> Dictionary<String,Any> {
+    public func getCellDataForRowAt(indexPath: IndexPath) -> WeixinCellModel {
         return dataSource[indexPath.row]
     }
     
@@ -32,9 +32,12 @@ class WXFriendCircleReform: CTNetworkingReformer  {
         
         if let dataList = apiManager.fetchAsJSON()?["data","dataList"].arrayObject as? [[String:Any]] {
             
-            dataSource = dataList
-            return dataSource
+            let finalDataList = dataList.map { (dic) -> WeixinCellModel in
+                return WeixinCellModel(dic: dic)
+            }
             
+            dataSource = finalDataList
+            return dataSource
         }
         
         return nil
