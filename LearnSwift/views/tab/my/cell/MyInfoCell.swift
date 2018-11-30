@@ -10,7 +10,26 @@ import UIKit
 import WXTools
 
 class MyInfoCell: UITableViewCell {
+    
 
+    /// 唯一获取Cell方法
+    ///
+    /// - Parameters:
+    ///   - tableView: tableview
+    ///   - viewModel: 视图模型
+    /// - Returns: WeixinCell
+    public class func getCell(tableView:UITableView) -> MyInfoCell{
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier_myInfo) as? MyInfoCell
+        if cell == nil {
+            cell = UIView.loadViewFromNib(nibName: identifier_myInfo) as? MyInfoCell
+        }
+        return cell!
+    }
+    
+    
+    
+    /// Cell唯一标识
+    static let identifier_myInfo = "MyInfoCell"
     /// 头像
     @IBOutlet weak var headerImageView: UIImageView!
     /// 名字
@@ -19,6 +38,8 @@ class MyInfoCell: UITableViewCell {
     @IBOutlet weak var weixinNumberLabel: UILabel!
     /// 二维码
     @IBOutlet weak var qrImageView: UIImageView!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,8 +53,6 @@ class MyInfoCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
     }
     
 }

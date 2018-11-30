@@ -72,7 +72,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
        
         // 加载网络图片
-        imageView.setImage(withUrl: imageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { [weak self](image, data) in
+        imageView.setImage(withUrl: imageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { [weak self](image) in
             
             if let weakSelf = self {
                 

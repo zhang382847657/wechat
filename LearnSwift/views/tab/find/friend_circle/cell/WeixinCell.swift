@@ -96,8 +96,11 @@ class WeixinCell: UITableViewCell {
         name.text = viewModel.name
         timeLable.text = viewModel.time
         subTitle.text = viewModel.content
-        headImageView.setImage(withUrl: viewModel.headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
         locationLabel.text = viewModel.location
+        
+        
+      
+        headImageView.setImage(withUrl: viewModel.headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
        
        
         // 计算内容的真实高度，算出来行高后，如果超过了指定行数，就显示全文/收起的按钮

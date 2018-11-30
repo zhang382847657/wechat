@@ -74,13 +74,12 @@ class UserDetailViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    
     /// 更多点击
     @objc private func moreClick(){
         
     }
     
-
-
 }
 
 //MARK: UITableView - DataSource

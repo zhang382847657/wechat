@@ -32,6 +32,8 @@ struct WeixinCellModel {
     var commentData:[[String:Any]]?
     /// 是否点过赞
     var isLike:Bool
+    /// 行高
+    var rowHeight:CGFloat?
     
     
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import WXTools
+import AlamofireImage
 
 
 /// 9宫格展示图片
@@ -27,6 +28,17 @@ class GridImageView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = UIColor.white
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for v in self.subviews {
+            if let imageView = v as? UIImageView {
+               let newImage = imageView.image?.af_imageAspectScaled(toFill: imageView.bounds.size)
+                imageView.image = newImage
+            }
+        }
     }
  
     /// 更新界面
@@ -69,12 +81,11 @@ class GridImageView: UIView {
             
             NSLayoutConstraint.activate([leftAnchor, topAnchor, bottomAnchor, widthAnchor, heightAnchor])
             
-            
-            imageView.setImage(withUrl: self.imageArray.first!, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image, data) in
-                
+            imageView.setImage(withUrl: self.imageArray.first!, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image) in
+
                 // 先删除之前宽高的约束
                 NSLayoutConstraint.deactivate([heightAnchor,widthAnchor])
-                
+
                 // 最终宽高的约束
                 var finalWidthAnchor:NSLayoutConstraint!
                 var finalHeightAnchor:NSLayoutConstraint!
@@ -101,9 +112,9 @@ class GridImageView: UIView {
 
 
                 NSLayoutConstraint.activate([finalWidthAnchor,finalHeightAnchor])
-                
+
             }) { (error) in
-                
+
             }
             
             return
@@ -125,8 +136,6 @@ class GridImageView: UIView {
             
             let imageView:UIImageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .scaleAspectFill
-            imageView.layer.masksToBounds = true
             self.addSubview(imageView)
             
             if value == "tmp" {
@@ -136,6 +145,7 @@ class GridImageView: UIView {
                 /////添加tapGuestureRecognizer手势
                 let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTap))
                 imageView.addGestureRecognizer(tapGR)
+                
                 imageView.setImage(withUrl: value, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
             }
             

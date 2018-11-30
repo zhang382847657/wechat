@@ -204,6 +204,8 @@
 		63EE0AFA218940EE008F4279 /* WXContactListApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE0AF8218940EE008F4279 /* WXContactListApiManager.swift */; };
 		63EE0AFC218942C6008F4279 /* WXContactListReform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE0AFB218942C6008F4279 /* WXContactListReform.swift */; };
 		63EE0AFD218942C6008F4279 /* WXContactListReform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE0AFB218942C6008F4279 /* WXContactListReform.swift */; };
+		63F3460A21B13A3100B070D1 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F3460921B13A3100B070D1 /* MenuModel.swift */; };
+		63F3460B21B13A3100B070D1 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F3460921B13A3100B070D1 /* MenuModel.swift */; };
 		63F464A420FCE28B00AAF360 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F464A320FCE28B00AAF360 /* MainTabBarController.swift */; };
 		63F464AD20FCEAC500AAF360 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F464AB20FCEAC500AAF360 /* ContactViewController.swift */; };
 		63F464AE20FCEAC500AAF360 /* ContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F464AC20FCEAC500AAF360 /* ContactViewController.xib */; };
@@ -370,6 +372,7 @@
 		63E615152139360F006CD610 /* GroupImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupImageView.swift; sourceTree = "<group>"; };
 		63EE0AF8218940EE008F4279 /* WXContactListApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactListApiManager.swift; sourceTree = "<group>"; };
 		63EE0AFB218942C6008F4279 /* WXContactListReform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXContactListReform.swift; sourceTree = "<group>"; };
+		63F3460921B13A3100B070D1 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		63F464A320FCE28B00AAF360 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		63F464AB20FCEAC500AAF360 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		63F464AC20FCEAC500AAF360 /* ContactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactViewController.xib; sourceTree = "<group>"; };
@@ -510,6 +513,7 @@
 		6339CB972137DDEE007DF4E0 /* find */ = {
 			isa = PBXGroup;
 			children = (
+				63F3460C21B140FE00B070D1 /* model */,
 				6396E347219D4D34002A18E3 /* cell */,
 				63274E902179CF4300788D0A /* sports */,
 				63AE523B213A72E700222257 /* friend_circle */,
@@ -828,6 +832,14 @@
 				63EE0AFB218942C6008F4279 /* WXContactListReform.swift */,
 			);
 			path = api;
+			sourceTree = "<group>";
+		};
+		63F3460C21B140FE00B070D1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				63F3460921B13A3100B070D1 /* MenuModel.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		63F464A520FCE8C800AAF360 /* login */ = {
@@ -1270,6 +1282,7 @@
 				63FAEA08211A84B1004203DD /* ReplayTools.swift in Sources */,
 				6347C94F216B5EE900104AC8 /* LocationSearchResultViewController.swift in Sources */,
 				63D5F22F21705281004AF84A /* TZVideoPlayerController.m in Sources */,
+				63F3460A21B13A3100B070D1 /* MenuModel.swift in Sources */,
 				63274E932179D00800788D0A /* SportsViewController.swift in Sources */,
 				6360A459215228DF008BC86B /* WXApi.swift in Sources */,
 				63E102C72111B9B60014F643 /* ImageViewController.swift in Sources */,
@@ -1332,6 +1345,7 @@
 				6347C902216B4EC400104AC8 /* Alert.swift in Sources */,
 				6347C903216B4EC400104AC8 /* ContactUserCell.swift in Sources */,
 				63D5F23E21705281004AF84A /* TZImageManager.m in Sources */,
+				63F3460B21B13A3100B070D1 /* MenuModel.swift in Sources */,
 				63F75C1521995F8D007608F4 /* EmptyDataView.swift in Sources */,
 				63D5F24821705281004AF84A /* TZGifPhotoPreviewController.m in Sources */,
 				6347C904216B4EC400104AC8 /* MenuCell.swift in Sources */,

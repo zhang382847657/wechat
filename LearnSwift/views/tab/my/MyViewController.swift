@@ -27,9 +27,6 @@ class MyViewController: UITableViewController {
         ],
     ]
     
-    private let cell_myInfoCell = "MyInfoCell"
-    private let cell_menuCell = "MenuCell"
-    
     
     /// 唯一初始化
     init() {
@@ -44,9 +41,6 @@ class MyViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.我.rawValue)
-        
-        tableView.register(UINib(nibName: "MyInfoCell", bundle: nil), forCellReuseIdentifier: cell_myInfoCell)
-        tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: cell_menuCell)
         
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         tableView.sectionHeaderHeight = 20
@@ -72,16 +66,19 @@ class MyViewController: UITableViewController {
             return dataSource[section-1].count
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 76 : 44
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell:MyInfoCell = tableView.dequeueReusableCell(withIdentifier: cell_myInfoCell) as! MyInfoCell
+            let cell = MyInfoCell.getCell(tableView: tableView)
             return cell
         }else {
-            let cell:MenuCell = tableView.dequeueReusableCell(withIdentifier: cell_menuCell) as! MenuCell
-            cell.data = dataSource[indexPath.section-1][indexPath.row]
+            let cell = MenuCell.getCell(tableView: tableView, viewModel: MenuModel(dic: dataSource[indexPath.section-1][indexPath.row] as [String : AnyObject]))
             return cell
         }
         
@@ -92,12 +89,6 @@ class MyViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
-        case 0:
-            break
-        case 1:
-            break
-        case 2:
-            break
         case 3:
             if indexPath.row == 0 { //设置
                 SettingViewController.showVC(viewController: self)

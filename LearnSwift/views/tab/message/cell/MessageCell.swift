@@ -31,7 +31,7 @@ class MessageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         dndLabel.font = UIFont(name: kIconFontName, size: 13.0)
-        headerImageView.setCornerRadio(radio: 8)
+//        headerImageView.setCornerRadio(radio: 8)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

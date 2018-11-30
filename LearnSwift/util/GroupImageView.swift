@@ -53,7 +53,7 @@ class GroupImageView: UIImageView {
                 let sema = DispatchSemaphore(value: 0)
                 
                 
-                weakSelf?.setImage(withUrl: url, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image, data) in
+                weakSelf?.setImage(withUrl: url, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, success: { (image) in
                     
                     weakSelf?.image = nil
                     images.append(image)
@@ -182,7 +182,7 @@ class GroupImageView: UIImageView {
         
         let groupIconImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        self.image = groupIconImage
+        self.image = groupIconImage?.af_imageRounded(withCornerRadius: 8)
     }
     
 }

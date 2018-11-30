@@ -18,7 +18,7 @@ public extension UIImageView {
     ///   - url: 网络图片地址
     ///   - successCallBack: 成功回调
     ///   - failedCallBack: 失败回调
-    public func setImage(withUrl url:String?,  placeholderImage:UIImage?, failedImage:UIImage?, success successCallBack:((UIImage, Data)->Void)? = {_,_  in}, failed failedCallBack:((Error)->Void)? = {_ in}){
+    public func setImage(withUrl url:String?,  placeholderImage:UIImage? = nil, failedImage:UIImage? = nil, filter:ImageFilter? = nil, success successCallBack:((UIImage)->Void)? = {_  in}, failed failedCallBack:((Error)->Void)? = {_ in}){
         
         guard let url = url else {
             //如果图片地址为空，则展示失败的图片
@@ -26,14 +26,14 @@ public extension UIImageView {
             return
         }
         
-        self.af_setImage(withURL: URL(string: url)!, placeholderImage: placeholderImage) { (response) in
-        
+        self.af_setImage(withURL: URL(string: url)!, placeholderImage: placeholderImage, filter: filter) { (response) in
+            
             if let error = response.error {
                 self.image = failedImage
                 failedCallBack?(error)
                 return
             }else {
-                successCallBack?(response.result.value!, UIImagePNGRepresentation(response.result.value!)!)
+                successCallBack?(response.result.value!)
             }
             
         }

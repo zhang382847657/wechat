@@ -31,16 +31,9 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         return r
     }()
     
-    private var wxCell:WeixinCell!
     
     /// 动态数据
     private var dataList:[WeixinCellModel] = []
-    
-    /// 缓存行高
-//    private var rowHeightCache:[IndexPath:CGFloat] = [:]
-    
-    /// CellID
-    private let weixinIdentifier:String = "weixinCell"
     
     /// 头部视图
     private var headerView:UIView!
@@ -82,20 +75,19 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 导航栏右侧相机
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
         
-    
-//        wxCell = tableView.dequeueReusableCell(withIdentifier: weixinIdentifier) as! WeixinCell
         // 初始化头部视图
         setupHeaderView()
         // 设置tableview的headerView
         tableView.tableHeaderView = headerView
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 220
+        tableView.rowHeight = 200
         
+        
+   
         // 添加头部刷新
         tableView.addHeaderRefresh(headerView: FriendCircleRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: UIApplication.shared.statusBarFrame.height + navigationController!.navigationBar.frame.height + 20 + 30)), actionTarget: self, action: #selector(refresh))
         // 添加尾部加载更多
         tableView.addFooterLoadMore(actionTarget: self, action: #selector(loadMore))
-        
+
         // 一进来就刷新
         tableView.beginRefresh()
         
@@ -126,7 +118,9 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         self.navigationController?.navigationBar.shadowImage = nil
+        
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -216,6 +210,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let cell:WeixinCell = WeixinCell.getCell(tableView: tableView, viewModel: dataList[indexPath.row])
         
+        cell.viewModel.rowHeight = cell.systemLayoutSizeFitting(CGSize(width: tableView.bounds.width, height: 0), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel).height
+        
         
         if let showAll = showAll {
             cell.viewModel.showAll = showAll
@@ -225,7 +221,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 全文/收起按钮点击回调
         cell.btnCallBack = { [weak self] (isSelect:Bool) -> Void in
             self?.showAll = isSelect
-//            self?.rowHeightCache.removeValue(forKey: indexPath)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
@@ -270,7 +265,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             commentData.append(jsonDic)
                             cell.viewModel.commentData = commentData
                             self?.dataList[indexPath.row] = cell.viewModel
-//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -283,16 +277,16 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
         // 回复评论点击回调
-        cell.commentView.commentClickBlock = { (data) in
+        cell.commentView.commentClickBlock = {[weak self] (data) in
             
-            guard let id = User.share.id, let userId = data["userId"] as? Int, let commentId = data["id"] as? Int else {
+            guard let weakSelf = self, let id = User.share.id, let userId = data["userId"] as? Int, let commentId = data["id"] as? Int else {
                 return
             }
             
             
             if userId == id { //说明点击的是自己的评论，则就删除评论
                 
-                Alert.show(viewcontroller: self, title: "提示", message: "是否要删除此评论", done: {
+                Alert.show(viewcontroller: weakSelf, title: "提示", message: "是否要删除此评论", done: {
                     WXApi.dynamicDeleteComment(commentId: commentId, success: { [weak self](_) in
                         
                         if var commentData = cell.viewModel.commentData {
@@ -304,7 +298,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             }
                             cell.viewModel.commentData = commentData
                             self?.dataList[indexPath.row] = cell.viewModel
-//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -324,7 +317,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
                             commentData.append(jsonDic)
                             cell.viewModel.commentData = commentData
                             self?.dataList[indexPath.row] = cell.viewModel
-//                            self?.rowHeightCache.removeValue(forKey: indexPath)
                             self?.tableView.reloadRows(at: [indexPath], with: .none)
                         }
                         
@@ -339,27 +331,11 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        if rowHeightCache.keys.contains(indexPath) {
-//            return rowHeightCache[indexPath]!
-//        }else {
-//            // 获取数组中对应的值
-//            var dic = dataList[indexPath.row]
-//            if let showAll = showAll {
-//                dic["isSelect"] = showAll
-//            }
-//            // 更新数据源
-//            wxCell.setupUI(data: dic)
-//            let cellHeight = wxCell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height + 1.0
-//            rowHeightCache[indexPath] = cellHeight
-//            return cellHeight
-//        }
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let viewModel = dataList[indexPath.row]
+        return  viewModel.rowHeight ?? UITableViewAutomaticDimension
+    }
     
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 250
-//    }
 
     //MARK: UITableView Delegate
 
@@ -370,10 +346,11 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     //MARK: UIScrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
+        
+        let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 44
 
         // 导航栏的高度(导航栏+电池条)
-        let navigationHeight = UIApplication.shared.statusBarFrame.height + (self.navigationController?.navigationBar.frame.height)!
+        let navigationHeight = UIApplication.shared.statusBarFrame.height + navigationBarHeight
         // 渐变的高度
         let gradualHeight = headerView.frame.height - navigationHeight * 2
 

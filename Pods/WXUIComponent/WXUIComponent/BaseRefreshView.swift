@@ -26,7 +26,7 @@ public enum Refresh_State:Int {
 open class BaseRefreshView: UIView {
     
     /// 事件实现目标
-    open var actionTarget:AnyObject?
+    open weak var actionTarget:AnyObject?
     /// 事件
     open var action:Selector?
     /// 最小刷新拖拽距离
@@ -149,7 +149,7 @@ open class BaseRefreshView: UIView {
         
         let parentView:UIScrollView = self.superview! as! UIScrollView
         // 调用这个方法是为了如果用户上拉到已经没有数据的时候，又进行了下拉刷新的操作，应该恢复重新可以上拉的操作
-        parentView.endLoadMore()
+//        parentView.endLoadMore()
     }
     
     
@@ -157,13 +157,18 @@ open class BaseRefreshView: UIView {
     ///
     /// - Parameter normal: 是否开始下拉刷新
     open func isAdjustToNormal(normal:Bool){
-        let parentView:UIScrollView = self.superview! as! UIScrollView
-        
+
         var y:CGFloat = 0
         if normal == false {
             y = self.frame.height
         }
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            
+            guard let weakSelf = self else {
+                return
+            }
+            
+            let parentView:UIScrollView = weakSelf.superview! as! UIScrollView
             parentView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }

@@ -54,8 +54,6 @@ class FindViewController: UITableViewController {
         
         self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.发现.rawValue)
         
-        tableView.register(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: cell_menuCell)
-        
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         tableView.sectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0.1
@@ -81,8 +79,7 @@ class FindViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell:MenuCell = tableView.dequeueReusableCell(withIdentifier: cell_menuCell) as! MenuCell
-        cell.data = dataSource[indexPath.section][indexPath.row]
+        let cell = MenuCell.getCell(tableView: tableView, viewModel:MenuModel(dic: dataSource[indexPath.section][indexPath.row] as [String : AnyObject]))
         return cell
     }
     

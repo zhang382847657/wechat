@@ -29,7 +29,7 @@ open class BaseFooterLoadMoreView: UIView {
     
   
     /// 事件实现目标
-    open var actionTarget:AnyObject?
+    open weak var actionTarget:AnyObject?
     /// 事件
     open var action:Selector?
     /// 最小上拉加载拖拽距离
