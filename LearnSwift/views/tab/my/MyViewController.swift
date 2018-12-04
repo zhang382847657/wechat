@@ -11,19 +11,20 @@ import WXTools
 
 class MyViewController: UITableViewController {
     
+    
     /// 数据源
     private var dataSource = [
         [
-            ["iconfont":IconFontType.钱包.rawValue,"iconColor":"#87CEFA","title":LanguageKey.钱包]
+            MenuModel(dic:  ["iconfont":IconFontType.钱包.rawValue,"iconColor":"#87CEFA","title":LanguageKey.钱包.rawValue])
         ],
         [
-            ["iconImage":"shoucang","title":LanguageKey.收藏],
-            ["iconfont":IconFontType.相册.rawValue,"iconColor":"#87CEFA","title":LanguageKey.相册],
-            ["iconImage":"kabao","title":LanguageKey.卡包],
-            ["iconfont":IconFontType.表情_2.rawValue,"iconColor":"#FFD700","title":LanguageKey.表情]
+            MenuModel(dic:  ["iconImage":"shoucang","title":LanguageKey.收藏.rawValue]),
+            MenuModel(dic:  ["iconfont":IconFontType.相册.rawValue,"iconColor":"#87CEFA","title":LanguageKey.相册.rawValue]),
+            MenuModel(dic:  ["iconImage":"kabao","title":LanguageKey.卡包.rawValue]),
+            MenuModel(dic:  ["iconfont":IconFontType.表情_2.rawValue,"iconColor":"#FFD700","title":LanguageKey.表情.rawValue])
         ],
         [
-            ["iconfont":IconFontType.设置.rawValue,"iconColor":"#87CEFA","title":LanguageKey.设置]
+            MenuModel(dic:  ["iconfont":IconFontType.设置.rawValue,"iconColor":"#87CEFA","title":LanguageKey.设置.rawValue])
         ],
     ]
     
@@ -78,7 +79,7 @@ class MyViewController: UITableViewController {
             let cell = MyInfoCell.getCell(tableView: tableView)
             return cell
         }else {
-            let cell = MenuCell.getCell(tableView: tableView, viewModel: MenuModel(dic: dataSource[indexPath.section-1][indexPath.row] as [String : AnyObject]))
+            let cell = MenuCell.getCell(tableView: tableView, viewModel: dataSource[indexPath.section-1][indexPath.row])
             return cell
         }
         

@@ -11,35 +11,41 @@ import WXTools
 import CTNetworkingSwift
 
 /// 朋友圈
-class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+class WeixinViewController: UIViewController {
+    
+    /// 通知刷新key名
+    static let notificationName_refresh = "WeixinViewController_refresh"
+    
+    /// 唯一初始化
+    required init() {
+        super.init(nibName: "WeixinViewController", bundle: nil)
+    }
+    
+    
     /// TableView
     @IBOutlet weak var tableView: UITableView!
     
-    static let notificationName_refresh = "WeixinViewController_refresh"
-    
-    
-    /// 联系人ApiManager
+    /// 朋友圈动态ApiManager
     private lazy var wxFriendCircleApiManager:WXFriendCircleApiManager = {
         let m = WXFriendCircleApiManager.init()
         m.delegate = self
         return m
     }()
     
+    /// 朋友圈数据处理中心
     private lazy var wxFriendCircleReform:WXFriendCircleReform = {
         let r = WXFriendCircleReform()
         return r
     }()
     
     
-    /// 动态数据
-    private var dataList:[WeixinCellModel] = []
-    
     /// 头部视图
-    private var headerView:UIView!
+    private lazy var headerView:WeixinHeaderView =  {
+        let h = WeixinHeaderView()
+        h.translatesAutoresizingMaskIntoConstraints = false
+        return h
+    }()
     
-    /// 记录某一行全文是否展开
-    private var showAll:Bool?
     
     /// 导航栏右侧相机按钮
     private lazy var cameraImageView:UIImageView = {
@@ -60,10 +66,6 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     }()
     
     
-    /// 唯一初始化
-    required init() {
-        super.init(nibName: "WeixinViewController", bundle: nil)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -75,33 +77,36 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         // 导航栏右侧相机
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
         
-        // 初始化头部视图
-        setupHeaderView()
-        // 设置tableview的headerView
+        // 设置头部视图
         tableView.tableHeaderView = headerView
-        tableView.rowHeight = 200
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: tableView.topAnchor),
+            headerView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            headerView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
         
-        
-   
         // 添加头部刷新
         tableView.addHeaderRefresh(headerView: FriendCircleRefreshView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: UIApplication.shared.statusBarFrame.height + navigationController!.navigationBar.frame.height + 20 + 30)), actionTarget: self, action: #selector(refresh))
         // 添加尾部加载更多
         tableView.addFooterLoadMore(actionTarget: self, action: #selector(loadMore))
-
+        
         // 一进来就刷新
         tableView.beginRefresh()
-        
-        
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
-  
+        
         // 注册刷新的通知
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name(rawValue: WeixinViewController.notificationName_refresh), object: nil)
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sizeHeaderToFit()
     }
     
     
@@ -118,9 +123,8 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         self.navigationController?.navigationBar.shadowImage = nil
-        
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -134,12 +138,17 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
         NotificationCenter.default.removeObserver(self)
     }
     
+}
+
+
+//MARK: 业务相关
+extension WeixinViewController {
     
     /// 相机点击
     @objc private func cameraClick() {
         
     }
-
+    
     
     /// 刷新操作
     @objc private func refresh(){
@@ -163,197 +172,73 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
-    /// 设置头部视图
-    /// - 注意tableView的tableheaderView只能通过frame才能正确的计算头部视图的位置，如果用约束来创建的话，需要以下方法才能创建成功
-    private func setupHeaderView(){
+    /// 计算头部视图并更新布局
+    private func sizeHeaderToFit(){
+        let headerView = tableView.tableHeaderView!
         
-        // 如果头部视图是用代码约束创建的，最好再外面包一层View，这样能很好的把最外层的View撑开
-        headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenBounds.width, height: 1))
+        headerView.setNeedsLayout()
+        // 立马布局子视图
+        headerView.layoutIfNeeded()
         
-        
-        // 创建真正的头部视图
-        let weixinHeaderView = WeixinHeaderView(name: "张琳", frame: CGRect.zero)
-        headerView.addSubview(weixinHeaderView)
-        weixinHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        // 添加约束，让真正的头部视图撑满最外面的headerView
-        headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":weixinHeaderView]))
-        headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":weixinHeaderView]))
-        
-        
-        // 重新计算真实的头部视图的高度，修复headerView的frame
         let height = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
         var frame = headerView.frame
         frame.size.height = height
         headerView.frame = frame
-    
+        
+        // 重新设置tableHeaderView
+        tableView.tableHeaderView = headerView
     }
-    
-    
-    //MARK: UITableView - DataSource
-    
+}
+
+//MARK: UITableView - DataSource
+extension WeixinViewController : UITableViewDataSource {
     /// 返回几组
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     /// 返回每组有几行
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return dataList.count
+        return wxFriendCircleReform.dataSource.count
     }
     
-
+    
     /// 绘制Cell
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        
-        let cell:WeixinCell = WeixinCell.getCell(tableView: tableView, viewModel: dataList[indexPath.row])
-        
+        let cell:WeixinCell = WeixinCell.getCell(tableView: tableView, indexPath: indexPath, viewModel: wxFriendCircleReform.dataSource[indexPath.row])
+        cell.delegate = self
         cell.viewModel.rowHeight = cell.systemLayoutSizeFitting(CGSize(width: tableView.bounds.width, height: 0), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel).height
-        
-        
-        if let showAll = showAll {
-            cell.viewModel.showAll = showAll
-        }
-        
-        
-        // 全文/收起按钮点击回调
-        cell.btnCallBack = { [weak self] (isSelect:Bool) -> Void in
-            self?.showAll = isSelect
-            tableView.reloadRows(at: [indexPath], with: .none)
-        }
-        
-        // 操作按钮点击回调
-        cell.commentClickBack = { [weak self] (sender:UIButton) in
-            
-            
-            let pop =  CommentPopoverController(sourceView: sender, dynamicId: cell.viewModel.id, isLike: cell.viewModel.isLike, likeClickBack: { [weak self](isLike) in
-                
-                cell.viewModel.isLike = isLike
-               
-                if var likesData = cell.viewModel.likesData, let wxId = User.share.wxId {
-                    
-                    if isLike == true {
-                        
-                        likesData.append(["name":User.share.name ?? "","wxId":wxId])
-                        
-                    } else {
-                        for (index,value) in likesData.enumerated() {
-                            if value["wxId"] as! String == wxId {
-                                likesData.remove(at: index)
-                                break
-                            }
-                        }
-                    }
-                    
-                    cell.viewModel.likesData = likesData
-                }
-    
-                self?.dataList[indexPath.row] = cell.viewModel
-                self?.tableView.reloadRows(at: [indexPath], with: .none)
-                
-            }, commentClickBack: { //评论点击回调
-                
-                // 显示评论的输入框
-                ReplayTools.share.showReplayView(text: nil, tableView: tableView, cell: cell, sendClick: { (text) in
-                    
-                    // 添加一条评论
-                    WXApi.dynamicAddComment(dynamicId: cell.viewModel.id, content: text, success: { [weak self](json) in
-                        
-                        if var commentData = cell.viewModel.commentData, let jsonDic = json.dictionaryObject {
-                            commentData.append(jsonDic)
-                            cell.viewModel.commentData = commentData
-                            self?.dataList[indexPath.row] = cell.viewModel
-                            self?.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
-                        
-                    }, failed: nil)
-    
-                })
-                
-            })
-            self?.present(pop, animated: false, completion: nil)
-        }
-        
-        // 回复评论点击回调
-        cell.commentView.commentClickBlock = {[weak self] (data) in
-            
-            guard let weakSelf = self, let id = User.share.id, let userId = data["userId"] as? Int, let commentId = data["id"] as? Int else {
-                return
-            }
-            
-            
-            if userId == id { //说明点击的是自己的评论，则就删除评论
-                
-                Alert.show(viewcontroller: weakSelf, title: "提示", message: "是否要删除此评论", done: {
-                    WXApi.dynamicDeleteComment(commentId: commentId, success: { [weak self](_) in
-                        
-                        if var commentData = cell.viewModel.commentData {
-                            for (index,value) in commentData.enumerated() {
-                                if value["id"] as! Int == commentId {
-                                    commentData.remove(at: index)
-                                    break
-                                }
-                            }
-                            cell.viewModel.commentData = commentData
-                            self?.dataList[indexPath.row] = cell.viewModel
-                            self?.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
-                        
-                        }, failed: nil)
-                })
-                
-                
-            } else { //否则就是回复别人的评论
-                
-                
-                ReplayTools.share.showReplayView(text: nil, placheolder: "回复\(data["name"] as? String ?? "--")", tableView: tableView, cell: cell, sendClick: { (text) in
-
-                    
-                    WXApi.dynamicReplyComment(dynamicId: cell.viewModel.id, replyUserId: userId, content: text, success: { [weak self](json) in
-                        
-                        if var commentData = cell.viewModel.commentData, let jsonDic = json.dictionaryObject {
-                            commentData.append(jsonDic)
-                            cell.viewModel.commentData = commentData
-                            self?.dataList[indexPath.row] = cell.viewModel
-                            self?.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
-                        
-                    }, failed: nil)
-                })
-                
-            }
-           
-        }
         
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let viewModel = dataList[indexPath.row]
+        let viewModel = wxFriendCircleReform.dataSource[indexPath.row]
         return  viewModel.rowHeight ?? UITableViewAutomaticDimension
     }
+}
+
+
+//MARK: UITableView Delegate
+extension WeixinViewController : UITableViewDelegate {
     
+}
 
-    //MARK: UITableView Delegate
 
-    //MARK: 点击Cell
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    //MARK: UIScrollView Delegate
+//MARK: UIScrollView Delegate
+extension WeixinViewController : UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 44
-
-        // 导航栏的高度(导航栏+电池条)
+        
+        // (导航栏+电池条)的高度
         let navigationHeight = UIApplication.shared.statusBarFrame.height + navigationBarHeight
         // 渐变的高度
         let gradualHeight = headerView.frame.height - navigationHeight * 2
-
+        
         if scrollView.contentOffset.y < gradualHeight {
             self.navigationItem.title = nil
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18)]
@@ -363,29 +248,68 @@ class WeixinViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
             return
         }
-
+        
         self.navigationController?.navigationBar.setBackgroundImage( UIImage.imageWithColor(UIColor(hex: "#eeeeee", alpha: (scrollView.contentOffset.y - gradualHeight)/navigationHeight)), for: .default)
         self.navigationItem.title = LanguageHelper.getString(key: LanguageKey.朋友圈.rawValue)
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Colors.themeColor.main2,NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18)]
         self.navigationController?.navigationBar.tintColor = Colors.themeColor.main2
         cameraImageView.image = IconFont(code: IconFontType.相机.rawValue, name:kIconFontName, fontSize: 20.0, color: Colors.themeColor.main2).iconImage
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cameraImageView)
-
+        
     }
-
-
 }
 
+//MARK: 朋友圈动态协议
+extension WeixinViewController: WeixinCellDelegate {
+
+    /// 全文/收起按钮点击回调
+    func contentShowAll(showAll: Bool, viewModel:WeixinCellModel, indexPath: IndexPath) {
+        wxFriendCircleReform.dataSource[indexPath.row].showAll = showAll
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    /// 展示点赞/评论模块
+    func showCommentPopoverController(popView:CommentPopoverController){
+        present(popView, animated: false, completion: nil)
+    }
+    
+    /// 点赞
+    func chooseLike(viewModel:WeixinCellModel, indexPath:IndexPath){
+        wxFriendCircleReform.dataSource[indexPath.row] = viewModel
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    /// 评论
+    func sendComment(viewModel:WeixinCellModel, indexPath:IndexPath){
+        wxFriendCircleReform.dataSource[indexPath.row] = viewModel
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    /// 回复评论
+    func replyComment(viewModel: WeixinCellModel, indexPath: IndexPath) {
+        wxFriendCircleReform.dataSource[indexPath.row] = viewModel
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    /// 删除评论
+    func deleteComment(viewModel: WeixinCellModel, indexPath: IndexPath) {
+        wxFriendCircleReform.dataSource[indexPath.row] = viewModel
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}
+
+
+
+//MARK: API成功/失败回调
 extension WeixinViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
     func requestDidSuccess(_ apiManager: CTNetworkingBaseAPIManager) {
         
-        guard let currentDataList = apiManager.fetch(reformer: wxFriendCircleReform) as? [WeixinCellModel] else {
+        guard (apiManager.fetch(reformer: wxFriendCircleReform) as? [WeixinCellModel]) != nil else {
             return
         }
         
         if wxFriendCircleApiManager.isFirstPage {
             tableView.endRefresh()
-            dataList = []
             wxFriendCircleApiManager.isFirstPage = false
         }else{
             if wxFriendCircleApiManager.isLastPage {
@@ -395,7 +319,6 @@ extension WeixinViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
             }
         }
         
-        dataList += currentDataList
         tableView.reloadData()
     }
     
@@ -404,5 +327,6 @@ extension WeixinViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
         tableView.endLoadMore()
     }
 }
+
 
 

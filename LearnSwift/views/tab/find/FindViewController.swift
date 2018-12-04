@@ -14,30 +14,29 @@ class FindViewController: UITableViewController {
     /// 数据源
     private var dataSource = [
         [
-            ["iconImage":"pengyouquan","title":LanguageKey.朋友圈],
+             MenuModel(dic:["iconImage":"pengyouquan","title":LanguageKey.朋友圈.rawValue])
         ],
         [
-            ["iconfont":IconFontType.扫一扫.rawValue,"iconColor":"#87CEFA","title":LanguageKey.扫一扫],
-            ["iconImage":"yaoyiyao","title":LanguageKey.摇一摇],
+             MenuModel(dic:["iconfont":IconFontType.扫一扫.rawValue,"iconColor":"#87CEFA","title":LanguageKey.扫一扫.rawValue]),
+             MenuModel(dic:["iconImage":"yaoyiyao","title":LanguageKey.摇一摇.rawValue]),
         ],
         [
-            ["iconImage":"kanyikan","title":LanguageKey.看一看],
-            ["iconImage":"souyisou","title":LanguageKey.搜一搜],
+             MenuModel(dic:["iconImage":"kanyikan","title":LanguageKey.看一看.rawValue]),
+             MenuModel(dic:["iconImage":"souyisou","title":LanguageKey.搜一搜.rawValue]),
         ],
         [
-            ["iconImage":"fujinderen","title":LanguageKey.附近的人],
-            ["iconImage":"piaoliuping","title":LanguageKey.漂流瓶],
+             MenuModel(dic:["iconImage":"fujinderen","title":LanguageKey.附近的人.rawValue]),
+             MenuModel(dic:["iconImage":"piaoliuping","title":LanguageKey.漂流瓶.rawValue]),
         ],
         [
-            ["iconfont":IconFontType.购物.rawValue,"iconColor":"#87CEFA","title":LanguageKey.购物],
-            ["iconImage":"youxi","title":LanguageKey.游戏],
+            MenuModel(dic: ["iconfont":IconFontType.购物.rawValue,"iconColor":"#87CEFA","title":LanguageKey.购物.rawValue]),
+             MenuModel(dic:["iconImage":"youxi","title":LanguageKey.游戏.rawValue]),
         ],
         [
-            ["iconfont":IconFontType.小程序.rawValue,"iconColor":"#87CEFA","title":LanguageKey.小程序]
+             MenuModel(dic:["iconfont":IconFontType.小程序.rawValue,"iconColor":"#87CEFA","title":LanguageKey.小程序.rawValue])
         ],
     ]
     
-    private let cell_menuCell = "MenuCell"
     
     
     /// 唯一初始化
@@ -79,7 +78,7 @@ class FindViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = MenuCell.getCell(tableView: tableView, viewModel:MenuModel(dic: dataSource[indexPath.section][indexPath.row] as [String : AnyObject]))
+        let cell = MenuCell.getCell(tableView: tableView, viewModel: dataSource[indexPath.section][indexPath.row])
         return cell
     }
     

@@ -22,8 +22,6 @@ let kWXUserDetailSex = "sex"
 
 struct WXUserDetailReform: CTNetworkingReformer {
     
-    var wxId:String = ""
-    
     func reform(apiManager:CTNetworkingBaseAPIManager) -> Any? {
         
         guard let json = apiManager.fetchAsJSON()?["data"] else {
@@ -39,19 +37,21 @@ struct WXUserDetailReform: CTNetworkingReformer {
         let district = json["district"].string ?? ""
         let remarkName = json["remarkName"].string
         let address = "\(province) \(city) \(district)"
+        let wxId = json["wxId"].stringValue
         
         return [
             [
-                [kWXUserDetailImageUrl:headPicture,kWXUserDetailName:name,kWXUserDetailWeixinNumber:wxId,kWXUserDetailRemarkName:remarkName,kWXUserDetailSex:sex]
+                 UserDetailHeaderViewModel(dic: [kWXUserDetailImageUrl:headPicture ?? NSNull(),kWXUserDetailName:name,kWXUserDetailWeixinNumber:wxId,kWXUserDetailRemarkName:remarkName ?? NSNull(),kWXUserDetailSex:sex])
             ],
             [
-                [kWXUserDetailTitle:"设置备注和标签",kWXUserDetailShowArrow:true],
-                [kWXUserDetailTitle:"电话号码",kWXUserDetailSubTitle:phone,kWXUserDetailShowArrow:false]
+                UserDetailDefaltViewModel(dic: [kWXUserDetailTitle:"设置备注和标签",kWXUserDetailShowArrow:true]),
+                UserDetailDefaltViewModel(dic: [kWXUserDetailTitle:"电话号码",kWXUserDetailSubTitle:phone,kWXUserDetailShowArrow:false])
             ],
             [
-                [kWXUserDetailTitle:"地区",kWXUserDetailSubTitle:address,"showArrow":false],
-                [kWXUserDetailTitle:"个人相册",kWXUserDetailImageUrls:["https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1555162835,2120770057&fm=26&gp=0.jpg","https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3972446805,2469332184&fm=26&gp=0.jpg","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1265907631,191003867&fm=26&gp=0.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3222719360,565415155&fm=27&gp=0.jpg"],"showArrow":true],
-                [kWXUserDetailTitle:"更多",kWXUserDetailShowArrow:true]
+               
+                UserDetailDefaltViewModel(dic:[kWXUserDetailTitle:"地区",kWXUserDetailSubTitle:address,"showArrow":false]),
+                UserDetailPhotoViewModel(dic: [kWXUserDetailTitle:"个人相册",kWXUserDetailImageUrls:["https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1555162835,2120770057&fm=26&gp=0.jpg","https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3972446805,2469332184&fm=26&gp=0.jpg","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1265907631,191003867&fm=26&gp=0.jpg","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3222719360,565415155&fm=27&gp=0.jpg"],"showArrow":true]),
+                UserDetailDefaltViewModel(dic:[kWXUserDetailTitle:"更多",kWXUserDetailShowArrow:true])
             ]
         ]
         

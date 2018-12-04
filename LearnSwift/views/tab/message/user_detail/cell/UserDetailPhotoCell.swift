@@ -11,6 +11,25 @@ import WXTools
 
 class UserDetailPhotoCell: UITableViewCell {
     
+    static let identifier = "UserDetailPhotoCell"
+    
+    
+    /// 唯一获取Cell方法
+    ///
+    /// - Parameters:
+    ///   - tableView: tableview
+    ///   - viewModel: 视图模型
+    /// - Returns: UserDetailHeaderCell
+    public class func getCell(tableView:UITableView, viewModel:UserDetailPhotoViewModel) -> UserDetailPhotoCell{
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UserDetailPhotoCell
+        if cell == nil {
+            cell = UIView.loadViewFromNib(nibName: identifier) as? UserDetailPhotoCell
+        }
+        cell!.viewModel = viewModel
+        return cell!
+    }
+    
+    
     /// 标题
     @IBOutlet weak var titleLabel: UILabel!
     /// 第一个图
@@ -22,7 +41,7 @@ class UserDetailPhotoCell: UITableViewCell {
     /// 第四个图
     @IBOutlet weak var fourImageView: UIImageView!
     
-    var data:Dictionary<String,Any> = [:] {
+    var viewModel:UserDetailPhotoViewModel! {
         didSet{
             updateUI()
         }
@@ -38,23 +57,21 @@ class UserDetailPhotoCell: UITableViewCell {
     }
     
     private func updateUI(){
-        let title = data[kWXUserDetailTitle] as! String
-        let imageUrls = data[kWXUserDetailImageUrls] as? Array<String> ?? []
+       
+        let placeholderImage = IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage
+        let failedImage = IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage
         
-        titleLabel.text = title
+        titleLabel.text = viewModel.title
         
-        if imageUrls.count > 0 {
-            firstImageView.setImage(withUrl: imageUrls.first!, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        }
-        if imageUrls.count > 1 {
-            twoImageView.setImage(withUrl: imageUrls[1], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        }
-        if imageUrls.count > 2 {
-            threeImageView.setImage(withUrl: imageUrls[2], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        }
-        if imageUrls.count > 3 {
-            fourImageView.setImage(withUrl: imageUrls[3], placeholderImage: IconFont(code: IconFontType.图片.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name: kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        }
+       
+        firstImageView.setImage(withUrl: viewModel.firstImageUrl, placeholderImage: placeholderImage, failedImage: failedImage)
+        
+        twoImageView.setImage(withUrl: viewModel.secondImageUrl, placeholderImage: placeholderImage, failedImage: failedImage)
+        
+        threeImageView.setImage(withUrl: viewModel.thirdImageUrl, placeholderImage: placeholderImage, failedImage: failedImage)
+        
+        fourImageView.setImage(withUrl: viewModel.fourthImageUrl, placeholderImage: placeholderImage, failedImage: failedImage)
+        
     }
     
 }

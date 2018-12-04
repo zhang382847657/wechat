@@ -13,7 +13,7 @@ import CTNetworkingSwift
 class UserDetailViewController: UITableViewController {
     
     /// 数据源
-    private var dataSource:[[[String:Any]]] = []
+    private var dataSource:[[Any]] = []
     /// 微信号
     private var wxId:String = ""
     
@@ -27,10 +27,6 @@ class UserDetailViewController: UITableViewController {
     }()
     /// 查询哦用户详情的数据过滤器
     private var wxUserDetailReform = WXUserDetailReform.init()
-    
-    private let cell_userDetailHeaderCell = "UserDetailHeaderCell"
-    private let cell_userDetailDefaultCell = "UserDetailDefaultCell"
-    private let cell_userDetailPhotoCell = "UserDetailPhotoCell"
     
     
     /// 唯一初始化
@@ -55,16 +51,10 @@ class UserDetailViewController: UITableViewController {
         
 
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
-        tableView.sectionHeaderHeight = 20
-        tableView.sectionFooterHeight = 0.1
-        
         tableView.tableHeaderView = UIView()
         tableView.tableFooterView = UIView()
        
-        tableView.register( UINib(nibName: "UserDetailHeaderCell", bundle: nil), forCellReuseIdentifier: cell_userDetailHeaderCell)
-        tableView.register( UINib(nibName: "UserDetailDefaultCell", bundle: nil), forCellReuseIdentifier: cell_userDetailDefaultCell)
-        tableView.register(UINib(nibName: "UserDetailPhotoCell", bundle: nil), forCellReuseIdentifier: cell_userDetailPhotoCell)
-        
+
         //调用接口查询用户信息
         wxUserDetailApiManager.loadData()
 
@@ -93,20 +83,31 @@ extension UserDetailViewController {
         return dataSource[section].count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 92
+        }else if indexPath.section == 1 {
+            return 44
+        }else {
+            if indexPath.row == 1 {
+                return 99
+            }else{
+                return 44
+            }
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell:UserDetailHeaderCell = tableView.dequeueReusableCell(withIdentifier: cell_userDetailHeaderCell, for: indexPath) as! UserDetailHeaderCell
-            cell.data = dataSource[indexPath.section][indexPath.row]
+            let cell:UserDetailHeaderCell =  UserDetailHeaderCell.getCell(tableView: tableView, viewModel: dataSource[indexPath.section][indexPath.row] as! UserDetailHeaderViewModel)
             return cell
         }else if indexPath.section == 2 && indexPath.row == 1 {
-            let cell:UserDetailPhotoCell = tableView.dequeueReusableCell(withIdentifier: cell_userDetailPhotoCell, for: indexPath) as! UserDetailPhotoCell
-            cell.data = dataSource[indexPath.section][indexPath.row]
+            let cell:UserDetailPhotoCell = UserDetailPhotoCell.getCell(tableView: tableView, viewModel: dataSource[indexPath.section][indexPath.row] as! UserDetailPhotoViewModel)
             return cell
         }else{
-            let cell:UserDetailDefaultCell = tableView.dequeueReusableCell(withIdentifier: cell_userDetailDefaultCell, for: indexPath) as! UserDetailDefaultCell
-            cell.data = dataSource[indexPath.section][indexPath.row]
+            let cell:UserDetailDefaultCell = UserDetailDefaultCell.getCell(tableView: tableView, viewModel: dataSource[indexPath.section][indexPath.row] as! UserDetailDefaltViewModel)
             return cell
         }
         
@@ -125,7 +126,7 @@ extension UserDetailViewController {
 extension UserDetailViewController : CTNetworkingBaseAPIManagerCallbackDelegate {
     func requestDidSuccess(_ apiManager: CTNetworkingBaseAPIManager) {
         
-        dataSource = apiManager.fetch(reformer: wxUserDetailReform) as! [[[String : Any]]]
+        dataSource = apiManager.fetch(reformer: wxUserDetailReform) as! [[Any]]
         tableView.reloadData()
         
     }

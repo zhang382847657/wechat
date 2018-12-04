@@ -13,31 +13,27 @@ import SwiftyJSON
 
 class WXFriendCircleReform: CTNetworkingReformer  {
     
-   
-    private var dataSource:[WeixinCellModel] = []
-    
-    
-    public func numberOfRowsInSection(section:Int) -> Int {
-        return dataSource.count
-        
-    }
-    
-    public func getCellDataForRowAt(indexPath: IndexPath) -> WeixinCellModel {
-        return dataSource[indexPath.row]
-    }
+    var dataSource:[WeixinCellModel] = []
     
     
     func reform(apiManager:CTNetworkingBaseAPIManager) -> Any? {
         
-        
-        if let dataList = apiManager.fetchAsJSON()?["data","dataList"].arrayObject as? [[String:Any]] {
+        if let wxFriendCircleApiManager = apiManager as? WXFriendCircleApiManager {
             
-            let finalDataList = dataList.map { (dic) -> WeixinCellModel in
-                return WeixinCellModel(dic: dic)
+            if let dataList = wxFriendCircleApiManager.fetchAsJSON()?["data","dataList"].arrayObject as? [[String:Any]] {
+                
+                let finalDataList = dataList.map { (dic) -> WeixinCellModel in
+                    return WeixinCellModel(dic: dic)
+                }
+                
+                if wxFriendCircleApiManager.isFirstPage {
+                     dataSource = finalDataList
+                }else {
+                     dataSource += finalDataList
+                }
+                
+                return dataSource
             }
-            
-            dataSource = finalDataList
-            return dataSource
         }
         
         return nil

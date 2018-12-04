@@ -8,8 +8,36 @@
 
 import UIKit
 import WXTools
+import CTNetworkingSwift
 
+
+/// 点赞/评论小弹窗
 class CommentPopoverController: UIViewController, UIPopoverPresentationControllerDelegate,CAAnimationDelegate {
+    
+    
+    /// 唯一初始化
+    ///
+    /// - Parameters:
+    ///   - sourceView: 来源视图
+    ///   - isLike: 是否已点赞
+    ///   - likeClickBack: 点赞回调
+    ///   - commentClickBack: 评论点击回调
+    required init(sourceView:UIView, dynamicId:Int, isLike:Bool = false, likeClickBack:@escaping ((Bool)->Void), commentClickBack:(()->Void)? = nil) {
+        
+        super.init(nibName: "CommentPopoverController", bundle: nil)
+        
+        self.dynamicId = dynamicId
+        self.isLike = isLike
+        self.likeCallBack = likeClickBack
+        self.commentCallBack = commentClickBack
+        self.modalPresentationStyle = .popover
+        self.popoverPresentationController?.delegate = self
+        self.popoverPresentationController?.sourceView = sourceView
+        self.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: -100, y: 5), size: sourceView.bounds.size)
+        self.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        self.preferredContentSize = CGSize(width: 169, height: 40)
+    }
+    
     
     /// 点赞按钮
     @IBOutlet weak var likeBtn: UIButton!
@@ -33,29 +61,23 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
     /// 是否已点赞
     private var isLike:Bool = false
     
+    
+    private lazy var likeApiManager:WXFriendCircleLikeApiManager = {
+        let m = WXFriendCircleLikeApiManager()
+        m.delegate = self
+        m.paramSource = self
+        return m
+    }()
+    
+    private lazy var cancelLikeApiManager:WXFriendCircleCancelLikeApiManager = {
+        let m = WXFriendCircleCancelLikeApiManager()
+        m.delegate = self
+        m.paramSource = self
+        return m
+    }()
+    
 
-    /// 唯一初始化
-    ///
-    /// - Parameters:
-    ///   - sourceView: 来源视图
-    ///   - isLike: 是否已点赞
-    ///   - likeClickBack: 点赞回调
-    ///   - commentClickBack: 评论点击回调
-    required init(sourceView:UIView, dynamicId:Int, isLike:Bool = false, likeClickBack:@escaping ((Bool)->Void), commentClickBack:(()->Void)? = nil) {
-        
-        super.init(nibName: "CommentPopoverController", bundle: nil)
-        
-        self.dynamicId = dynamicId
-        self.isLike = isLike
-        self.likeCallBack = likeClickBack
-        self.commentCallBack = commentClickBack
-        self.modalPresentationStyle = .popover
-        self.popoverPresentationController?.delegate = self
-        self.popoverPresentationController?.sourceView = sourceView
-        self.popoverPresentationController?.sourceRect = CGRect(origin: CGPoint(x: -100, y: 5), size: sourceView.bounds.size)
-        self.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        self.preferredContentSize = CGSize(width: 169, height: 40)
-    }
+   
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -100,22 +122,11 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
         
         
         if isLike == true { //取消点赞
-            WXApi.dynmaicCancelLike(dynamicId: dynamicId, success: { [weak self](_) in
-                self?.isLike = false
-                if let cb = self?.likeCallBack {
-                    cb(false)
-                }
-            }, failed: nil)
+            cancelLikeApiManager.loadData()
         }else { //点赞
-            WXApi.dynamicLike(dynamicId: dynamicId, success: { [weak self](_) in
-                self?.isLike = true
-                if let cb = self?.likeCallBack {
-                    cb(true)
-                }
-            }, failed: nil)
+            likeApiManager.loadData()
         }
     
-        
     }
     
     /// 评论
@@ -126,7 +137,6 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
         if let cb = commentCallBack {
             cb()
         }
-            
     }
     
     
@@ -151,4 +161,28 @@ class CommentPopoverController: UIViewController, UIPopoverPresentationControlle
         }
     }
 
+}
+
+
+extension CommentPopoverController : CTNetworkingBaseAPIManagerCallbackDelegate {
+    func requestDidSuccess(_ apiManager:CTNetworkingBaseAPIManager) {
+        
+        if apiManager.isKind(of: WXFriendCircleCancelLikeApiManager.self){
+            isLike = false
+        }else if apiManager.isKind(of: WXFriendCircleLikeApiManager.self){
+            isLike = true
+        }
+        if let cb = likeCallBack {
+            cb(isLike)
+        }
+    }
+    func requestDidFailed(_ apiManager:CTNetworkingBaseAPIManager) {
+        
+    }
+}
+
+extension CommentPopoverController : CTNetworkingBaseAPIManagerParamSource {
+    func params(for apiManager:CTNetworkingBaseAPIManager) -> ParamsType? {
+        return ["dynamicId":dynamicId]
+    }
 }

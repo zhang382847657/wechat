@@ -44,8 +44,10 @@ class WeixinHeaderView: UIView {
         return l
     }()
     
-    init(name:String ,frame:CGRect) {
-        super.init(frame: frame)
+    
+    /// 唯一初始化
+    init() {
+        super.init(frame: CGRect.zero)
         
         self.backgroundColor = UIColor.white
         
@@ -59,24 +61,56 @@ class WeixinHeaderView: UIView {
         
         let headerImageViewBottom =  headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -32)
         headerImageViewBottom.priority = .defaultHigh
-       
+        
         
         NSLayoutConstraint.activate([
             backgroundImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
             backgroundImageView.rightAnchor.constraint(equalTo: self.rightAnchor),
-           backgroundImageTop,
+            backgroundImageTop,
             backgroundImageView.heightAnchor.constraint(equalToConstant: screenBounds.width * 0.9),
             backgroundImageView.bottomAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: -25),
             headerImageView.widthAnchor.constraint(equalToConstant: 77),
             headerImageView.heightAnchor.constraint(equalTo: headerImageView.widthAnchor),
-           headerImageViewBottom,
+            headerImageViewBottom,
             headerImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12),
             nameLabel.rightAnchor.constraint(equalTo: headerImageView.leftAnchor, constant: -18),
             nameLabel.topAnchor.constraint(equalTo: headerImageView.topAnchor, constant: 20)
-        ])
-
-     
+            ])
     }
+    
+//    init(name:String ,frame:CGRect) {
+//        super.init(frame: frame)
+//
+//        self.backgroundColor = UIColor.white
+//
+//        addSubview(backgroundImageView)
+//        addSubview(headerImageView)
+//        addSubview(nameLabel)
+//
+//
+//        let backgroundImageTop = backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: -35)
+//        backgroundImageTop.priority = .defaultHigh
+//
+//        let headerImageViewBottom =  headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -32)
+//        headerImageViewBottom.priority = .defaultHigh
+//
+//
+//        NSLayoutConstraint.activate([
+//            backgroundImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
+//            backgroundImageView.rightAnchor.constraint(equalTo: self.rightAnchor),
+//           backgroundImageTop,
+//            backgroundImageView.heightAnchor.constraint(equalToConstant: screenBounds.width * 0.9),
+//            backgroundImageView.bottomAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: -25),
+//            headerImageView.widthAnchor.constraint(equalToConstant: 77),
+//            headerImageView.heightAnchor.constraint(equalTo: headerImageView.widthAnchor),
+//           headerImageViewBottom,
+//            headerImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -12),
+//            nameLabel.rightAnchor.constraint(equalTo: headerImageView.leftAnchor, constant: -18),
+//            nameLabel.topAnchor.constraint(equalTo: headerImageView.topAnchor, constant: 20)
+//        ])
+//
+//
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

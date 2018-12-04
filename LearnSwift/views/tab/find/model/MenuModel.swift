@@ -15,7 +15,7 @@ struct MenuModel {
     var iconColor:String?
     var title:String?
     
-    init(dic:[String:AnyObject]) {
+    init(dic:[String:Any]) {
         iconfont = dic["iconfont"] as? String
         iconImage = dic["iconImage"] as? String
         iconColor = dic["iconColor"] as? String

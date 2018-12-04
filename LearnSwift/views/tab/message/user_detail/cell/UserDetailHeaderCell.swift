@@ -8,8 +8,29 @@
 
 import UIKit
 import WXTools
+import AlamofireImage
 
 class UserDetailHeaderCell: UITableViewCell {
+    
+    
+    static let identifier_userDetailHeader = "UserDetailHeaderCell"
+    
+    
+    /// 唯一获取Cell方法
+    ///
+    /// - Parameters:
+    ///   - tableView: tableview
+    ///   - viewModel: 视图模型
+    /// - Returns: UserDetailHeaderCell
+    public class func getCell(tableView:UITableView, viewModel:UserDetailHeaderViewModel) -> UserDetailHeaderCell{
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier_userDetailHeader) as? UserDetailHeaderCell
+        if cell == nil {
+            cell = UIView.loadViewFromNib(nibName: identifier_userDetailHeader) as? UserDetailHeaderCell
+        }
+        cell!.viewModel = viewModel
+        return cell!
+    }
+    
 
     /// 头像
     @IBOutlet weak var headerImageView: UIImageView!
@@ -21,9 +42,8 @@ class UserDetailHeaderCell: UITableViewCell {
     @IBOutlet weak var weixinNumberLabel: UILabel!
     /// 昵称
     @IBOutlet weak var nickNameLabel: UILabel!
-    
-    
-    var data:Dictionary<String,Any> = [:] {
+    /// 视图模型
+    private var viewModel:UserDetailHeaderViewModel! {
         didSet{
             updateUI()
         }
@@ -32,7 +52,6 @@ class UserDetailHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        headerImageView.setCornerRadio(radio: 5)
         sexLabel.font = UIFont(name: kIconFontName, size: 16.0)
     }
 
@@ -42,26 +61,15 @@ class UserDetailHeaderCell: UITableViewCell {
     
     
     private func updateUI(){
-        let imageUrl = data[kWXUserDetailImageUrl] as? String
-        let name = data[kWXUserDetailName] as! String
-        let weixinNumber = data[kWXUserDetailWeixinNumber] as! String
-        let sex:Int = data[kWXUserDetailSex] as? Int ?? 0 //性别 0女  1男 2未知
-        let remarkName = data[kWXUserDetailRemarkName] as? String
+       
         
-        headerImageView.setImage(withUrl: imageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage)
-        nameLabel.text = remarkName != nil ? remarkName : name
-        weixinNumberLabel.text = "微信号：\(weixinNumber)"
-        nickNameLabel.text = remarkName == nil ? nil : "昵称：\(name)"
-        
-        if sex == 0 {
-            sexLabel.text = IconFontType.女.rawValue
-            sexLabel.textColor = UIColor(hex: "#F30000")
-        }else if sex == 1 {
-            sexLabel.text = IconFontType.男.rawValue
-            sexLabel.textColor = UIColor(hex: "#007AFF")
-        }else{
-            sexLabel.text = nil
-        }
+        headerImageView.setImage(withUrl: viewModel.headerImageUrl, placeholderImage: IconFont(code: IconFontType.图片.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, failedImage: IconFont(code: IconFontType.图片失效.rawValue, name:kIconFontName, fontSize: 15.0, color: Colors.backgroundColor.colordc).iconImage, filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: headerImageView.bounds.size, radius: 5))
+        nameLabel.text = viewModel.name
+        weixinNumberLabel.text = viewModel.wxNumber
+        nickNameLabel.text = viewModel.nickName
+        sexLabel.text = viewModel.sexTitle
+        sexLabel.textColor = viewModel.sexColor
+      
     }
     
 }

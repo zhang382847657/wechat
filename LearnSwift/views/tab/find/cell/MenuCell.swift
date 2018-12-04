@@ -62,8 +62,8 @@ class MenuCell: UITableViewCell {
         if let iconfont = viewModel.iconfont, let iconColor = viewModel.iconColor {
             iconImageView.image = IconFont(code: iconfont, name:kIconFontName, fontSize: 26, color: UIColor(hex: iconColor)).iconImage
         }
-        if let title = viewModel.title as? LanguageKey {
-            titleLabel.text = LanguageHelper.getString(key: title.rawValue)
+        if let title = viewModel.title {
+            titleLabel.text = LanguageHelper.getString(key: title)
         }
     }
     

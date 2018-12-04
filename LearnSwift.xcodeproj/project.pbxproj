@@ -7,11 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630115D821B65BA10047E81B /* WXFriendCircleLikeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115D721B65BA10047E81B /* WXFriendCircleLikeApiManager.swift */; };
+		630115D921B65BA10047E81B /* WXFriendCircleLikeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115D721B65BA10047E81B /* WXFriendCircleLikeApiManager.swift */; };
+		630115DB21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115DA21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift */; };
+		630115DC21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115DA21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift */; };
+		630115DE21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115DD21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift */; };
+		630115DF21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115DD21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift */; };
+		630115E121B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115E021B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift */; };
+		630115E221B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115E021B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift */; };
+		630115E421B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115E321B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift */; };
+		630115E521B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630115E321B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift */; };
 		630402F9214CA8BA005F0ADC /* FriendCircleRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630402F8214CA8BA005F0ADC /* FriendCircleRefreshView.swift */; };
 		630DCE8C214F430E00ACD786 /* PublishTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630DCE8A214F430E00ACD786 /* PublishTextViewController.swift */; };
 		630DCE8D214F430E00ACD786 /* PublishTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630DCE8B214F430E00ACD786 /* PublishTextViewController.xib */; };
 		6315E99F213D393700F3ADC4 /* UserDetailPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315E99D213D393700F3ADC4 /* UserDetailPhotoCell.swift */; };
 		6315E9A0213D393700F3ADC4 /* UserDetailPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6315E99E213D393700F3ADC4 /* UserDetailPhotoCell.xib */; };
+		631C1FFA21B4E0BE00B8FD78 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C1FF921B4E0BE00B8FD78 /* UserDetailViewModel.swift */; };
+		631C1FFB21B4E0BE00B8FD78 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C1FF921B4E0BE00B8FD78 /* UserDetailViewModel.swift */; };
 		6321F49F21708E6A00F417E1 /* ChoosePictureViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321F49D21708E6A00F417E1 /* ChoosePictureViewerCell.swift */; };
 		6321F4A021708E6A00F417E1 /* ChoosePictureViewerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321F49D21708E6A00F417E1 /* ChoosePictureViewerCell.swift */; };
 		63274E932179D00800788D0A /* SportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63274E912179D00800788D0A /* SportsViewController.swift */; };
@@ -249,11 +261,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		630115D721B65BA10047E81B /* WXFriendCircleLikeApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXFriendCircleLikeApiManager.swift; sourceTree = "<group>"; };
+		630115DA21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXFriendCircleAddCommentApiManager.swift; sourceTree = "<group>"; };
+		630115DD21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXFriendCircleCancelLikeApiManager.swift; sourceTree = "<group>"; };
+		630115E021B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXFriendCircleReplyCommentApiManager.swift; sourceTree = "<group>"; };
+		630115E321B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXFriendCircleDeleteCommentApiManager.swift; sourceTree = "<group>"; };
 		630402F8214CA8BA005F0ADC /* FriendCircleRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCircleRefreshView.swift; sourceTree = "<group>"; };
 		630DCE8A214F430E00ACD786 /* PublishTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTextViewController.swift; sourceTree = "<group>"; };
 		630DCE8B214F430E00ACD786 /* PublishTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublishTextViewController.xib; sourceTree = "<group>"; };
 		6315E99D213D393700F3ADC4 /* UserDetailPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailPhotoCell.swift; sourceTree = "<group>"; };
 		6315E99E213D393700F3ADC4 /* UserDetailPhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailPhotoCell.xib; sourceTree = "<group>"; };
+		631C1FF921B4E0BE00B8FD78 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		6321F49D21708E6A00F417E1 /* ChoosePictureViewerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePictureViewerCell.swift; sourceTree = "<group>"; };
 		63274E912179D00800788D0A /* SportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsViewController.swift; sourceTree = "<group>"; };
 		63274E922179D00800788D0A /* SportsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SportsViewController.xib; sourceTree = "<group>"; };
@@ -431,6 +449,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		631C1FF821B4E0A400B8FD78 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				631C1FF921B4E0BE00B8FD78 /* UserDetailViewModel.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		63274E902179CF4300788D0A /* sports */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,8 +693,13 @@
 		6396E348219D5EFE002A18E3 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				6396E349219D5F19002A18E3 /* WXFriendCircleApiManager.swift */,
 				6396E34C219D624B002A18E3 /* WXFriendCircleReform.swift */,
+				6396E349219D5F19002A18E3 /* WXFriendCircleApiManager.swift */,
+				630115D721B65BA10047E81B /* WXFriendCircleLikeApiManager.swift */,
+				630115DD21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift */,
+				630115DA21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift */,
+				630115E021B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift */,
+				630115E321B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -867,6 +898,7 @@
 		63F464A720FCE97000AAF360 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				631C1FF821B4E0A400B8FD78 /* model */,
 				63449185213CC83300D9A9E7 /* user_detail */,
 				6339CF7C210A0EF1003D9813 /* view */,
 				63B15BCA2105EA55009DCABE /* cell */,
@@ -1232,6 +1264,7 @@
 				63D0980020F1144300E099F7 /* RegisterViewController.swift in Sources */,
 				6396E34A219D5F19002A18E3 /* WXFriendCircleApiManager.swift in Sources */,
 				63AE523F213A744700222257 /* MessageViewController.swift in Sources */,
+				630115DB21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift in Sources */,
 				63D5F23121705281004AF84A /* TZAssetModel.m in Sources */,
 				63F8198D215F6E18000F4830 /* Alert.swift in Sources */,
 				63E615092138D3AB006CD610 /* ContactUserCell.swift in Sources */,
@@ -1241,14 +1274,17 @@
 				63F75C1121995A6D007608F4 /* PlaceholderViewProtocol.swift in Sources */,
 				63454969219E64D700C6BBFB /* ZLNetworkReachability.swift in Sources */,
 				634D761A2183181A00345904 /* LoginReform.swift in Sources */,
+				630115DE21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift in Sources */,
 				637D15512137F7FC00C03969 /* FindViewController.swift in Sources */,
 				630DCE8C214F430E00ACD786 /* PublishTextViewController.swift in Sources */,
 				63F9C58E20EE63FF00AC1495 /* Config.swift in Sources */,
+				630115D821B65BA10047E81B /* WXFriendCircleLikeApiManager.swift in Sources */,
 				63D5F23F21705281004AF84A /* TZPhotoPickerController.m in Sources */,
 				634D76112182BC1300345904 /* WXService.swift in Sources */,
 				63AE5239213A3AD400222257 /* ContactSearchBar.swift in Sources */,
 				63E615162139360F006CD610 /* GroupImageView.swift in Sources */,
 				63D5F24321705281004AF84A /* TZImagePickerController.m in Sources */,
+				631C1FFA21B4E0BE00B8FD78 /* UserDetailViewModel.swift in Sources */,
 				6321F49F21708E6A00F417E1 /* ChoosePictureViewerCell.swift in Sources */,
 				63AE5237213A389900222257 /* ContactSearchController.swift in Sources */,
 				63D5F22D21705281004AF84A /* TZAssetCell.m in Sources */,
@@ -1262,6 +1298,7 @@
 				6315E99F213D393700F3ADC4 /* UserDetailPhotoCell.swift in Sources */,
 				63315F6A20ECED6100A56999 /* AppDelegate.swift in Sources */,
 				63D5F23D21705281004AF84A /* TZImageManager.m in Sources */,
+				630115E421B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift in Sources */,
 				6343D9A2213E515C005995E0 /* SettingViewController.swift in Sources */,
 				6347C94D216B5E3900104AC8 /* LocationSearchController.swift in Sources */,
 				6344918B213CD01100D9A9E7 /* UserDetailHeaderCell.swift in Sources */,
@@ -1276,6 +1313,7 @@
 				63D5F23721705281004AF84A /* TZPhotoPreviewController.m in Sources */,
 				63AE5242213A747700222257 /* MessageCell.swift in Sources */,
 				63E6150C21391013006CD610 /* ContactSearchViewController.swift in Sources */,
+				630115E121B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift in Sources */,
 				63F464AD20FCEAC500AAF360 /* ContactViewController.swift in Sources */,
 				63CF1B412160AC7E00A68126 /* ChooseLocationController.swift in Sources */,
 				63F557E7211059DD00ED25E6 /* GridImageView.swift in Sources */,
@@ -1321,6 +1359,7 @@
 				63D5F23C21705281004AF84A /* TZProgressView.m in Sources */,
 				6347C8EF216B4EC400104AC8 /* MyViewController.swift in Sources */,
 				6347C8F0216B4EC400104AC8 /* CommentPopoverController.swift in Sources */,
+				630115E521B682330047E81B /* WXFriendCircleDeleteCommentApiManager.swift in Sources */,
 				6347C8F1216B4EC400104AC8 /* ImageViewer.swift in Sources */,
 				63D5F23621705281004AF84A /* UIView+Layout.m in Sources */,
 				63D5F23021705281004AF84A /* TZVideoPlayerController.m in Sources */,
@@ -1349,12 +1388,16 @@
 				63F75C1521995F8D007608F4 /* EmptyDataView.swift in Sources */,
 				63D5F24821705281004AF84A /* TZGifPhotoPreviewController.m in Sources */,
 				6347C904216B4EC400104AC8 /* MenuCell.swift in Sources */,
+				631C1FFB21B4E0BE00B8FD78 /* UserDetailViewModel.swift in Sources */,
 				6396E34E219D624B002A18E3 /* WXFriendCircleReform.swift in Sources */,
 				63D5F24421705281004AF84A /* TZImagePickerController.m in Sources */,
 				63D5F24621705281004AF84A /* TZLocationManager.m in Sources */,
 				6347C906216B4EC400104AC8 /* ContactMenuCell.swift in Sources */,
 				6347C907216B4EC400104AC8 /* FindViewController.swift in Sources */,
+				630115D921B65BA10047E81B /* WXFriendCircleLikeApiManager.swift in Sources */,
 				6396E34B219D5F19002A18E3 /* WXFriendCircleApiManager.swift in Sources */,
+				630115DF21B673690047E81B /* WXFriendCircleCancelLikeApiManager.swift in Sources */,
+				630115DC21B667250047E81B /* WXFriendCircleAddCommentApiManager.swift in Sources */,
 				63D5F22E21705281004AF84A /* TZAssetCell.m in Sources */,
 				63F75C182199678B007608F4 /* NetWorkErrorView.swift in Sources */,
 				6347C908216B4EC400104AC8 /* PublishTextViewController.swift in Sources */,
@@ -1393,6 +1436,7 @@
 				6347C925216B4EC400104AC8 /* ImageViewController.swift in Sources */,
 				6347C927216B4EC400104AC8 /* CommentView.swift in Sources */,
 				6347C928216B4EC400104AC8 /* WeixinCell.swift in Sources */,
+				630115E221B6764A0047E81B /* WXFriendCircleReplyCommentApiManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
